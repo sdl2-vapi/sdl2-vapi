@@ -42,41 +42,41 @@ namespace SDLTTF {
 		public FontStyle set_style(FontStyle style);
 
 		[CCode (cname="TTF_FontHeight")]
-		public int height();
+		public int get_height();
 
 		[CCode (cname="TTF_FontAscent")]
-		public int ascent();
+		public int get_ascent();
 
 		[CCode (cname="TTF_FontDescent")]
-		public int descent();
+		public int get_descent();
 
 		[CCode (cname="TTF_FontLineSkip")]
-		public int lineskip();
+		public int get_lineskip();
 
 		[CCode (cname="TTF_FontFaces")]
-		public long faces();
+		public long get_faces();
 
 		[CCode (cname="TTF_FontFaceIsFixedWidth")]
 		public int is_fixed_width();
 
 		[CCode (cname="TTF_FontFaceFamilyName")]
-		public string family();
+		public string get_family();
 
 		[CCode (cname="TTF_FontFaceStyleName")]
-		public string style();
+		public string get_style_name();
 
 		[CCode (cname="TTF_GlyphMetrics")]
 		public int metrics(uint16 ch, ref int minx, ref int maxx, 
 			ref int miny, ref int maxy, ref int advance);
 
 		[CCode (cname="TTF_SizeText")]
-		public int size(string text, ref int w, ref int h);
+		public int get_size(string text, ref int w, ref int h);
 
 		[CCode (cname="TTF_SizeUTF8")]
-		public int size_utf8(string text, ref int w, ref int h);
+		public int get_size_utf8(string text, ref int w, ref int h);
 
 		[CCode (cname="TTF_SizeUNICODE")]
-		public int size_unicode([CCode (array_length = false)] uint16[] text, ref int w, ref int h);
+		public int get_size_unicode([CCode (array_length = false)] uint16[] text, ref int w, ref int h);
 
 		[CCode (cname="TTF_RenderText_Solid")]
 		public SDL.Surface? render(string text, SDL.Color fg);

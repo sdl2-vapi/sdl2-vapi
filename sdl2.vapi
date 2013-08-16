@@ -596,6 +596,8 @@ namespace SDL {
 
 	[CCode (type_id="SDL_GLContext", cname="SDL_GLContext", cheader_filename="SDL2/SDL_video.h")]
 	public class GLContext{
+		
+		
 	}// GLContext
 
 	[CCode (cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]
