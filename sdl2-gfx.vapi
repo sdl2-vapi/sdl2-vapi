@@ -57,6 +57,14 @@ namespace SDLGraphics {
 		public static int outline_rgba(SDL.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uchar r, uchar g, uchar b, uchar a);
 
+		[CCode (cname="roundedRectangleColor")]
+		public static int rounded_outline_color(SDL.Renderer dst, int16 x1, int16 y1,
+			int16 x2, int16 y2, int16 rad, uint32 color);
+
+		[CCode (cname="roundedRectangleRGBA")]
+		public static int rounded_outline_rgba(SDL.Renderer dst, int16 x1, int16 y1,
+			int16 x2, int16 y2, int16 rad,uchar r, uchar g, uchar b, uchar a);
+
 		[CCode (cname="boxColor")]
 		public static int fill_color(SDL.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uint32 color);
@@ -64,6 +72,14 @@ namespace SDLGraphics {
 		[CCode (cname="boxRGBA")]
 		public static int fill_rgba(SDL.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uchar r, uchar g, uchar b, uchar a);
+
+		[CCode (cname="roundedBoxColor")]
+		public static int rounded_fill_color(SDL.Renderer dst, int16 x1, int16 y1,
+			int16 x2, int16 y2, int16 rad,uint32 color);
+
+		[CCode (cname="roundedBoxRGBA")]
+		public static int rounded_fill_rgba(SDL.Renderer dst, int16 x1, int16 y1,
+			int16 x2, int16 y2, int16 rad, uchar r, uchar g, uchar b, uchar a);
 	}// Rectangle
 
 	[CCode (cheader_filename="SDL2/SDL2_gfxPrimitives.h")]
