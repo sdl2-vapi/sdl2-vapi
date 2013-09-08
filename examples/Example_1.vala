@@ -1,8 +1,10 @@
+// Compilation command:
+// valac -o "Example_1" --pkg gee-1.0 --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx "Example_1.vala"
+
 using SDL;
 using SDLImage;
 using SDLTTF;
 using SDLMixer;
-using Gee;
 
 
 
@@ -24,14 +26,14 @@ public class Example
 		Event e;
 		// Open surface and after transform to texture
 		SDL.Surface imagen= SDLImage.load("boy.png");
-		SDL.Texture Timagen= new Texture.from_surface (WIN_RENDERER,imagen);		
+		SDL.Texture Timagen= new Texture.from_surface (WIN_RENDERER, imagen);		
 		
 		// Load music
 		Music musica= new Music ("yahoo.ogg");
 		
 		// Load font as surface and transform to texture.
-		Font Fuente= new Font("KatamotzIkasi.ttf",30);
-		SDL.Surface letras= Fuente.render_blended_wrapped_utf8("Keyboard press: up,left,rigth,down and space",{10,10,10,255},240);
+		Font Fuente= new Font("KatamotzIkasi.ttf", 30);
+		SDL.Surface letras= Fuente.render_blended_wrapped_utf8("Keyboard press: up,left,rigth,down and space", {10,10,10,255}, 240);
 		SDL.Texture Tletras = new Texture.from_surface (WIN_RENDERER, letras);	
 
 		var row =0;
@@ -40,8 +42,8 @@ public class Example
 		//Main loop
 		for (e = {0}; e.type != EventType.QUIT; Event.poll (out e)){
 			WIN_RENDERER.clear();
-			WIN_RENDERER.set_draw_color(100,200,200,250);
-			WIN_RENDERER.fill_rect( {0,0,800,600} ) ;
+			WIN_RENDERER.set_draw_color(100, 200, 200, 250);
+			WIN_RENDERER.fill_rect( {0, 0, 800, 600} ) ;
 			
 			if (e.type==EventType.KEYDOWN)
 				{
