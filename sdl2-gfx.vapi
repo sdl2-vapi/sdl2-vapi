@@ -247,11 +247,11 @@ namespace SDLGraphics {
 	[Compact]
 	public class RotoZoom {
 		[CCode (cname="rotozoomSurface")]
-		public static SDL.Renderer rotozoom(SDL.Renderer src, double degrees,
+		public static SDL.Surface rotozoom(SDL.Surface src, double degrees,
 			double zoom, int smooth);
 
 		[CCode (cname="rotozoomSurfaceXY")]
-		public static SDL.Renderer rotozoom_xy(SDL.Renderer src, double degrees,
+		public static SDL.Surface rotozoom_xy(SDL.Surface src, double degrees,
 			double zoomx, double zoomy, int smooth);
 
 		[CCode (cname="rotozoomSurfaceSize")]
@@ -263,7 +263,7 @@ namespace SDLGraphics {
 			double zoomx, double zoomy, ref int dstwidth, ref int dstheight);
 
 		[CCode (cname="zoomSurface")]
-		public static SDL.Renderer zoom(SDL.Renderer src, double zoomx,
+		public static SDL.Surface zoom(SDL.Surface src, double zoomx,
 			double zoomy, int smooth);
 
 		[CCode (cname="zoomSurfaceSize")]
