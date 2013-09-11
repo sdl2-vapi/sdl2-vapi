@@ -7,7 +7,6 @@ using SDLTTF;
 using SDLMixer;
 
 
-
 public class Example 
 	{
 	protected static SDL.Window window;
