@@ -119,7 +119,14 @@ namespace SDL {
 	[CCode (cname="SDL_BlitMap")]
 	[SimpleType]
 	public struct BlitMap {
-		//TODO
+		public SDL.Surface dst;
+		public int identity;
+		public SDL.blit blit;
+		public void *data;
+		public SDL.BlitInfo info;
+		public uint32 	dst_palette_version;
+		public uint32 	src_palette_version;
+
 	}// BlitMap
 	
 	[CCode (cname="SDL_Color", cheader_filename="SDL2/SDL_pixels.h")]
@@ -342,20 +349,14 @@ namespace SDL {
 		[CCode (cname="SDL_FillRects")]
 		public int fill_rects(SDL.Rect[] rects, int count, uint32 color);
 
-		[CCode (cname="SDL_UpperBlit")]
+		[CCode (cname="SDL_BlitSurface")]
 		public int blit(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
-
-		[CCode (cname="SDL_UpperBlit")]
-		public int upperblit(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
 
 		[CCode (cname="SDL_LowerBlit")]
 		public int lowerblit(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
 
-		[CCode (cname="SDL_UpperBlitScaled")]
+		[CCode (cname="SDL_BlitScaled")]
 		public int blit_scaled(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
-
-		[CCode (cname="SDL_UpperBlitScaled")]
-		public int upperblit_scaled(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
 
 		[CCode (cname="SDL_LowerBlitScaled")]
 		public int lowerblit_scaled(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
@@ -505,25 +506,25 @@ namespace SDL {
 		public void set_position(int x, int y);
 		
 		[CCode (cname="SDL_GetWindowPosition")]
-		public void get_position(out int x, out int y); //TODO: create a beutilful method
+		public void get_position(out int x, out int y); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowSize")]
 		public void set_size(int w, int h);
 		
 		[CCode (cname="SDL_GetWindowSize")]
-		public void get_size(out int w, out int x); //TODO: create a beutilful method
+		public void get_size(out int w, out int x); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowMinimumSize")]
 		public void set_minsize(int w, int h);
 		
 		[CCode (cname="SDL_GetWindowMinimumSize")]
-		public void get_minsize(out int w, out int x); //TODO: create a beutilful method
+		public void get_minsize(out int w, out int x); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowMaximumSize")]
 		public void set_maxsize(int w, int h);
 		
 		[CCode (cname="SDL_GetWindowMaximumSize")]
-		public void get_maxsize(out int w, out int x); //TODO: create a beutilful method
+		public void get_maxsize(out int w, out int x); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowBordered")]
 		public void set_bordered(bool bordered);
