@@ -120,7 +120,14 @@ namespace SDL {
 	[CCode (cname="SDL_BlitMap")]
 	[SimpleType]
 	public struct BlitMap {
-		//TODO
+		public SDL.Surface dst;
+		public int identity;
+		public SDL.blit blit;
+		public void *data;
+		public SDL.BlitInfo info;
+		public uint32 	dst_palette_version;
+		public uint32 	src_palette_version;
+
 	}// BlitMap
 	
 	[CCode (cname="SDL_Color", cheader_filename="SDL2/SDL_pixels.h")]
@@ -343,20 +350,14 @@ namespace SDL {
 		[CCode (cname="SDL_FillRects")]
 		public int fill_rects(SDL.Rect[] rects, int count, uint32 color);
 
-		[CCode (cname="SDL_UpperBlit")]
+		[CCode (cname="SDL_BlitSurface")]
 		public int blit(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
-
-		[CCode (cname="SDL_UpperBlit")]
-		public int upperblit(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
 
 		[CCode (cname="SDL_LowerBlit")]
 		public int lowerblit(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
 
-		[CCode (cname="SDL_UpperBlitScaled")]
+		[CCode (cname="SDL_BlitScaled")]
 		public int blit_scaled(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
-
-		[CCode (cname="SDL_UpperBlitScaled")]
-		public int upperblit_scaled(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
 
 		[CCode (cname="SDL_LowerBlitScaled")]
 		public int lowerblit_scaled(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
@@ -506,25 +507,25 @@ namespace SDL {
 		public void set_position(int x, int y);
 		
 		[CCode (cname="SDL_GetWindowPosition")]
-		public void get_position(out int x, out int y); //TODO: create a beutilful method
+		public void get_position(out int x, out int y); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowSize")]
 		public void set_size(int w, int h);
 		
 		[CCode (cname="SDL_GetWindowSize")]
-		public void get_size(out int w, out int x); //TODO: create a beutilful method
+		public void get_size(out int w, out int x); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowMinimumSize")]
 		public void set_minsize(int w, int h);
 		
 		[CCode (cname="SDL_GetWindowMinimumSize")]
-		public void get_minsize(out int w, out int x); //TODO: create a beutilful method
+		public void get_minsize(out int w, out int x); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowMaximumSize")]
 		public void set_maxsize(int w, int h);
 		
 		[CCode (cname="SDL_GetWindowMaximumSize")]
-		public void get_maxsize(out int w, out int x); //TODO: create a beutilful method
+		public void get_maxsize(out int w, out int x); //TODO: create a beautilful method
 		
 		[CCode (cname="SDL_SetWindowBordered")]
 		public void set_bordered(bool bordered);
@@ -645,9 +646,30 @@ namespace SDL {
 	///
 	/// RWops
 	///
+	
+	[Flags, CCode (cprefix="RW_SEEK_", cheader_filename="SDL2/SDL_rwops.h")]
+	public enum RWFlags {
+		SET,CUR,END
+	}// RWFlags
+	
 	[CCode (cname="SDL_RWops", free_function="SDL_FreeRW", cheader_filename="SDL2/SDL_rwops.h")]
 	[Compact]
 	public class RWops {
+		
+		public uint32 type;
+		
+		[CCode (cname="SDL_RWread")]
+		public size_t read(const void* ptr, size_t size,size_t maxnum);
+		
+		[CCode (cname="SDL_RWwrite")]
+		public size_t write(const void* ptr, size_t size,size_t num);
+		
+		[CCode (cname="SDL_RWseek")]
+		public int64 seek(int64 offset, SDL.RWFlags flag);
+		
+		[CCode (cname="SDL_RWtell")]
+		public int64 tell();
+		
 		[CCode (cname="SDL_RWFromFile")]
 		public RWops.from_file(string file, string mode);
 
@@ -1712,6 +1734,83 @@ namespace SDL {
 	
 	
 	///
-	/// TODO: Threading
-	///
+    /// Threading
+    ///
+    
+    public delegate int ThreadFunc(void* data);
+ 
+    [CCode (cname="SDL_Thread", free_function="SDL_WaitThread") cheader_filename="SDL2/SDL_thread.h"]
+    [Compact]
+    public class Thread {
+        [CCode (cname="SDL_ThreadID")]
+        public static uint32 id();
+        
+        [CCode (cname="SDL_GetThreadID")]
+        public static uint32 get_id()
+        
+        [CCode (cname="SDL_GetThreadName")]
+        public static string get_name();
+ 
+        [CCode (cname="SDL_CreateThread")]
+        public Thread(ThreadFunc f, string name, void* data);
+    }// Thread
+ 
+    [CCode (cname="SDL_Mutex", free_function="SDL_DestroyMutex")]
+    [Compact]
+    public class Mutex {
+        [CCode (cname="SDL_CreateMutex")]
+        public Mutex();
+
+ 		[CCode (cname="SDL_TryLockMutex")]
+ 		public int try_lock()
+ 		
+        [CCode (cname="SDL_LockMutex")]
+        public int @lock();
+ 
+        [CCode (cname="SDL_UnlockMutex")]
+        public int unlock();
+    }// Mutex
+ 
+    [CCode (cname="SDL_sem", free_function="SDL_DestroySemaphore")]
+    [Compact]
+    public class Semaphore {
+        [CCode (cname="SDL_CreateSemaphore")]
+        public Semaphore(uint32 initial_value);
+ 
+        [CCode (cname="SDL_SemWait")]
+        public int wait();
+ 
+        [CCode (cname="SDL_SemTryWait")]
+        public int try_wait();
+ 
+        [CCode (cname="SDL_SemWaitTimeout")]
+        public int wait_timeout(uint32 ms);
+ 
+        [CCode (cname="SDL_SemPost")]
+        public int post();
+ 
+        [CCode (cname="SDL_SemValue")]
+        public uint32 get_value();
+    }// Semaphore
+ 
+    [CCode (cname="SDL_cond", free_function="SDL_DestroyCond")]
+    [Compact]
+    public class Condition {
+        [CCode (cname="SDL_CreateCond")]
+        public Condition();
+ 
+        [CCode (cname="SDL_CondSignal")]
+        public int @signal();
+ 
+        [CCode (cname="SDL_CondBroadcast")]
+        public int broadcast();
+ 
+        [CCode (cname="SDL_CondWait")]
+        public int wait(SDL.Mutex mut);
+ 
+        [CCode (cname="SDL_CondWaitTimeout")]
+        public int wait_timeout(SDL.Mutex mut, uint32 ms);
+    }// Condition
+ 
+ 
 }// SDL
