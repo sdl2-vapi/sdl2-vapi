@@ -1,5 +1,6 @@
 //FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC
+
 [CCode (cprefix="SDL_", cheader_filename="SDL2/SDL.h")]
 namespace SDL {
 	///
