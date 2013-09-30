@@ -1012,19 +1012,19 @@ namespace SDL {
 		public static int push(SDL.Event ev);
 
 		[CCode (cname="SDL_SetEventFilter")]
-		public static void set_eventfilter(SDL.EventFilter filter, void[] user_data);
+		public static void set_eventfilter(SDL.EventFilter filter, void* user_data);
 
 		[CCode (cname="SDL_GetEventFilter")]
-		public static bool get_eventfilter(SDL.EventFilter filter, out void[] user_data);
+		public static bool get_eventfilter(SDL.EventFilter filter, out void* user_data);
 
 		[CCode (cname="SDL_AddEventWatch")]
-		public static void add_eventwatch(SDL.EventFilter filter, void[] user_data);
+		public static void add_eventwatch(SDL.EventFilter filter, void* user_data);
 
 		[CCode (cname="SDL_DelEventWatch")]
-		public static void del_eventwatch(SDL.EventFilter filter, void[] user_data);
+		public static void del_eventwatch(SDL.EventFilter filter, void* user_data);
 
 		[CCode (cname="SDL_FilterEvents")]
-		public static void filter_events(SDL.EventFilter filter, void[] user_data);
+		public static void filter_events(SDL.EventFilter filter, void* user_data);
 
 		[CCode (cname="SDL_EventState")]
 		public static uint8 state(SDL.EventType type, SDL.EventState state);
@@ -1680,7 +1680,7 @@ namespace SDL {
 		public int copyex(SDL.Texture texture, SDL.Rect? srcrect, SDL.Rect? dstrect, double angle, SDL.Point center, SDL.RendererFlip flip);
 		
 		[CCode (cname="SDL_RenderReadPixels")]
-		public int read_pixels(SDL.Rect? rect, uint32 format, out void[] pixels, int pitch);
+		public int read_pixels(SDL.Rect? rect, uint32 format, out void* pixels, int pitch);
 		
 		[CCode (cname="SDL_RenderPresent")]
 		public void present();
@@ -1696,7 +1696,7 @@ namespace SDL {
 		public Texture.from_surface(SDL.Renderer renderer, SDL.Surface surface);
 		
 		[CCode (cname="SDL_QueryTexture")]
-		public int query_texture(uint32[] format, int[] access, int[] w, int[] h);
+		public int query(out uint32 format, out int access, out int w, out int h); 
 		
 		[CCode (cname="SDL_SetTextureColorMod")]
 		public int set_color_mod(uint8 r, uint8 g, uint8 b);
@@ -1717,10 +1717,10 @@ namespace SDL {
 		public int get_blend_mod(out SDL.BlendMode blend_mode);
 		
 		[CCode (cname="SDL_UpdateTexture")]
-		public int update(SDL.Rect? rect, void[] pixels, int pitch);
+		public int update(SDL.Rect? rect, void* pixels, int pitch);
 		
 		[CCode (cname="SDL_LockTexture")]
-		public int lock(SDL.Rect? rect, void[] pixels, int pitch);
+		public int lock(SDL.Rect? rect, void* pixels, int pitch);
 		
 		[CCode (cname="SDL_UnlockTexture")]
 		public void unlock();

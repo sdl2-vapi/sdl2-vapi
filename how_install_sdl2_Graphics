@@ -5,7 +5,8 @@
 5-. sudo make install
 6-. The libs (.so) files will be installed in /usr/local/lib. Better.... copy all to  /usr/lib/i386-gnu-linux 
 7.- copy all (.h) files from our dowloaded package to /usr/include/SDL2
-8.- Be sure vapi files belongs in vapi directory: /usr/share/vala-0.20/vapi
+8.- Be sure vapi files belongs in vapi directory: /usr/local/share/vala/vapi/
+*OBSERVATION: Thought "/usr/local/share/vala/vapi/" it's the right place for third parties non-sys-packed vapis.
 
 for build your application use this command:
 
