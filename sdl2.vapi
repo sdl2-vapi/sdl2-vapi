@@ -591,8 +591,7 @@ namespace SDL {
 
 	[CCode (type_id="SDL_GLContext", cname="SDL_GLContext", cheader_filename="SDL2/SDL_video.h")]
 	public class GLContext{
-		
-		
+		// Private type
 	}// GLContext
 
 	[CCode (cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]
@@ -1678,7 +1677,7 @@ namespace SDL {
 		public void present();
 	}// Renderer
 	
-	[CCode (cprefix="SDL_", cname = "SDL_Texture", destroy_function = "SDL_DestroyRenderer", cheader_filename="SDL2/SDL_render.h")]
+	[CCode (cprefix="SDL_", cname = "SDL_Texture", destroy_function = "SDL_DestroyTexture", cheader_filename="SDL2/SDL_render.h")]
 	[Compact]
 	public class Texture {
 		[CCode (cname="SDL_CreateTexture")]
