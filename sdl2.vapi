@@ -420,7 +420,7 @@ namespace SDL {
 	
 	[CCode (cprefix="SDL_", cheader_filename="SDL2/SDL_video.h")]
 	[Compact]
-	public class Dysplay { //Considering to put it out class Video
+	public class Display { //Considering to put it out class Video
 		[CCode (cname="SDL_GetDisplayName")]
 		public static unowned string? get_name(int index);
 		
@@ -1464,7 +1464,7 @@ namespace SDL {
 		public static unowned AudioSpec? load_rw(RWops src, int freesrc=0, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len);
 
 		public static unowned AudioSpec? load(string file, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len){
-			load_rw(new SDL.RWops.from_file(file, "rb"), 1,
+			return load_rw(new SDL.RWops.from_file(file, "rb"), 1,
 			ref spec, out audio_buf, out audio_len);
 		}
 		
@@ -1669,7 +1669,7 @@ namespace SDL {
 		public int copy(SDL.Texture texture, SDL.Rect? srcrect, SDL.Rect? dstrect);
 		
 		[CCode (cname="SDL_RenderCopyEx")]
-		public int copyex(SDL.Texture texture, SDL.Rect? srcrect, SDL.Rect? dstrect, double angle, SDL.Point center, SDL.RendererFlip flip);
+		public int copyex(SDL.Texture texture, SDL.Rect? srcrect, SDL.Rect? dstrect, double angle, SDL.Point? center, SDL.RendererFlip flip);
 		
 		[CCode (cname="SDL_RenderReadPixels")]
 		public int read_pixels(SDL.Rect? rect, uint32 format, out void* pixels, int pitch);
