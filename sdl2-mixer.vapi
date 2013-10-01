@@ -41,7 +41,10 @@ namespace SDLMixer {
 	[Compact]
 	public class Chunk {
 		[CCode (cname="Mix_LoadWAV_RW")]
-		public Chunk.WAV(SDL.RWops src, int freesrc=0);
+		public Chunk.WAV_RW(SDL.RWops src, int freesrc=0);
+		
+		[CCode (cname="Mix_LoadWAV")]
+		public Chunk.WAV(string file);
 
 		[CCode (cname="Mix_QuickLoad_WAV")]
 		public Chunk.QuickWAV([CCode (array_length = false)] uchar[] mem);
@@ -126,7 +129,7 @@ namespace SDLMixer {
 		[CCode (cname="Mix_UnregisterAllEffects")]
 		public static int unregister_all(int channel);
 	}// Effect
-
+	
 	[CCode (cname="int")]
 	[SimpleType]
 	public struct Channel: int {
@@ -187,6 +190,9 @@ namespace SDLMixer {
 		[CCode (cname="Mix_GetChunk")]
 		public Chunk? get_chunk();
 	}// Channel
+	
+	[CCode (cname="-1")]
+	public static const SDLMixer.Channel DEFAULT_CHANNEL;
 
 	[CCode (cname="int")]
 	[SimpleType]
