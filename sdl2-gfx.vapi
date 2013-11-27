@@ -272,7 +272,14 @@ namespace SDLGraphics {
 	}// RotoZoom
 
 	[CCode (cheader_filename="SDL2/SDL2_framerate.h", cname="FPSmanager", free_function="g_free")]
-       public struct FramerateManager {
+	[Compact]
+	public struct FramerateManager {
+		uint32 framecount;
+		float rateticks;
+		uint32 baseticks;
+		uint32 lastticks;
+		uint32 rate;
+		
 		[CCode (cname="SDL_initFramerate")]
 		public void init();
 
@@ -281,6 +288,9 @@ namespace SDLGraphics {
 
 		[CCode (cname="SDL_getFramerate")]
 		public int get_rate();
+
+		[CCode (cname="SDL_getFramecount")]
+		public int get_count();
 
 		[CCode (cname="SDL_framerateDelay")]
 		public void run();
