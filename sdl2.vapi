@@ -720,7 +720,7 @@ namespace SDL {
 		public static const uint8 TEXT_SIZE;
 		
 		uint32 windowID;
-		char text[]; //Or it would be better a string?
+		string text; //Or it would be better a string?
 		int32 start;
 		int32 length;
 	}// TextEditingEvent
@@ -732,7 +732,7 @@ namespace SDL {
 		public static const uint8 TEXT_SIZE;
 		
 		uint32 windowID;
-		char text[]; //Or it would be better a string?
+		string text; //is better a string?
 	}// TextInputEvent
 	
 	[CCode (cname="SDL_MouseMotionEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
