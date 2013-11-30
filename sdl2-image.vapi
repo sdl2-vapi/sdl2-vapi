@@ -35,7 +35,7 @@ namespace SDLImage {
 	public static SDL.Surface? load_rw(SDL.RWops src, bool freesrc = false);
 
 	[CCode (cname = "IMG_LoadTyped_RW")]
-	public static SDL.Surface? load_rw_typed(SDL.RWops src, bool freesrc = false, string type);
+	public static SDL.Surface? load_rw_typed(SDL.RWops src, bool freesrc, string type);
 
 	[CCode (cname = "IMG_LoadTexture")]
 	public static SDL.Texture? load_texture(SDL.Renderer renderer, string file);
@@ -44,7 +44,7 @@ namespace SDLImage {
 	public static SDL.Texture? load_texture_rw(SDL.Renderer renderer, SDL.RWops src, bool freesrc = false);
 
 	[CCode (cname = "IMG_LoadTextureTyped_RW")]
-	public static SDL.Texture? load_texture_rw_typed(SDL.Renderer renderer, SDL.RWops src, bool freesrc = false, string type);
+	public static SDL.Texture? load_texture_rw_typed(SDL.Renderer renderer, SDL.RWops src, bool freesrc, string type);
 	
 	[CCode (cname = "IMG_InvertAlpha")]
 	public static int invert_alpha(int on);
