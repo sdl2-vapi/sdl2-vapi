@@ -69,40 +69,47 @@ namespace SDL {
 	///
 	/// Video requires
 	///
-	public enum Opacity {
-		OPAQUE=255,
-		TRANSPARENT=0
-	}// Opacity
+	[CCode (cprefix="SDL_ALPHA_", cheader="SDL2/SDL_pixels.h")]
+	public enum Alpha {
+		OPAQUE,
+		TRANSPARENT
+	}// Alpha
 	
-	[CCode (cprefix="SDL_PIXELTYPE_")]
+	[CCode (cprefix="SDL_PIXELTYPE_", cheader="SDL2/SDL_pixels.h")]
 	public enum PixelType {
 		UNKNOWN,
 		INDEX1, INDEX4, INDEX8, PACKED8, PACKED16, PACKED32,
 		ARRAYU8, ARRAYU16, ARRAYU32, ARRAYF16, ARRAYF32
 	}// PixelType
 	
-	[CCode (cprefix="SDL_BITMAPORDER")]
+	[CCode (cprefix="SDL_BITMAPORDER", cheader="SDL2/SDL_pixels.h")]
 	public enum BitmapOrder {
-		_NONE,  _4321,  _1234
+		[CCode (cname="SDL_BITMAPORDER_NONE")]
+		NONE, 
+		_4321,  _1234
 	}// BitmapOrder
 	
-	[CCode (cprefix="SDL_PACKEDORDER_")]
+	[CCode (cprefix="SDL_PACKEDORDER_", cheader="SDL2/SDL_pixels.h")]
 	public enum PackedOrder {
 		NONE, XRGB, RGBX, ARGB, RGBA,
 		XBGR, BGRX, ABGR, BGRA
 	}// PackedOrder
 	
-	[CCode (cprefix="SDL_ARRAYORDER_")]
+	[CCode (cprefix="SDL_ARRAYORDER_", cheader="SDL2/SDL_pixels.h")]
 	public enum ArrayOrder {
 		NONE, RGB, RGBA,
 		ARGB, BGR, BGRA, ABGR
 	}// ArrayOrder
 	
-	[CCode (cprefix="SDL_PACKEDLAYOUT")]
+	[CCode (cprefix="SDL_PACKEDLAYOUT", cheader="SDL2/SDL_pixels.h")]
 	public enum PackedLayout {
-		_NONE, _332, _4444, _1555, _5551,
+		[CCode (cname="SDL_PACKEDLAYOUT_NONE")]
+		NONE,
+		_332, _4444, _1555, _5551,
 		_565, _8888, _2101010, _1010102
 	}// PackedLayout
+	
+	// ADD PRE-COMPILER TOOLS HERE	
 	
 	[CCode (cname="SDL_BlendMode", cprefix="SDL_BLENDMODE_")]
 	public enum BlendMode {
@@ -1460,7 +1467,7 @@ namespace SDL {
 		public static void pause_device(SDL.AudioDeviceID dev, int pause_on);
 		
 		[CCode (cname="SDL_LoadWAV_RW")]
-		public static unowned AudioSpec? load_rw(RWops src, int freesrc=0, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len);
+		public static unowned AudioSpec? load_rw(RWops src, int freesrc, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len);
 
 		public static unowned AudioSpec? load(string file, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len){
 			return load_rw(new SDL.RWops.from_file(file, "rb"), 1,
@@ -1802,6 +1809,6 @@ namespace SDL {
         [CCode (cname="SDL_CondWaitTimeout")]
         public int wait_timeout(SDL.Mutex mut, uint32 ms);
     }// Condition
- 
+    
  
 }// SDL
