@@ -111,12 +111,12 @@ namespace SDL {
 	
 	[CCode (cname="Uint32", cheader="SDL2/SDL_pixels.h")]
 	[Compact]
-	public class PixelFormats {
+	public class PixelRAWFormat {
 		[CCode (cname="SDL_DEFINE_PIXELFOURCC")]
-		public PixelFormats.from_four_cc(char a, char b, char c, char d);
+		public PixelRAWFormat.from_four_cc(char a, char b, char c, char d);
 
 		[CCode (cname="SDL_DEFINE_PIXELFORMAT")]
-		public PixelFormats(SDL.PixelType type, SDL.BitmapOrder order, SDL.PackedLayout layout, uchar bits, uchar bytes);
+		public PixelRAWFormat(SDL.PixelType type, SDL.BitmapOrder order, SDL.PackedLayout layout, uchar bits, uchar bytes);
 
 		[CCode (cname="SDL_PIXELFLAG")]
 		public uchar get_pixel_flag();
@@ -151,7 +151,7 @@ namespace SDL {
 			RGBX8888, BGR888, BGRX8888, ARGB8888, RGBA8888,
 			ABGR8888, BGRA8888, ARGB2101010, YV12, IYUV, YUY2,
 			UYVY, YVYU
-		}// PixelFormats Standards
+		}// PixelRAWFormat Standards
 	}// PixelFormat
 	
 	[CCode (cname="SDL_BlendMode", cprefix="SDL_BLENDMODE_")]
@@ -236,7 +236,7 @@ namespace SDL {
 	
 	[CCode (type_id="SDL_PixelFormat", cname="SDL_PixelFormat", cheader_filename="SDL2/SDL_pixels.h", cprefix="SDL_", free_function="SDL_FreeFormat")]
 	public class PixelFormat {
-		public SDL.PixelFormats format;
+		public SDL.PixelRAWFormat format;
 		public SDL.Palette palette;
 		public uint8 BitsPerPixel;
 		public uint8 BytesPerPixel;
@@ -279,10 +279,10 @@ namespace SDL {
 		public static void calc_gamma_ramp(float gamma, out uint16 ramp);
 		
 		[CCode (cname="SDL_GetPixelFormatName")]
-		public static unowned string? get_pixelformatname(SDL.PixelFormats format);
+		public static unowned string? get_pixelformatname(SDL.PixelRAWFormat format);
 		
 		[CCode (cname="SDL_PixelFormatEnumToMasks")]
-		public static bool enum_tomasks(SDL.PixelFormats format,
+		public static bool enum_tomasks(SDL.PixelRAWFormat format,
 			int[] bpp,	uint32[] Rmask, uint32[] Gmask, uint32[] Bmask, uint32[] Amask);
 		
 		[CCode (cname="SDL_MasksToPixelFormatEnum")]
@@ -415,7 +415,7 @@ namespace SDL {
 	
 	[CCode (cname="SDL_DisplayMode", cheader_filename="SDL2/SDL_video.h")]
 	public struct DisplayMode {
-		public SDL.PixelFormats format;
+		public SDL.PixelRAWFormat format;
 		public int w;
 		public int h;
 		public int refresh_rate;
@@ -1721,7 +1721,7 @@ namespace SDL {
 		public int copyex(SDL.Texture texture, SDL.Rect? srcrect, SDL.Rect? dstrect, double angle, SDL.Point? center, SDL.RendererFlip flip);
 		
 		[CCode (cname="SDL_RenderReadPixels")]
-		public int read_pixels(SDL.Rect? rect, SDL.PixelFormats format, out void* pixels, int pitch);
+		public int read_pixels(SDL.Rect? rect, SDL.PixelRAWFormat format, out void* pixels, int pitch);
 		
 		[CCode (cname="SDL_RenderPresent")]
 		public void present();
@@ -1731,13 +1731,13 @@ namespace SDL {
 	[Compact]
 	public class Texture {
 		[CCode (cname="SDL_CreateTexture")]
-		public Texture(SDL.Renderer renderer, SDL.PixelFormats format, int access, int w, int h);
+		public Texture(SDL.Renderer renderer, SDL.PixelRAWFormat format, int access, int w, int h);
 		
 		[CCode (cname="SDL_CreateTextureFromSurface")]
 		public Texture.from_surface(SDL.Renderer renderer, SDL.Surface surface);
 		
 		[CCode (cname="SDL_QueryTexture")]
-		public int query(out SDL.PixelFormats format, out int access, out int w, out int h); 
+		public int query(out SDL.PixelRAWFormat format, out int access, out int w, out int h); 
 		
 		[CCode (cname="SDL_SetTextureColorMod")]
 		public int set_color_mod(uint8 r, uint8 g, uint8 b);
