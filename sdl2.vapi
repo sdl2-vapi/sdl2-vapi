@@ -109,7 +109,50 @@ namespace SDL {
 		_565, _8888, _2101010, _1010102
 	}// PackedLayout
 	
-	// ADD PRE-COMPILER TOOLS HERE	
+	[CCode (cname="Uint32", cheader="SDL2/SDL_pixels.h")]
+	[Compact]
+	public class PixelFormats {
+		[CCode (cname="SDL_DEFINE_PIXELFOURCC")]
+		public PixelFormats.from_four_cc(char a, char b, char c, char d);
+
+		[CCode (cname="SDL_DEFINE_PIXELFORMAT")]
+		public PixelFormats(SDL.PixelType type, SDL.BitmapOrder order, SDL.PackedLayout layout, uchar bits, uchar bytes);
+
+		[CCode (cname="SDL_PIXELFLAG")]
+		public uchar get_pixel_flag();
+
+		[CCode (cname="SDL_PIXELTYPE")]
+		public SDL.PixelType get_pixel_type();
+
+		[CCode (cname="SDL_PIXELORDER")]
+		public SDL.BitmapOrder get_pixel_order();
+
+		[CCode (cname="SDL_PIXELLAYOUT")]
+		public SDL.PackedLayout get_pixel_layout();
+
+		[CCode (cname="SDL_BITSPERPIXEL")]
+		public uchar get_perbits_bits();
+
+		[CCode (cname="SDL_BYTESPERPIXEL")]
+		public uchar get_perbits_bytes();
+
+		[CCode (cname="SDL_ISPIXELFORMAT_INDEXED")]
+		public bool is_indexed();
+
+		[CCode (cname="SDL_ISPIXELFORMAT_ALPHA")]
+		public bool is_alpha();
+		
+		[CCode (cname="Uint32", cprefix="SDL_PIXELFORMAT_", cheader="SDL2/SDL_pixels.h")]
+		public enum Standards {
+			UNKNOWN, INDEX1LSB, INDEX1MSB, INDEX4LSB, INDEX4MSB,
+			INDEX8, RGB332, RGB444, RGB555, ARGB4444, RGBA4444,
+			ABGR4444, BGRA4444, ARGB1555, RGBA5551, ABGR1555,
+			BGRA5551, RGB565, BGR565, RGB24, BGR24, RGB888,
+			RGBX8888, BGR888, BGRX8888, ARGB8888, RGBA8888,
+			ABGR8888, BGRA8888, ARGB2101010, YV12, IYUV, YUY2,
+			UYVY, YVYU
+		}// PixelFormats Standards
+	}// PixelFormat
 	
 	[CCode (cname="SDL_BlendMode", cprefix="SDL_BLENDMODE_")]
 	public enum BlendMode {
@@ -193,7 +236,7 @@ namespace SDL {
 	
 	[CCode (type_id="SDL_PixelFormat", cname="SDL_PixelFormat", cheader_filename="SDL2/SDL_pixels.h", cprefix="SDL_", free_function="SDL_FreeFormat")]
 	public class PixelFormat {
-		public uint32 format;
+		public SDL.PixelFormats format;
 		public SDL.Palette palette;
 		public uint8 BitsPerPixel;
 		public uint8 BytesPerPixel;
@@ -236,10 +279,10 @@ namespace SDL {
 		public static void calc_gamma_ramp(float gamma, out uint16 ramp);
 		
 		[CCode (cname="SDL_GetPixelFormatName")]
-		public static unowned string? get_pixelformatname(uint32 format);
+		public static unowned string? get_pixelformatname(SDL.PixelFormats format);
 		
 		[CCode (cname="SDL_PixelFormatEnumToMasks")]
-		public static bool enum_tomasks(uint32 format,
+		public static bool enum_tomasks(SDL.PixelFormats format,
 			int[] bpp,	uint32[] Rmask, uint32[] Gmask, uint32[] Bmask, uint32[] Amask);
 		
 		[CCode (cname="SDL_MasksToPixelFormatEnum")]
@@ -372,7 +415,7 @@ namespace SDL {
 	
 	[CCode (cname="SDL_DisplayMode", cheader_filename="SDL2/SDL_video.h")]
 	public struct DisplayMode {
-		public uint32 format;
+		public SDL.PixelFormats format;
 		public int w;
 		public int h;
 		public int refresh_rate;
@@ -1678,7 +1721,7 @@ namespace SDL {
 		public int copyex(SDL.Texture texture, SDL.Rect? srcrect, SDL.Rect? dstrect, double angle, SDL.Point? center, SDL.RendererFlip flip);
 		
 		[CCode (cname="SDL_RenderReadPixels")]
-		public int read_pixels(SDL.Rect? rect, uint32 format, out void* pixels, int pitch);
+		public int read_pixels(SDL.Rect? rect, SDL.PixelFormats format, out void* pixels, int pitch);
 		
 		[CCode (cname="SDL_RenderPresent")]
 		public void present();
@@ -1688,13 +1731,13 @@ namespace SDL {
 	[Compact]
 	public class Texture {
 		[CCode (cname="SDL_CreateTexture")]
-		public Texture(SDL.Renderer renderer, uint32 format, int access, int w, int h);
+		public Texture(SDL.Renderer renderer, SDL.PixelFormats format, int access, int w, int h);
 		
 		[CCode (cname="SDL_CreateTextureFromSurface")]
 		public Texture.from_surface(SDL.Renderer renderer, SDL.Surface surface);
 		
 		[CCode (cname="SDL_QueryTexture")]
-		public int query(out uint32 format, out int access, out int w, out int h); 
+		public int query(out SDL.PixelFormats format, out int access, out int w, out int h); 
 		
 		[CCode (cname="SDL_SetTextureColorMod")]
 		public int set_color_mod(uint8 r, uint8 g, uint8 b);
