@@ -152,7 +152,7 @@ namespace SDL {
 			ABGR8888, BGRA8888, ARGB2101010, YV12, IYUV, YUY2,
 			UYVY, YVYU
 		}// PixelRAWFormat Standards
-	}// PixelFormat
+	}// PixelRAWFormat
 	
 	[CCode (cname="SDL_BlendMode", cprefix="SDL_BLENDMODE_")]
 	public enum BlendMode {
@@ -1727,7 +1727,7 @@ namespace SDL {
 		public void present();
 	}// Renderer
 	
-	[CCode (cprefix="SDL_", cname = "SDL_Texture", destroy_function = "SDL_DestroyTexture", cheader_filename="SDL2/SDL_render.h")]
+	[CCode (cprefix="SDL_", cname = "SDL_Texture", destroy_function = "SDL_DestroyTexture", free_function="SDL_DestroyTexture", cheader_filename="SDL2/SDL_render.h")]
 	[Compact]
 	public class Texture {
 		[CCode (cname="SDL_CreateTexture")]
