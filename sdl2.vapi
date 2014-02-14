@@ -688,7 +688,7 @@ namespace SDL {
 	/// RWops
 	///
 	
-	[Flags, CCode (cprefix="RW_SEEK_", cheader_filename="SDL2/SDL_rwops.h")]
+	[Flags, CCode (cname="int", cprefix="RW_SEEK_", cheader_filename="SDL2/SDL_rwops.h")]
 	public enum RWFlags {
 		SET,CUR,END
 	}// RWFlags
@@ -700,16 +700,19 @@ namespace SDL {
 		public uint32 type;
 		
 		[CCode (cname="SDL_RWread")]
-		public size_t read(out void* ptr, size_t size,size_t maxnum);
+		public size_t read(void* ptr, size_t size,size_t maxnum);
 		
 		[CCode (cname="SDL_RWwrite")]
-		public size_t write(out void* ptr, size_t size,size_t num);
+		public size_t write(void* ptr, size_t size,size_t num);
 		
 		[CCode (cname="SDL_RWseek")]
 		public int64 seek(int64 offset, SDL.RWFlags flag);
 		
 		[CCode (cname="SDL_RWtell")]
 		public int64 tell();
+		
+		[CCode (cname="SDL_RWtell")]
+		public int close();
 		
 		[CCode (cname="SDL_RWFromFile")]
 		public RWops.from_file(string file, string mode);
@@ -1020,7 +1023,8 @@ namespace SDL {
 		public SDL.MultiGestureEvent mgesture;
 		public SDL.DollarGestureEvent dgesture;
 		public SDL.DropEvent drop;
-
+		public int8 padding[56];
+		
 		[CCode (cname="SDL_PumpEvents")]
 		public static void pump();
 
