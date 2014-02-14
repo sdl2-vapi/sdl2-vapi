@@ -54,10 +54,10 @@ namespace SDLNet {
 		public uint16 port;
 
 		[CCode (cname="INADDR_ANY")]
-		public const uint ANY;
+		public static const uint ANY;
 
 		[CCode (cname="INADDR_NONE")]
-		public const uint NONE;
+		public static const uint NONE;
 
 		[CCode (cname="SDLNet_ResolveHost")]
 		public static int from_host(out IPAddress address, string? host, uint16 port);
@@ -150,5 +150,8 @@ namespace SDLNet {
 
 		[CCode (cname="SDLNet_CheckSockets")]
 		public int has_data(uint timeout);
+
+		[CCode (cname="SDLNet_SocketReady ")]
+		public int is_ready();
 	}// SocketSet
 }// SDL

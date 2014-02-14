@@ -1033,7 +1033,7 @@ namespace SDL {
 		public uint32 type;
 		
 		[CCode (cname="SDL_RWread")]
-		public size_t read(void * ptr, size_t size,size_t maxnum);
+		public size_t read(void* ptr, size_t size,size_t maxnum);
 		
 		[CCode (cname="SDL_RWwrite")]
 		public size_t write(void* ptr, size_t size,size_t num);
@@ -1046,6 +1046,9 @@ namespace SDL {
 
 		[CCode (cname="SDL_RWclose")]
 		public int64 close();
+		
+		[CCode (cname="SDL_RWtell")]
+		public int close();
 		
 		[CCode (cname="SDL_RWFromFile")]
 		public RWops.from_file(string file, string mode);
