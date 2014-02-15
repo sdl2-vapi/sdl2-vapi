@@ -1,4 +1,4 @@
-//FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
+//FOR: SDL2.0.1 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC
 
 [CCode (cprefix="SDL_", cheader_filename="SDL2/SDL.h")]
@@ -711,7 +711,7 @@ namespace SDL {
 		[CCode (cname="SDL_RWtell")]
 		public int64 tell();
 		
-		[CCode (cname="SDL_RWtell")]
+		[CCode (cname="SDL_RWclose")]
 		public int close();
 		
 		[CCode (cname="SDL_RWFromFile")]
