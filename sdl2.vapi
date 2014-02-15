@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-//FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
+//FOR: SDL2.0.1 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 [CCode (cprefix="SDL_", cheader_filename="SDL2/SDL.h")]
@@ -1047,7 +1047,7 @@ namespace SDL {
 		[CCode (cname="SDL_RWclose")]
 		public int64 close();
 		
-		[CCode (cname="SDL_RWtell")]
+		[CCode (cname="SDL_RWclose")]
 		public int close();
 		
 		[CCode (cname="SDL_RWFromFile")]
