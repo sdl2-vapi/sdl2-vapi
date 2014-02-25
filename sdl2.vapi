@@ -666,6 +666,8 @@ namespace SDL {
 	public class GLContext{
 		// Private type
 	}// GLContext
+	
+	
 
 	[CCode (cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]
 	[Compact]
@@ -708,37 +710,111 @@ namespace SDL {
 	}// GL
 	
 	///
+	/// MessageBox
+	///
+	[Flags, CCode (cname="SDL_MessageBoxFlags", cprefix="SDL_MESSAGEBOX_", cheader_filename="SDL2/SDL_messagebox.h")]
+	public enum MessageBoxFlags {
+		ERROR, 	   	/**< error dialog */
+		WARNING,   	/**< warning dialog */
+		INFORMATION  /**< informational dialog */
+	} // MessageBoxFlags;
+	
+	[Flags, CCode (cname="SDL_MessageBoxButtonFlags", cprefix="SDL_MESSAGEBOX_BUTTON_", cheader_filename="SDL2/SDL_messagebox.h")]
+	public enum MessageBoxButtonFlags{
+    RETURNKEY_DEFAULT ,  /**< Marks the default button when return is hit */
+    ESCAPEKEY_DEFAULT    /**< Marks the default button when escape is hit */
+	} //MessageBoxButtonFlags;
+
+	[Flags, CCode (cname="SDL_MessageBoxColorType", cprefix="SDL_MESSAGEBOX_COLOR_", cheader_filename="SDL2/SDL_messagebox.h")]
+	public enum MessageBoxColorType{
+    BACKGROUND,
+    TEXT,
+    BORDER,
+    BACKGROUND,
+    BUTTON_SELECTED,
+    MAX
+	} //MessageBoxColorType;
+
+	[CCode (cname="SDL_MessageBoxButtonData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+	public struct MessageBoxButtonData{
+    uint32 flags;       /**< ::SDL_MessageBoxButtonFlags */
+    int buttonid;       /**< User defined button id (value returned via SDL_ShowMessageBox) */
+    string text;  /**< The UTF-8 button text */
+	} //MessageBoxButtonData;
+
+	[CCode (cname="SDL_MessageBoxColor", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+	public struct MessageBoxColor{
+    uint8 r;
+    uint8 g;
+    uint8 b;
+	} // MessageBoxColor;
+
+	[CCode (cname="SDL_MessageBoxColorScheme", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+	public struct MessageBoxColorScheme{
+    SDL.MessageBoxColor colors [SDL.MessageBoxColorType.MAX];
+	} // MessageBoxColorScheme;
+
+
+	[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+	public struct MessageBoxData {
+    uint32 flags;                       /**< ::SDL_MessageBoxFlags */
+    SDL.Window window;                 /**< Parent window, can be NULL */
+    string title;                  /**< UTF-8 title */
+    string message;                /**< UTF-8 message text */
+    int numbuttons;
+    SDL.MessageBoxButtonData buttons;
+    SDL.MessageBoxColorScheme colorScheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
+	} //MessageBoxData;
+
+
+	[CCode (cprefix="SDL_", cname="SDL_ShowSimpleMessageBox", cheader_filename="SDL2/SDL_messagebox.h")]
+	public class MessageBox{
+		[CCode (cname="SDL_ShowSimpleMessageBox")]
+		public static int simple_show(uint32 flags, string title, string message, SDL.Window window);
+	
+		[CCode (cname="SDL_ShowMessageBox")]
+		public static int show(MessageBoxData data, int buttonid);
+	}// MessageBox
+	
+	
+	///
 	/// RWops
 	///
 	
-	[Flags, CCode (cprefix="RW_SEEK_", cheader_filename="SDL2/SDL_rwops.h")]
+	[Flags, CCode (cname="int", cprefix="RW_SEEK_", cheader_filename="SDL2/SDL_rwops.h")]
 	public enum RWFlags {
 		SET,CUR,END
 	}// RWFlags
 	
 	[CCode (cname="SDL_RWops", free_function="SDL_FreeRW", cheader_filename="SDL2/SDL_rwops.h")]
+	
 	[Compact]
 	public class RWops {
 		
 		public uint32 type;
 		
 		[CCode (cname="SDL_RWread")]
-		public size_t read(out void* ptr, size_t size,size_t maxnum);
+		public size_t read(void * ptr, size_t size,size_t maxnum);
 		
 		[CCode (cname="SDL_RWwrite")]
-		public size_t write(out void* ptr, size_t size,size_t num);
+		public size_t write(void* ptr, size_t size,size_t num);
 		
 		[CCode (cname="SDL_RWseek")]
 		public int64 seek(int64 offset, SDL.RWFlags flag);
 		
 		[CCode (cname="SDL_RWtell")]
 		public int64 tell();
+
+		[CCode (cname="SDL_RWclose")]
+		public int64 close();
 		
 		[CCode (cname="SDL_RWFromFile")]
 		public RWops.from_file(string file, string mode);
 
 		[CCode (cname="SDL_RWFromMem")]
 		public RWops.from_mem(void* mem, int size);
+		
+		
 	}// RWops
 	
 	///
@@ -1044,6 +1120,8 @@ namespace SDL {
 		public SDL.DollarGestureEvent dgesture;
 		public SDL.DropEvent drop;
 
+		public int8 padding[56];
+		
 		[CCode (cname="SDL_PumpEvents")]
 		public static void pump();
 
