@@ -729,8 +729,8 @@ namespace SDL {
 	public enum MessageBoxColorType{
     BACKGROUND,
     TEXT,
-    BORDER,
-    BACKGROUND,
+    BUTTON_BORDER,
+    BUTTON_BACKGROUND,
     BUTTON_SELECTED,
     MAX
 	} //MessageBoxColorType;
@@ -751,7 +751,7 @@ namespace SDL {
 
 	[CCode (cname="SDL_MessageBoxColorScheme", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 	public struct MessageBoxColorScheme{
-    SDL.MessageBoxColor colors [SDL.MessageBoxColorType.MAX];
+    //SDL.MessageBoxColor colors [SDL.MessageBoxColorType.MAX];
 	} // MessageBoxColorScheme;
 
 
