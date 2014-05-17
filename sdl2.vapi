@@ -403,8 +403,25 @@ namespace SDL {
 		public bool is_empty(){
 			return(this.w<=0 || this.h<=0);
 		}
+
 		[CCode (cname="SDL_RectEquals")]
 		public bool is_equal(SDL.Rect other_rect);
+
+		public bool is_equal(SDL.Rect other_rect){
+			return(this == other_rect ||
+			       (this.x==other_rect.x &&
+			        this.y==other_rect.y &&
+			        this.w==other_rect.w &&
+			        this.h==other_rect.h)
+			      );
+		}
+		
+		public bool contains (int x, int y) {
+			return x >= this.x && this.y >= this.y &&
+				x < this.x + this.w && y < this.y + this.h;
+		}
+
+>>>>>>> wh1sper.123.wtfit@gmail.com fixes
 		[CCode (cname="SDL_HasIntersection")]
 		public bool is_intersecting(SDL.Rect other_rect);
 
@@ -1672,7 +1689,7 @@ namespace SDL {
 		public static int show(int toggle);
 	}// Cursor
 	
-	[CCode (cname="SDL_JoystickGUID", cheader_filename="SDL2/SDL_joystick.h")]
+	[CCode (cname="SDL_JoystickGUID", cheader="SDL2/SDL_joystick.h", has_type_id=false, is_value_type=1, simple_type=1)]
 	public struct JoystickGUID{
 		uint8 data[16];
 	}
@@ -1694,7 +1711,7 @@ namespace SDL {
 		public Joystick(int device_index);
 
 		[CCode (cname="SDL_JoystickName")]
-		public static unowned string get_name(int device_index);
+		public unowned string get_name();
 		
 		[CCode (cname="SDL_JoystickGetDeviceGUID")]
 		public static SDL.JoystickGUID get_guid_from_device(int device_index);
