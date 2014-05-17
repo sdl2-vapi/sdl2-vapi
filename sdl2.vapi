@@ -201,6 +201,11 @@ namespace SDL {
 			        this.h==other_rect.h)
 			      );
 		}
+		
+		public bool contains (int x, int y) {
+			return x >= this.x && this.y >= this.y &&
+				x < this.x + this.w && y < this.y + this.h;
+		}
 
 		[CCode (cname="SDL_HasIntersection")]
 		public bool is_intersecting(SDL.Rect B);
@@ -413,7 +418,7 @@ namespace SDL {
 	/// Video
 	///
 	
-	[CCode (cname="SDL_DisplayMode", cheader_filename="SDL2/SDL_video.h")]
+	[CCode (cname="SDL_DisplayMode", destroy_function="", cheader_filename="SDL2/SDL_video.h")]
 	public struct DisplayMode {
 		public SDL.PixelRAWFormat format;
 		public int w;
@@ -1309,7 +1314,7 @@ namespace SDL {
 		public static int show(int toggle);
 	}// Cursor
 	
-	[CCode (cname="SDL_JoystickGUID", cheader="SDL2/SDL_joystick.h")]
+	[CCode (cname="SDL_JoystickGUID", cheader="SDL2/SDL_joystick.h", has_type_id=false, is_value_type=1, simple_type=1)]
 	public struct JoystickGUID{
 		uint8 data[16];
 	}
@@ -1327,7 +1332,7 @@ namespace SDL {
 		public Joystick(int device_index);
 
 		[CCode (cname="SDL_JoystickName")]
-		public static unowned string get_name(int device_index);
+		public unowned string get_name();
 		
 		[CCode (cname="SDL_JoystickGetDeviceGUID")]
 		public static SDL.JoystickGUID get_guid_from_device(int device_index);
