@@ -1,0 +1,10 @@
+2014-06-28 12:00 ## From SDL 2.0.1 to 2.0.3 upgrade
+	+SDL_RENDER_TARGETS_RESET
+	+    Uint8 clicks /**< 1 for single-click, 2 for double-click, etc. */
+	+SDL_DXGIGetOutputInfo
+	+SDL_GL_ResetAttributes
+	
+TODO:
+	.WinRT support
+	.Better SDL_syswm porting
+	.Any SDL_gamecontroller porting

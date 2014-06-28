@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-//FOR: SDL2.0.1 - This is not official, to be futurely changed for the official binding
+//FOR: SDL2.0.3 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 [CCode (cprefix="SDL_", cheader_filename="SDL2/SDL.h")]
@@ -946,12 +946,15 @@ namespace SDL {
 		
 		[CCode (cname="SDL_GL_ExtensionSupported")]
 		public static bool is_extension_supported(string extension);
+		
+		[CCode (cname="SDL_GL_ResetAttributes")]
+		public static void reset_attribute();
 
-		[CCode (cname="SDL_GL_SetAttributes")]
-		public static int set_attribute(SDL.GL.Attributes attr, int val);
+		[CCode (cname="SDL_GL_SetAttribute")]
+		public static int set_attribute(SDL.GLattr attr, int val);
 
-		[CCode (cname="SDL_GL_GetAttributes")]
-		public static int get_attribute(SDL.GL.Attributes attr, out int val);
+		[CCode (cname="SDL_GL_GetAttribute")]
+		public static int get_attribute(SDL.GLattr attr, ref int val);
 
 		[CCode (cname="SDL_GL_MakeCurrent")]
 		public static int make_current(SDL.Window window, SDL.GL.Context context);
@@ -1081,6 +1084,7 @@ namespace SDL {
 	///
 	[CCode (cname="SDL_EventType", cprefix="SDL_", cheader_filename="SDL2/SDL_events.h")]
 	public enum EventType {
+		// TODO: Review if updated
 		FIRSTEVENT,QUIT,APP_TERMINATING,APP_LOWMEMORY,APP_WILLENTERBACKGROUND,APP_DIDENTERBACKGROUND,
 		APP_WILLENTERFOREGROUND, APP_DIDENTERFOREGROUND,WINDOWEVENT,SYSWMEVENT,KEYDOWN,KEYUP,TEXTEDITING,
 		TEXTINPUT,MOUSEMOTION,MOUSEBUTTONDOWN,MOUSEBUTTONUP,MOUSEWHEEL,JOYAXISMOTION,JOYBALLMOTION, 
@@ -1169,6 +1173,8 @@ namespace SDL {
 		uint32 which;
 		uint8 button;
 		uint8 state;
+		uint8 clicks;
+		uint8 padding1;
 		int32 x;
 		int32 y;
 	}// MouseButtonEvent
