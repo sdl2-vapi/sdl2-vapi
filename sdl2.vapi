@@ -1,4 +1,4 @@
-//FOR: SDL2.0.1 - This is not official, to be futurely changed for the official binding
+//FOR: SDL2.0.3 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC
 
 [CCode (cprefix="SDL_", cheader_filename="SDL2/SDL.h")]
@@ -664,6 +664,9 @@ namespace SDL {
 		[CCode (cname="SDL_GL_ExtensionSupported")]
 		public static bool is_extension_supported(string extension);
 
+		[CCode (cname="SDL_GL_ResetAttributes")]
+		public static void reset_attribute();
+
 		[CCode (cname="SDL_GL_SetAttribute")]
 		public static int set_attribute(SDL.GLattr attr, int val);
 
@@ -738,7 +741,7 @@ namespace SDL {
 		CONTROLLERBUTTONDOWN, CONTROLLERBUTTONUP, CONTROLLERDEVICEADDED,
 		CONTROLLERDEVICEREMOVED, CONTROLLERDEVICEREMAPPED, FINGERDOWN,
 		FINGERUP, FINGERMOTION, DOLLARGESTURE, DOLLARRECORD, MULTIGESTURE,
-		CLIPBOARDUPDATE, DROPFILE, USEREVENT
+		CLIPBOARDUPDATE, DROPFILE, RENDER_TARGETS_RESET, USEREVENT
 	}// EventType
 	
 	[CCode (cname="SDL_GenericEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -815,8 +818,8 @@ namespace SDL {
 		uint32 which;
 		uint8 button;
 		uint8 state;
+		uint8 clicks;
 		uint8 padding1;
-		uint8 padding2;
 		int32 x;
 		int32 y;
 	}// MouseButtonEvent

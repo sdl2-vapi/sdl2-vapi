@@ -1,4 +1,4 @@
-//FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
+//FOR: SDL2.0.3 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC
 
 namespace SDL {
@@ -17,6 +17,9 @@ namespace SDL {
 		
 		[CCode (cname="SDL_RenderGetD3D9Device")]
 		public static IDirect3DDevice9* get_render_device(SDL.Renderer renderer);
+		
+		[CCode (cname="SDL_DXGIGetOutputInfo")]
+		public static void dxgi_get_output_info(int display_index, out int adapter_index, out int output_index);
 	}// Direct3D9
 	
 	
