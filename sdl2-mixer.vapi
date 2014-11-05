@@ -116,13 +116,13 @@ namespace SDLMixer {
 		public static void rewind();
 
 		[CCode (cname="Mix_PausedMusic")]
-		public static int is_paused();
+		public static bool is_paused();
 
 		[CCode (cname="Mix_SetMusicPosition")]
 		public static int position(double position);
 
 		[CCode (cname="Mix_PlayingMusic")]
-		public static int is_playing();
+		public static bool is_playing();
 
 		[CCode (cname="Mix_SetMusicCMD")]
 		public static int set_play_command(string command);
