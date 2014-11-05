@@ -205,7 +205,6 @@ namespace SDL {
 	} // Color
 
 	[CCode (type_id="SDL_Rect", cheader_filename="SDL2/SDL_rect.h", cname="SDL_Rect")]
-	[SimpleType]
 	public struct Rect {
 		public int x;
 		public int y;
@@ -215,16 +214,8 @@ namespace SDL {
 		public bool is_empty(){
 			return(this.w<=0 || this.h<=0);
 		}
-
-		public bool is_equal(SDL.Rect other_rect){
-			return(this == other_rect ||
-			       (this.x==other_rect.x &&
-			        this.y==other_rect.y &&
-			        this.w==other_rect.w &&
-			        this.h==other_rect.h)
-			      );
-		}
-
+		[CCode (cname="SDL_RectEquals")]
+		public bool is_equal(SDL.Rect other_rect);
 		[CCode (cname="SDL_HasIntersection")]
 		public bool is_intersecting(SDL.Rect B);
 
@@ -238,7 +229,7 @@ namespace SDL {
 		public bool eclose_points(int count, SDL.Rect clip, out SDL.Rect result);
 
 		[CCode (cname="SDL_IntersectRectAndLine")]
-		public bool intersection_rectANDline(out int X1, out int Y1, out int X2, out int Y2);
+		public bool intersects_withline(out int X1, out int Y1, out int X2, out int Y2);
 	}// Rect
 	
 	
@@ -314,8 +305,8 @@ namespace SDL {
 	}// PixelFormat
 
 	[CCode (cname="SDL_blit", cheader_filename="SDL2/SDL_surface.h")]
-	public delegate int blit (SDL.Surface *src, SDL.Rect *srcrect,
-	                          SDL.Surface *dst, SDL.Rect *dstrect);
+	public delegate int blit (SDL.Surface src, SDL.Rect? srcrect,
+	                          SDL.Surface dst, SDL.Rect? dstrect);
 
 	[CCode (type_id="SDL_Surface", cname="SDL_Surface", free_function="SDL_FreeSurface", cheader_filename="SDL2/SDL_surface.h",unref_function="")]
 	public class Surface {
@@ -1862,7 +1853,7 @@ namespace SDL {
 		public int update(SDL.Rect? rect, void* pixels, int pitch);
 		
 		[CCode (cname="SDL_LockTexture")]
-		public int lock(SDL.Rect? rect, void* pixels, int pitch);
+		public int do_lock(SDL.Rect? rect, void* pixels, int pitch);
 		
 		[CCode (cname="SDL_UnlockTexture")]
 		public void unlock();
@@ -1907,7 +1898,7 @@ namespace SDL {
  	public int try_lock();
  		
         [CCode (cname="SDL_LockMutex")]
-        public int @lock();
+        public int do_lock();
  
         [CCode (cname="SDL_UnlockMutex")]
         public int unlock();
