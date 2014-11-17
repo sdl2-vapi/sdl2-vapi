@@ -204,12 +204,12 @@ namespace SDL {
 		public uint8 a;
 	} // Color
 
-	[CCode (cheader_filename="SDL2/SDL_rect.h", cname="SDL_Rect", has_type_id=false)]
+	[CCode (has_type_id=false, cheader_filename="SDL2/SDL_rect.h", cname="SDL_Rect")]
 	public struct Rect {
-		public int x;
-		public int y;
-		public uint w;
-		public uint h;
+		public int16 x;
+		public int16 y;
+		public uint16 w;
+		public uint16 h;
 
 		public bool is_empty(){
 			return(this.w<=0 || this.h<=0);
