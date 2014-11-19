@@ -1933,7 +1933,7 @@ namespace SDL {
         public Condition();
  
         [CCode (cname="SDL_CondSignal")]
-        public int @signal();
+        public int do_signal();
  
         [CCode (cname="SDL_CondBroadcast")]
         public int broadcast();
