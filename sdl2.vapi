@@ -1882,20 +1882,33 @@ namespace SDL {
     
     public delegate int ThreadFunc(void* data);
  
+ 	
+	[CCode (cname="SDL_ThreadPriority", cprefix="SDL_THREAD_PRIORITY_", cheader_filename="SDL2/SDL_thread.h")]
+	public enum ThreadPriority{
+		LOW, NORMAL, HIGH
+	}
+    
+ 
     [CCode (cname="SDL_Thread", free_function="SDL_WaitThread", cheader_filename="SDL2/SDL_thread.h")]
     [Compact]
     public class Thread {
+        [CCode (cname="SDL_CreateThread")]
+        public Thread(ThreadFunc f, string name, void* data);
+        
         [CCode (cname="SDL_ThreadID")]
         public static uint32 id();
         
         [CCode (cname="SDL_GetThreadID")]
-        public static uint32 get_id();
+        public uint32 get_id();
         
         [CCode (cname="SDL_GetThreadName")]
-        public static string get_name();
+        public string get_name();
+        
+        [CCode (cname="SDL_SetThreadPriority")]
+        public static int set_priotity(ThreadPriority priority)
  
-        [CCode (cname="SDL_CreateThread")]
-        public Thread(ThreadFunc f, string name, void* data);
+ 		[CCode (cname="SDL_DetachThread")]
+        public void detach(); 
     }// Thread
  
     [CCode (cname="SDL_Mutex", free_function="SDL_DestroyMutex")]
