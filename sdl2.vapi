@@ -66,7 +66,18 @@ namespace SDL {
 		public static int get_revision_number();
 	}// Version
 
-
+	///
+	/// Power
+	///
+	[CCode (cname ="SDL_PowerState", cheader_filename="SDL2/SDL_power.h" cprefix="SDL_POWERSTATE" )]
+	public enum PowerState{
+		ON_BATTERY, NO_BATTERY, CHARGING,
+		CHARGED, UNKNOWN
+	}
+	[CCode (cname ="SDL_GetPowerInfo", cheader_filename="SDL2/SDL_power.h")]
+	public static PowerState get_power_info(out int? seconds_left, out int? percentage_left);
+	//Power
+	
 	///
 	/// Error
 	///
@@ -87,7 +98,6 @@ namespace SDL {
 
 	[CCode (cname="SDL_Error")]
 	public static void error(Error code);
-
 	
 	///
 	/// Video requires
@@ -1894,8 +1904,8 @@ namespace SDL {
         [CCode (cname="SDL_CreateMutex")]
         public Mutex();
 
-	[CCode (cname="SDL_TryLockMutex")]
- 	public int try_lock();
+		[CCode (cname="SDL_TryLockMutex")]
+ 		public int try_lock();
  		
         [CCode (cname="SDL_LockMutex")]
         public int do_lock();
@@ -1933,7 +1943,7 @@ namespace SDL {
         public Condition();
  
         [CCode (cname="SDL_CondSignal")]
-        public int do_signal();
+        public int signalize();
  
         [CCode (cname="SDL_CondBroadcast")]
         public int broadcast();
