@@ -236,7 +236,7 @@ namespace SDL {
 		public void union_rect(SDL.Rect other_rect, out SDL.Rect result);
 
 		[CCode (cname="SDL_EnclosePoints")]
-		public bool eclose_points(int count, SDL.Rect clip, out SDL.Rect result);
+		public bool enclose_points(int count, SDL.Rect clip, out SDL.Rect result);
 
 		[CCode (cname="SDL_IntersectRectAndLine")]
 		public bool intersects_withline(out int x1, out int y1, out int x2, out int y2);
@@ -262,25 +262,32 @@ namespace SDL {
 	public class PixelFormat {
 		public SDL.PixelRAWFormat format;
 		public SDL.Palette palette;
-		public uint8 BitsPerPixel;
-		public uint8 BytesPerPixel;
-		public uint8 padding[2];
-		public uint32 Rmask;
-		public uint32 Gmask;
-		public uint32 Bmask;
-		public uint32 Amask;
-		public uint8 Rloss;
-		public uint8 Gloss;
-		public uint8 Bloss;
-		public uint8 Aloss;
-		public uint8 Rshift;
-		public uint8 Gshift;
-		public uint8 Bshift;
-		public uint8 Ashift;
+		[CCode ( cname="BitsPerPixel")]
+		public uint8 bits_per_pixel;
+		[CCode ( cname="BytesPerPixel")]
+		public uint8 bytes_per_pixel;
+		//public uint8 padding[2]; Is this even useful? We are binding a Struct, not recreating one
+		[CCode ( cname="Rmask")]
+		public uint32 r_mask;
+		[CCode ( cname="Gmask")]
+		public uint32 g_mask;
+		[CCode ( cname="Bmask")]
+		public uint32 b_mask;
+		[CCode ( cname="Amask")]
+		public uint32 a_mask;
+		/* Internal use only
+		public uint8 r_loss;
+		public uint8 g_loss;
+		public uint8 b_loss;
+		public uint8 a_loss;
+		public uint8 r_shift;
+		public uint8 g_shift;
+		public uint8 b_shift;
+		public uint8 a_shift;
 
 		public int refcount;
 		public SDL.PixelFormat next;
-
+		*/
 		[CCode (cname="SDL_AllocFormat")]
 		public PixelFormat(uint32 pixel_format);
 
@@ -307,11 +314,11 @@ namespace SDL {
 		
 		[CCode (cname="SDL_PixelFormatEnumToMasks")]
 		public static bool enum_tomasks(SDL.PixelRAWFormat format,
-			int[] bpp,	uint32[] Rmask, uint32[] Gmask, uint32[] Bmask, uint32[] Amask);
+			out int bpp, out uint32 r_mask, out uint32 g_mask, out uint32 b_mask, out uint32 a_mask);
 		
 		[CCode (cname="SDL_MasksToPixelFormatEnum")]
 		public static uint32 masks_toenum(
-			int[] bpp,	uint32[] Rmask, uint32[] Gmask, uint32[] Bmask, uint32[] Amask);
+			int bpp, uint32 r_mask, uint32 g_mask, uint32 b_mask, uint32 a_mask);
 	}// PixelFormat
 
 	[CCode (cname="SDL_blit", cheader_filename="SDL2/SDL_surface.h")]
@@ -405,9 +412,9 @@ namespace SDL {
 
 		[CCode (cname="SDL_ConvertPixels")]
 		public static int convert_pixels(int width, int height,
-                                              uint32 src_format,
+                                              SDL.PixelRAWFormat.Standards src_format,
                                               void *src, int src_pitch,
-                                              uint32 dst_format,
+                                              SDL.PixelRAWFormat.Standards dst_format,
                                               void * dst, int dst_pitch);
 		
 		[CCode (cname="SDL_FillRect")]
@@ -1887,7 +1894,6 @@ namespace SDL {
 	public enum ThreadPriority{
 		LOW, NORMAL, HIGH
 	}
-    
  
     [CCode (cname="SDL_Thread", free_function="SDL_WaitThread", cheader_filename="SDL2/SDL_thread.h")]
     [Compact]
