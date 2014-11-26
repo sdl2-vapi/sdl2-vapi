@@ -67,9 +67,70 @@ namespace SDL {
 	}// Version
 
 	///
+	/// Hints
+	///
+	[CCode (cname ="SDL_HintCallback", cheader_filename="SDL2/SDL_hints.h")]
+	public delegate void HintFunc(void* userdata, string name, string oldValue, string? newValue);
+	[CCode (cname ="SDL_HintPriority", cheader_filename="SDL2/SDL_hints.h", cprefix="SDL_HINT_" )]
+	public enum HintPriority{
+	DEFAULT,NORMAL,OVERRIDE
+	}
+	
+	public static class Hints{
+		public static string ANDROID_APK_MAIN_FILE_VERSION = "SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION";
+		public static string ANDROID_APK_PATCH_FILE_VERSION = "SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION";
+		public static string MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK = "SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK";
+		public static string FRAMEBUFFER_ACCELERATION = "SDL_FRAMEBUFFER_ACCELERATION";
+		public static string WINDOWS_ENABLE_MESSAGELOOP = "SDL_WINDOWS_ENABLE_MESSAGELOOP";
+		public static string WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN = "SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN";
+		public static string RENDER_DRIVER = "SDL_RENDER_DRIVER";
+		public static string RENDER_OPENGL_SHADERS = "SDL_RENDER_OPENGL_SHADERS";
+		public static string RENDER_DIRECT3D_THREADSAFE = "SDL_RENDER_DIRECT3D_THREADSAFE";
+		public static string RENDER_SCALE_QUALITY = "SDL_RENDER_SCALE_QUALITY";
+		public static string RENDER_VSYNC = "SDL_RENDER_VSYNC";
+		public static string VIDEO_ALLOW_SCREENSAVER = "SDL_VIDEO_ALLOW_SCREENSAVER";
+		public static string VIDEO_HIGHDPI_DISABLED = "SDL_VIDEO_HIGHDPI_DISABLED";
+		public static string VIDEO_MAC_FULLSCREEN_SPACES = "SDL_VIDEO_MAC_FULLSCREEN_SPACES";
+		public static string VIDEO_WINDOW_SHARE_PIXEL_FORMAT = "SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT";
+		public static string VIDEO_WIN_D3DCOMPILER = "SDL_VIDEO_WIN_D3DCOMPILER";
+		public static string VIDEO_X11_XVIDMODE = "SDL_VIDEO_X11_XVIDMODE";
+		public static string VIDEO_X11_XINERAMA = "SDL_VIDEO_X11_XINERAMA";
+		public static string VIDEO_X11_XRANDR = "SDL_VIDEO_X11_XRANDR";
+		public static string GRAB_KEYBOARD = "SDL_GRAB_KEYBOARD";
+		public static string IME_INTERNAL_EDITING = "SDL_IME_INTERNAL_EDITING";
+		public static string MOUSE_RELATIVE_MODE_WARP = "SDL_MOUSE_RELATIVE_MODE_WARP";
+		public static string VIDEO_MINIMIZE_ON_FOCUS_LOSS = "SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS";
+		public static string IDLE_TIMER_DISABLED = "SDL_IOS_IDLE_TIMER_DISABLED";
+		public static string ORIENTATIONS = "SDL_IOS_ORIENTATIONS";
+		public static string XINPUT_ENABLED = "SDL_XINPUT_ENABLED";
+		public static string GAMECONTROLLERCONFIG = "SDL_GAMECONTROLLERCONFIG";
+		public static string ACCELEROMETER_AS_JOYSTICK = "SDL_ACCELEROMETER_AS_JOYSTICK";
+		public static string JOYSTICK_ALLOW_BACKGROUND_EVENTS = "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS";
+		public static string ALLOW_TOPMOST = "SDL_ALLOW_TOPMOST";
+		public static string TIMER_RESOLUTION = "SDL_TIMER_RESOLUTION";
+		public static string IDLE_TIMER_DISABLED = "SDL_IDLE_TIMER_DISABLED";
+		[CCode (cname ="SDL_AddHintCallback", cheader_filename="SDL2/SDL_hints.h")]
+		public static void add_callback(string name, HintFunc callback, void *userdata);
+		[CCode (cname ="SDL_DelHintCallback", cheader_filename="SDL2/SDL_hints.h")]
+		public static void del_callback (string name, HintFunc callback, void *userdata)
+		[CCode (cname ="SDL_SetHint", cheader_filename="SDL2/SDL_hints.h")]
+		public static bool set_hint (string name, string hint_value);
+		[CCode (cname ="SDL_GetHint", cheader_filename="SDL2/SDL_hints.h")]
+		public static string get_hint (string name);
+		public static bool hint_enabled(string name){
+			return get_hint(name) == "0" ? true : false;
+		}
+		[CCode (cname ="SDL_ClearHints", cheader_filename="SDL2/SDL_hints.h")]
+		public static void clear_all();
+		[CCode (cname ="SDL_SetHintWithPriority", cheader_filename="SDL2/SDL_hints.h")]
+		public static bool set_hint_with_priority(string name, string hint_value, HintPriority priority);
+	}//Hints
+	
+	
+	///
 	/// Power
 	///
-	[CCode (cname ="SDL_PowerState", cheader_filename="SDL2/SDL_power.h" cprefix="SDL_POWERSTATE" )]
+	[CCode (cname ="SDL_PowerState", cheader_filename="SDL2/SDL_power.h", cprefix="SDL_POWERSTATE_" )]
 	public enum PowerState{
 		ON_BATTERY, NO_BATTERY, CHARGING,
 		CHARGED, UNKNOWN
