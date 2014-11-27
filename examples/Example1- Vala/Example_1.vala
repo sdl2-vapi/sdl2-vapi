@@ -58,7 +58,28 @@ public class Example
 		
 		// Load font as surface and transform to texture.
 		Font Fuente= new Font("KatamotzIkasi.ttf", 30);
-		SDL.Surface letras= Fuente.render_blended_wrapped_utf8("Keyboard press: up,left,rigth,down and space", {10,10,10,255}, 240);
+		string text;
+		int seconds;
+		int percentage;
+		switch (SDL.get_power_info( out seconds, out percentage)){
+			case SDL.PowerState.ON_BATTERY :
+				text = "Your battery has %d %% charge, approximately %d minutes".printf(percentage, seconds/60);
+				break;
+			case SDL.PowerState.CHARGING:
+				text = "You battery is charging and it's at %d %% of its capacity".printf(percentage);
+				break;
+			case SDL.PowerState.CHARGED:
+				text = "Your battery is fully charged. Hooray!";
+				break;
+			case SDL.PowerState.NO_BATTERY:
+				text = "Your system is not using a battery. Why would you do that?";
+				break;
+			case SDL.PowerState.UNKNOWN:
+			default:
+				text = "We don't really know what's going on with your system energy";
+				break;
+		}
+		SDL.Surface letras= Fuente.render_blended_wrapped_utf8(text, {10,10,10,255}, 240);
 		SDL.Texture Tletras = new Texture.from_surface (WIN_RENDERER, letras);	
 
 		var row =0;

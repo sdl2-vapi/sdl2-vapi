@@ -76,47 +76,78 @@ namespace SDL {
 	DEFAULT,NORMAL,OVERRIDE
 	}
 	
-	public static class Hints{
-		public static string ANDROID_APK_MAIN_FILE_VERSION = "SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION";
-		public static string ANDROID_APK_PATCH_FILE_VERSION = "SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION";
-		public static string MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK = "SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK";
-		public static string FRAMEBUFFER_ACCELERATION = "SDL_FRAMEBUFFER_ACCELERATION";
-		public static string WINDOWS_ENABLE_MESSAGELOOP = "SDL_WINDOWS_ENABLE_MESSAGELOOP";
-		public static string WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN = "SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN";
-		public static string RENDER_DRIVER = "SDL_RENDER_DRIVER";
-		public static string RENDER_OPENGL_SHADERS = "SDL_RENDER_OPENGL_SHADERS";
-		public static string RENDER_DIRECT3D_THREADSAFE = "SDL_RENDER_DIRECT3D_THREADSAFE";
-		public static string RENDER_SCALE_QUALITY = "SDL_RENDER_SCALE_QUALITY";
-		public static string RENDER_VSYNC = "SDL_RENDER_VSYNC";
-		public static string VIDEO_ALLOW_SCREENSAVER = "SDL_VIDEO_ALLOW_SCREENSAVER";
-		public static string VIDEO_HIGHDPI_DISABLED = "SDL_VIDEO_HIGHDPI_DISABLED";
-		public static string VIDEO_MAC_FULLSCREEN_SPACES = "SDL_VIDEO_MAC_FULLSCREEN_SPACES";
-		public static string VIDEO_WINDOW_SHARE_PIXEL_FORMAT = "SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT";
-		public static string VIDEO_WIN_D3DCOMPILER = "SDL_VIDEO_WIN_D3DCOMPILER";
-		public static string VIDEO_X11_XVIDMODE = "SDL_VIDEO_X11_XVIDMODE";
-		public static string VIDEO_X11_XINERAMA = "SDL_VIDEO_X11_XINERAMA";
-		public static string VIDEO_X11_XRANDR = "SDL_VIDEO_X11_XRANDR";
-		public static string GRAB_KEYBOARD = "SDL_GRAB_KEYBOARD";
-		public static string IME_INTERNAL_EDITING = "SDL_IME_INTERNAL_EDITING";
-		public static string MOUSE_RELATIVE_MODE_WARP = "SDL_MOUSE_RELATIVE_MODE_WARP";
-		public static string VIDEO_MINIMIZE_ON_FOCUS_LOSS = "SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS";
-		public static string IDLE_TIMER_DISABLED = "SDL_IOS_IDLE_TIMER_DISABLED";
-		public static string ORIENTATIONS = "SDL_IOS_ORIENTATIONS";
-		public static string XINPUT_ENABLED = "SDL_XINPUT_ENABLED";
-		public static string GAMECONTROLLERCONFIG = "SDL_GAMECONTROLLERCONFIG";
-		public static string ACCELEROMETER_AS_JOYSTICK = "SDL_ACCELEROMETER_AS_JOYSTICK";
-		public static string JOYSTICK_ALLOW_BACKGROUND_EVENTS = "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS";
-		public static string ALLOW_TOPMOST = "SDL_ALLOW_TOPMOST";
-		public static string TIMER_RESOLUTION = "SDL_TIMER_RESOLUTION";
-		public static string IDLE_TIMER_DISABLED = "SDL_IDLE_TIMER_DISABLED";
+	public class Hints{
+		[CCode (cname = "\"SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION\"")]
+		public const string ANDROID_APK_MAIN_FILE_VERSION;
+		[CCode (cname = "\"SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION\"")]
+		public const string ANDROID_APK_PATCH_FILE_VERSION;
+		[CCode (cname = "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"")]
+		public const string MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK;
+		[CCode (cname = "\"SDL_FRAMEBUFFER_ACCELERATION\"")]
+		public const string FRAMEBUFFER_ACCELERATION;
+		[CCode (cname = "\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"")]
+		public const string WINDOWS_ENABLE_MESSAGELOOP;
+		[CCode (cname = "\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"")]
+		public const string WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN;
+		[CCode (cname = "\"SDL_RENDER_DRIVER\"")]
+		public const string RENDER_DRIVER;
+		[CCode (cname = "\"SDL_RENDER_OPENGL_SHADERS\"")]
+		public const string RENDER_OPENGL_SHADERS;
+		[CCode (cname = "\"SDL_RENDER_DIRECT3D_THREADSAFE\"")]
+		public const string RENDER_DIRECT3D_THREADSAFE;
+		[CCode (cname = "\"SDL_RENDER_SCALE_QUALITY\"")]
+		public const string RENDER_SCALE_QUALITY;
+		[CCode (cname = "\"SDL_RENDER_VSYNC\"")]
+		public const string RENDER_VSYNC;
+		[CCode (cname = "\"SDL_VIDEO_ALLOW_SCREENSAVER\"")]
+		public const string VIDEO_ALLOW_SCREENSAVER;
+		[CCode (cname = "\"SDL_VIDEO_HIGHDPI_DISABLED\"")]
+		public const string VIDEO_HIGHDPI_DISABLED;
+		[CCode (cname = "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"")]
+		public const string VIDEO_MAC_FULLSCREEN_SPACES;
+		[CCode (cname = "\"SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT\"")]
+		public const string VIDEO_WINDOW_SHARE_PIXEL_FORMAT;
+		[CCode (cname = "\"SDL_VIDEO_WIN_D3DCOMPILER\"")]
+		public const string VIDEO_WIN_D3DCOMPILER;
+		[CCode (cname = "\"SDL_VIDEO_X11_XVIDMODE\"")]
+		public const string VIDEO_X11_XVIDMODE;
+		[CCode (cname = "\"SDL_VIDEO_X11_XINERAMA\"")]
+		public const string VIDEO_X11_XINERAMA;
+		[CCode (cname = "\"SDL_VIDEO_X11_XRANDR\"")]
+		public const string VIDEO_X11_XRANDR;
+		[CCode (cname = "\"SDL_GRAB_KEYBOARD\"")]
+		public const string GRAB_KEYBOARD;
+		[CCode (cname = "\"SDL_IME_INTERNAL_EDITING\"")]
+		public const string IME_INTERNAL_EDITING;
+		[CCode (cname = "\"SDL_MOUSE_RELATIVE_MODE_WARP\"")]
+		public const string MOUSE_RELATIVE_MODE_WARP;
+		[CCode (cname = "\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"")]
+		public const string VIDEO_MINIMIZE_ON_FOCUS_LOSS;
+		[CCode (cname = "\"SDL_IOS_ORIENTATIONS\"")]
+		public const string ORIENTATIONS;
+		[CCode (cname = "\"SDL_XINPUT_ENABLED\"")]
+		public const string XINPUT_ENABLED;
+		[CCode (cname = "\"SDL_GAMECONTROLLERCONFIG\"")]
+		public const string GAMECONTROLLERCONFIG;
+		[CCode (cname = "\"SDL_ACCELEROMETER_AS_JOYSTICK\"")]
+		public const string ACCELEROMETER_AS_JOYSTICK;
+		[CCode (cname = "\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"")]
+		public const string JOYSTICK_ALLOW_BACKGROUND_EVENTS;
+		[CCode (cname = "\"SDL_ALLOW_TOPMOST\"")]
+		public const string ALLOW_TOPMOST;
+		[CCode (cname = "\"SDL_TIMER_RESOLUTION\"")]
+		public const string TIMER_RESOLUTION;
+		[CCode (cname = "\"SDL_IDLE_TIMER_DISABLED\"")]
+		public const string IDLE_TIMER_DISABLED;
 		[CCode (cname ="SDL_AddHintCallback", cheader_filename="SDL2/SDL_hints.h")]
 		public static void add_callback(string name, HintFunc callback, void *userdata);
 		[CCode (cname ="SDL_DelHintCallback", cheader_filename="SDL2/SDL_hints.h")]
-		public static void del_callback (string name, HintFunc callback, void *userdata)
+		public static void del_callback (string name, HintFunc callback, void *userdata);
 		[CCode (cname ="SDL_SetHint", cheader_filename="SDL2/SDL_hints.h")]
 		public static bool set_hint (string name, string hint_value);
 		[CCode (cname ="SDL_GetHint", cheader_filename="SDL2/SDL_hints.h")]
-		public static string get_hint (string name);
+		public static unowned string get_hint (string name);
+		//Useful for boolean hints
 		public static bool hint_enabled(string name){
 			return get_hint(name) == "0" ? true : false;
 		}
@@ -136,7 +167,7 @@ namespace SDL {
 		CHARGED, UNKNOWN
 	}
 	[CCode (cname ="SDL_GetPowerInfo", cheader_filename="SDL2/SDL_power.h")]
-	public static PowerState get_power_info(out int? seconds_left, out int? percentage_left);
+	public static PowerState get_power_info(out int seconds_left, out int percentage_left);
 	//Power
 	
 	///
@@ -1972,7 +2003,7 @@ namespace SDL {
         public string get_name();
         
         [CCode (cname="SDL_SetThreadPriority")]
-        public static int set_priotity(ThreadPriority priority)
+        public static int set_priotity(ThreadPriority priority);
  
  		[CCode (cname="SDL_DetachThread")]
         public void detach(); 
