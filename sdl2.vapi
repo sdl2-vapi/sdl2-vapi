@@ -1508,7 +1508,7 @@ namespace SDL {
 		[CCode (cname="SDL_GetMouseFocus")]
 		public static SDL.Window get_focus();
 		
-		[CCode (cname="SDL_MouseIsHaptic", cheader_filename="SDL/SDL_haptic.h")]
+		[CCode (cname="SDL_MouseIsHaptic", cheader_filename="SDL2/SDL_haptic.h")]
 		public static int is_haptic();
 		
 		[CCode (cname="SDL_GetMouseState")]
@@ -1602,7 +1602,7 @@ namespace SDL {
 		[CCode (cname="SDL_JoystickGetAxis")]
 		public int16 get_axis(int axis);
 		
-		[CCode (cname="SDL_JoystickIsHaptic", cheader_filename="SDL/SDL_haptic.h")]
+		[CCode (cname="SDL_JoystickIsHaptic", cheader_filename="SDL2/SDL_haptic.h")]
 		public int is_haptic();
 		
 		[CCode (cname="SDL_JoystickGetHat")]
