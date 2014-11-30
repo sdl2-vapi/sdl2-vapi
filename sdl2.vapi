@@ -79,82 +79,120 @@ namespace SDL {
 	public class Hints{
 		[CCode (cname = "\"SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION\"")]
 		public const string ANDROID_APK_MAIN_FILE_VERSION;
+		
 		[CCode (cname = "\"SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION\"")]
 		public const string ANDROID_APK_PATCH_FILE_VERSION;
+		
 		[CCode (cname = "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"")]
 		public const string MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK;
+		
 		[CCode (cname = "\"SDL_FRAMEBUFFER_ACCELERATION\"")]
 		public const string FRAMEBUFFER_ACCELERATION;
+		
 		[CCode (cname = "\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"")]
 		public const string WINDOWS_ENABLE_MESSAGELOOP;
+		
 		[CCode (cname = "\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"")]
 		public const string WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN;
+		
 		[CCode (cname = "\"SDL_RENDER_DRIVER\"")]
 		public const string RENDER_DRIVER;
+		
 		[CCode (cname = "\"SDL_RENDER_OPENGL_SHADERS\"")]
 		public const string RENDER_OPENGL_SHADERS;
+		
 		[CCode (cname = "\"SDL_RENDER_DIRECT3D_THREADSAFE\"")]
 		public const string RENDER_DIRECT3D_THREADSAFE;
+		
 		[CCode (cname = "\"SDL_RENDER_SCALE_QUALITY\"")]
 		public const string RENDER_SCALE_QUALITY;
+		
 		[CCode (cname = "\"SDL_RENDER_VSYNC\"")]
 		public const string RENDER_VSYNC;
+		
 		[CCode (cname = "\"SDL_VIDEO_ALLOW_SCREENSAVER\"")]
 		public const string VIDEO_ALLOW_SCREENSAVER;
+		
 		[CCode (cname = "\"SDL_VIDEO_HIGHDPI_DISABLED\"")]
 		public const string VIDEO_HIGHDPI_DISABLED;
+		
 		[CCode (cname = "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"")]
 		public const string VIDEO_MAC_FULLSCREEN_SPACES;
+		
 		[CCode (cname = "\"SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT\"")]
 		public const string VIDEO_WINDOW_SHARE_PIXEL_FORMAT;
+		
 		[CCode (cname = "\"SDL_VIDEO_WIN_D3DCOMPILER\"")]
 		public const string VIDEO_WIN_D3DCOMPILER;
+		
 		[CCode (cname = "\"SDL_VIDEO_X11_XVIDMODE\"")]
 		public const string VIDEO_X11_XVIDMODE;
+		
 		[CCode (cname = "\"SDL_VIDEO_X11_XINERAMA\"")]
 		public const string VIDEO_X11_XINERAMA;
+		
 		[CCode (cname = "\"SDL_VIDEO_X11_XRANDR\"")]
 		public const string VIDEO_X11_XRANDR;
+		
 		[CCode (cname = "\"SDL_GRAB_KEYBOARD\"")]
 		public const string GRAB_KEYBOARD;
+		
 		[CCode (cname = "\"SDL_IME_INTERNAL_EDITING\"")]
 		public const string IME_INTERNAL_EDITING;
+		
 		[CCode (cname = "\"SDL_MOUSE_RELATIVE_MODE_WARP\"")]
 		public const string MOUSE_RELATIVE_MODE_WARP;
+		
 		[CCode (cname = "\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"")]
 		public const string VIDEO_MINIMIZE_ON_FOCUS_LOSS;
+		
 		[CCode (cname = "\"SDL_IOS_ORIENTATIONS\"")]
 		public const string ORIENTATIONS;
+		
 		[CCode (cname = "\"SDL_XINPUT_ENABLED\"")]
 		public const string XINPUT_ENABLED;
+		
 		[CCode (cname = "\"SDL_GAMECONTROLLERCONFIG\"")]
 		public const string GAMECONTROLLERCONFIG;
+		
 		[CCode (cname = "\"SDL_ACCELEROMETER_AS_JOYSTICK\"")]
 		public const string ACCELEROMETER_AS_JOYSTICK;
+		
 		[CCode (cname = "\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"")]
 		public const string JOYSTICK_ALLOW_BACKGROUND_EVENTS;
+		
 		[CCode (cname = "\"SDL_ALLOW_TOPMOST\"")]
 		public const string ALLOW_TOPMOST;
+		
 		[CCode (cname = "\"SDL_TIMER_RESOLUTION\"")]
 		public const string TIMER_RESOLUTION;
+		
 		[CCode (cname = "\"SDL_IDLE_TIMER_DISABLED\"")]
 		public const string IDLE_TIMER_DISABLED;
+		
 		[CCode (cname ="SDL_AddHintCallback", cheader_filename="SDL2/SDL_hints.h")]
 		public static void add_callback(string name, HintFunc callback, void *userdata);
+		
 		[CCode (cname ="SDL_DelHintCallback", cheader_filename="SDL2/SDL_hints.h")]
 		public static void del_callback (string name, HintFunc callback, void *userdata);
+		
 		[CCode (cname ="SDL_SetHint", cheader_filename="SDL2/SDL_hints.h")]
 		public static bool set_hint (string name, string hint_value);
+		
 		[CCode (cname ="SDL_GetHint", cheader_filename="SDL2/SDL_hints.h")]
 		public static unowned string get_hint (string name);
+		
 		//Useful for boolean hints
 		public static bool hint_enabled(string name){
 			return get_hint(name) == "0" ? true : false;
 		}
+		
 		[CCode (cname ="SDL_ClearHints", cheader_filename="SDL2/SDL_hints.h")]
 		public static void clear_all();
+		
 		[CCode (cname ="SDL_SetHintWithPriority", cheader_filename="SDL2/SDL_hints.h")]
 		public static bool set_hint_with_priority(string name, string hint_value, HintPriority priority);
+		
 	}//Hints
 	
 	
@@ -194,39 +232,39 @@ namespace SDL {
 	///
 	/// Video requires
 	///
-	[CCode (cprefix="SDL_ALPHA_", cheader="SDL2/SDL_pixels.h")]
+	[CCode (cprefix="SDL_ALPHA_", cheader_filename="SDL2/SDL_pixels.h")]
 	public enum Alpha {
 		OPAQUE,
 		TRANSPARENT
 	}// Alpha
 	
-	[CCode (cprefix="SDL_PIXELTYPE_", cheader="SDL2/SDL_pixels.h")]
+	[CCode (cprefix="SDL_PIXELTYPE_", cheader_filename="SDL2/SDL_pixels.h")]
 	public enum PixelType {
 		UNKNOWN,
 		INDEX1, INDEX4, INDEX8, PACKED8, PACKED16, PACKED32,
 		ARRAYU8, ARRAYU16, ARRAYU32, ARRAYF16, ARRAYF32
 	}// PixelType
 	
-	[CCode (cprefix="SDL_BITMAPORDER", cheader="SDL2/SDL_pixels.h")]
+	[CCode (cprefix="SDL_BITMAPORDER", cheader_filename="SDL2/SDL_pixels.h")]
 	public enum BitmapOrder {
 		[CCode (cname="SDL_BITMAPORDER_NONE")]
 		NONE, 
 		_4321,  _1234
 	}// BitmapOrder
 	
-	[CCode (cprefix="SDL_PACKEDORDER_", cheader="SDL2/SDL_pixels.h")]
+	[CCode (cprefix="SDL_PACKEDORDER_", cheader_filename="SDL2/SDL_pixels.h")]
 	public enum PackedOrder {
 		NONE, XRGB, RGBX, ARGB, RGBA,
 		XBGR, BGRX, ABGR, BGRA
 	}// PackedOrder
 	
-	[CCode (cprefix="SDL_ARRAYORDER_", cheader="SDL2/SDL_pixels.h")]
+	[CCode (cprefix="SDL_ARRAYORDER_", cheader_filename="SDL2/SDL_pixels.h")]
 	public enum ArrayOrder {
 		NONE, RGB, RGBA,
 		ARGB, BGR, BGRA, ABGR
 	}// ArrayOrder
 	
-	[CCode (cprefix="SDL_PACKEDLAYOUT", cheader="SDL2/SDL_pixels.h")]
+	[CCode (cprefix="SDL_PACKEDLAYOUT", cheader_filename="SDL2/SDL_pixels.h")]
 	public enum PackedLayout {
 		[CCode (cname="SDL_PACKEDLAYOUT_NONE")]
 		NONE,
@@ -234,7 +272,7 @@ namespace SDL {
 		_565, _8888, _2101010, _1010102
 	}// PackedLayout
 	
-	[CCode (cname="Uint32", cheader="SDL2/SDL_pixels.h")]
+	[CCode (cname="Uint32", cheader_filename="SDL2/SDL_pixels.h")]
 	[Compact]
 	public class PixelRAWFormat {
 		[CCode (cname="SDL_DEFINE_PIXELFOURCC")]
@@ -267,7 +305,7 @@ namespace SDL {
 		[CCode (cname="SDL_ISPIXELFORMAT_ALPHA")]
 		public bool is_alpha();
 		
-		[CCode (cname="Uint32", cprefix="SDL_PIXELFORMAT_", cheader="SDL2/SDL_pixels.h")]
+		[CCode (cname="Uint32", cprefix="SDL_PIXELFORMAT_", cheader_filename="SDL2/SDL_pixels.h")]
 		public enum Standards {
 			UNKNOWN, INDEX1LSB, INDEX1MSB, INDEX4LSB, INDEX4MSB,
 			INDEX8, RGB332, RGB444, RGB555, ARGB4444, RGBA4444,
@@ -367,7 +405,6 @@ namespace SDL {
 		public uint32 b_mask;
 		[CCode ( cname="Amask")]
 		public uint32 a_mask;
-		/* Internal use only
 		public uint8 r_loss;
 		public uint8 g_loss;
 		public uint8 b_loss;
@@ -379,7 +416,7 @@ namespace SDL {
 
 		public int refcount;
 		public SDL.PixelFormat next;
-		*/
+		
 		[CCode (cname="SDL_AllocFormat")]
 		public PixelFormat(uint32 pixel_format);
 
@@ -663,10 +700,10 @@ namespace SDL {
 		public void set_icon(SDL.Surface icon);
 		
 		[CCode (cname="SDL_SetWindowData")]
-		public void *set_data(string name, void *usrdata);
+		public void set_data(string name, void *usrdata);
 		
 		[CCode (cname="SDL_GetWindowData")]
-		public void *get_data(string name);
+		public void get_data(string name);
 		
 		[CCode (cname="SDL_SetWindowPosition")]
 		public void set_position(int x, int y);
@@ -1170,19 +1207,19 @@ namespace SDL {
 	[Compact]
 	public struct QuitEvent : GenericEvent {}// QuitEvent
 	
-	[CCode (cname="SDL_TouchID", cheader="SDL2/SDL_touch.h")]
+	[CCode (cname="SDL_TouchID", cheader_filename="SDL2/SDL_touch.h")]
 	public struct TouchID {}// TouchID
 	
-	[CCode (cname="SDL_FingerID", cheader="SDL2/SDL_touch.h")]
+	[CCode (cname="SDL_FingerID", cheader_filename="SDL2/SDL_touch.h")]
 	public struct FingerID {}// FingerID
 	
-	[CCode (cname="SDL_GestureID", cheader="SDL2/SDL_gesture.h")]
+	[CCode (cname="SDL_GestureID", cheader_filename="SDL2/SDL_gesture.h")]
 	public struct GestureID {}// GestureID
 	
-	[CCode (cname="SDL_JoystickID", cheader="SDL2/SDL_joystick.h")]
+	[CCode (cname="SDL_JoystickID", cheader_filename="SDL2/SDL_joystick.h")]
 	public struct JoystickID {}// JoystickID
 	
-	[CCode (cname="SDL_SysWMmsg", cheader="SDL2/SDL_syswm.h")]
+	[CCode (cname="SDL_SysWMmsg", cheader_filename="SDL2/SDL_syswm.h")]
 	public struct SysWMmsg {}// SysWMmsg
 
 	[CCode (cname="SDL_SysWMEvent", type_id="SDL_SysWMEvent", cheader_filename="SDL2/SDL_events.h")]
@@ -1294,7 +1331,7 @@ namespace SDL {
 		RELEASED, PRESSED
 	}// ButtonState
 	
-	[CCode (cname="SDL_Keycode", cprefix="SDLK_", cheader="SDL2/SDL_keyboard.h")]
+	[CCode (cname="SDL_Keycode", cprefix="SDLK_", cheader_filename="SDL2/SDL_keyboard.h")]
 	public enum Keycode {
 		UNKNOWN, RETURN, ESCAPE, BACKSPACE, TAB, SPACE, EXCLAIM,
 		QUOTEDBL, HASH, PERCENT, DOLLAR, AMPERSAND, QUOTE,
@@ -1331,14 +1368,14 @@ namespace SDL {
 		KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP
 	}// Keycode
 	
-	[CCode (cname="SDL_Keymod", cprefix="KMOD_", cheader="SDL2/SDL_keyboard.h")]
+	[CCode (cname="SDL_Keymod", cprefix="KMOD_", cheader_filename="SDL2/SDL_keyboard.h")]
 	public enum Keymod {
 		NONE, LSHIFT, RSHIFT, LCTRL, RCTRL, LALT, RALT,
 		LGUI, RGUI, NUM, CAPS, MODE, RESERVED,
 		CTRL, SHIFT, ALT, GUI
 	}// Keymod
 		
-	[CCode (cname="SDL_Scancode", cprefix="SDL_SCANCODE_", cheader="SDL2/SDL_scancode.h")]
+	[CCode (cname="SDL_Scancode", cprefix="SDL_SCANCODE_", cheader_filename="SDL2/SDL_scancode.h")]
 	public enum Scancode {
 		UNKNOWN, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R,
 		S, T, U, V, W, X, Y, Z,
@@ -1384,7 +1421,7 @@ namespace SDL {
 		KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP, APP1, APP2
 	}// Scancode
 	
-	[CCode (cname="SDL_Keysym", cheader="SDL2/SDL_keyboard.h")]
+	[CCode (cname="SDL_Keysym", cheader_filename="SDL2/SDL_keyboard.h")]
 	[SimpleType]
 	public struct Key {
 		SDL.Scancode scancode;
@@ -1393,7 +1430,7 @@ namespace SDL {
 		uint32 unicode;
 	}// Key
 	
-	[CCode (cheader="SDL2/SDL_keyboard.h")]
+	[CCode (cheader_filename="SDL2/SDL_keyboard.h")]
 	public class Keyboard {
 		[CCode (cname="SDL_GetKeyboardFocus")]
 		public static SDL.Window get_focus();
@@ -1426,7 +1463,7 @@ namespace SDL {
 		public static SDL.Keycode keycode_fromname(string name);
 	}// Keyboard
 	
-	[CCode (cheader="SDL2/SDL_keyboard.h")]
+	[CCode (cheader_filename="SDL2/SDL_keyboard.h")]
 	public class TextInput {
 		[CCode (cname="SDL_StartTextInput")]
 		public static void start();
@@ -1441,7 +1478,7 @@ namespace SDL {
 		public static void set_rect(SDL.Rect rect);
 	}// TextInput
 	
-	[CCode (cheader="SDL2/SDL_keyboard.h")]
+	[CCode (cheader_filename="SDL2/SDL_keyboard.h")]
 	public class ScreenKeyboard {
 		[CCode (cname="SDL_HasScreenKeyboardSupport")]
 		public static bool has_support();
@@ -1450,7 +1487,7 @@ namespace SDL {
 		public static bool is_shown(SDL.Window window);
 	}
 	
-	[CCode (cname="SDL_SystemCursor", cprefix="SDL_SYSTEM_CURSOR_", cheader="SDL2/SDL_mouse.h")]
+	[CCode (cname="SDL_SystemCursor", cprefix="SDL_SYSTEM_CURSOR_", cheader_filename="SDL2/SDL_mouse.h")]
 	public enum SystemCursor {
 		ARROW, IBEAM, WAIT, CROSSHAIR, WAITARROW, SIZENWSE,
 		SIZENESW, SIZEWE, SIZENS, SIZEALL, NO, HAND,
@@ -1465,11 +1502,14 @@ namespace SDL {
 		X1MASK,  X2MASK
 	}// Buttons
 	
-	[CCode (type_id="SDL_Cursor", free_function="SDL_FreeCursor", cheader="SDL2/SDL_mouse.h")]
+	[CCode (type_id="SDL_Cursor", free_function="SDL_FreeCursor", cheader_filename="SDL2/SDL_mouse.h")]
 	[Compact]
 	public class Cursor {
 		[CCode (cname="SDL_GetMouseFocus")]
 		public static SDL.Window get_focus();
+		
+		[CCode (cname="SDL_MouseIsHaptic", cheader_filename="SDL/SDL_haptic.h")]
+		public static int is_haptic();
 		
 		[CCode (cname="SDL_GetMouseState")]
 		public static uint32 get_state(ref int x, ref int y);
@@ -1506,12 +1546,12 @@ namespace SDL {
 		public static int show(int toggle);
 	}// Cursor
 	
-	[CCode (cname="SDL_JoystickGUID", cheader="SDL2/SDL_joystick.h")]
+	[CCode (cname="SDL_JoystickGUID", cheader_filename="SDL2/SDL_joystick.h")]
 	public struct JoystickGUID{
 		uint8 data[16];
 	}
 
-	[CCode (cname="SDL_Joystick", free_function="SDL_JoystickClose", cheader="SDL2/SDL_joystick.h")]
+	[CCode (cname="SDL_Joystick", free_function="SDL_JoystickClose", cheader_filename="SDL2/SDL_joystick.h")]
 	[Compact]
 	public class Joystick {
 		[CCode (cname="SDL_NumJoysticks")]
@@ -1562,6 +1602,9 @@ namespace SDL {
 		[CCode (cname="SDL_JoystickGetAxis")]
 		public int16 get_axis(int axis);
 		
+		[CCode (cname="SDL_JoystickIsHaptic", cheader_filename="SDL/SDL_haptic.h")]
+		public int is_haptic();
+		
 		[CCode (cname="SDL_JoystickGetHat")]
 		public SDL.HatValue get_hat(int hat);
 
@@ -1572,7 +1615,7 @@ namespace SDL {
 		public SDL.ButtonState get_button(int button);
 	}// Joystick
 	
-	[CCode (cname="SDL_Finger", type_id="SDL_Finger", cheader="SDL2/SDL_touch.h")]
+	[CCode (cname="SDL_Finger", type_id="SDL_Finger", cheader_filename="SDL2/SDL_touch.h")]
 	public class Finger {
 		SDL.FingerID id;
 		float x;
@@ -1589,17 +1632,227 @@ namespace SDL {
 		public static SDL.TouchID get_device(int index);
 		
 		[CCode (cname="SDL_GetNumTouchFingers")]
-		public static int num_fingers(SDL.TouchID touchId);
+		public static int num_fingers(SDL.TouchID touch_id);
 		
 		[CCode (cname="SDL_GetTouchFinger")]
-		public Finger(SDL.TouchID touchId, int index);
+		public Finger(SDL.TouchID touch_id, int index);
 	}// Finger
+	
+	///
+	/// Force Feedback
+	///
+	[CCode (cname="Uint8", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
+	public enum HapticDirectionType{
+		POLAR, CARTESIAN, SPHERICAL
+	}
+	[CCode (cname="Uint16", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
+	public enum HapticEffectType{
+		SINE, SQUARE, TRIANGLE, SAWTOOTHUP, SAWTOOTHDOWN, CONSTANT, 
+		CUSTOM, LEFTRIGHT, SPRING, DAMPER, INERTIA, FRICTION, RAMP
+	}
+	[CCode (cname="SDL_HapticDirection", cheader_filename="SDL2/SDL_haptic.h")]
+	[SimpleType]
+	public struct HapticDirection{
+		public HapticDirectionType type;
+		public int32 dir;
+	}
+	[CCode (cname="SDL_HapticPeriodic", cheader_filename="SDL2/SDL_haptic.h")]
+	public struct HapticPeriodic{
+		//Header
+		public HapticEffectType type
+		public HapticDirection direction; 
+		//Replay
+		public uint32 length;
+		public uint16 delay;
+		//Trigger
+		public uint16 button;
+		public uint16 interval
+		//Periodic
+		public uint16 period;
+		public int16 magnitude;
+		public int16 offset;
+		public uint16 phase;
+		//Envelope
+		public uint16 attack_length;
+		public uint16 attack_level;
+		public uint16 fade_langth;
+		public uint16 fade_level;
+	}
+	
+	[CCode (cname="SDL_HapticConstant", cheader_filename="SDL2/SDL_haptic.h")]
+	public struct HapticConstant{
+		//Header
+		public HapticEffectType type
+		public HapticDirection direction; 
+		//Replay
+		public uint32 length;
+		public uint16 delay;
+		//Trigger
+		public uint16 button;
+		public uint16 interval
+		//Constant
+		public int16 level;
+		//Envelope
+		public uint16 attack_length;
+		public uint16 attack_level;
+		public uint16 fade_langth;
+		public uint16 fade_level;
+	}
+	
+	[CCode (cname="SDL_HapticCondition", cheader_filename="SDL2/SDL_haptic.h")]
+	public struct HapticCondition{
+		//Header
+		public HapticEffectType type
+		public HapticDirection direction; 
+		//Replay
+		public uint32 length;
+		public uint16 delay;
+		//Trigger
+		public uint16 button;
+		public uint16 interval
+		//Condition
+		public uint16 right_sat;
+		public uint16 left_sat
+		public int16 right_coeff;
+		public int16 left_coeff;
+		public uint16 deadband;
+		public int16 center;
+		//Envelope
+		public uint16 attack_length;
+		public uint16 attack_level;
+		public uint16 fade_langth;
+		public uint16 fade_level;
+	}
+	[CCode (cname="SDL_HapticRamp", cheader_filename="SDL2/SDL_haptic.h")]
+	public struct HapticRamp{
+		//Header
+		public HapticEffectType type
+		public HapticDirection direction; 
+		//Replay
+		public uint32 length;
+		public uint16 delay;
+		//Trigger
+		public uint16 button;
+		public uint16 interval
+		//Ramp
+		public int16 start;
+		public int16 end;
+		//Envelope
+		public uint16 attack_length;
+		public uint16 attack_level;
+		public uint16 fade_langth;
+		public uint16 fade_level;
+	}
+	[CCode (cname="SDL_HapticLeftRight", cheader_filename="SDL2/SDL_haptic.h")]
+	public struct HapticLeftRight{
+		//Header
+		public HapticEffectType type
+		//Replay
+		public uint32 length;
+		//Rumble
+		public uint16 large_magnitude;
+		public uint16 small_magnitude;
+	}
+	[CCode (cname="SDL_HapticPeriodic", cheader_filename="SDL2/SDL_haptic.h")]
+	public struct HapticPeriodic{
+		//Header
+		public HapticEffectType type
+		public HapticDirection direction; 
+		//Replay
+		public uint32 length;
+		public uint16 delay;
+		//Trigger
+		public uint16 button;
+		public uint16 interval
+		//Custom
+		public uint8 channels;
+		public uint16 period;
+		public uint16 samples;
+		public uint16[] data;
+		//Envelope
+		public uint16 attack_length;
+		public uint16 attack_level;
+		public uint16 fade_langth;
+		public uint16 fade_level;
+	}
+
+	[CCode (cname= "SDL_HapticEffect", has_type_id=false, has_target=false, destroy_function="", cheader_filename="SDL2/SDL_haptic.h")]
+	[SimpleType]
+	public struct HapticEffect{
+		public HapticEffectType type;
+		public HapticConstant constant;
+		public HapticPeriodic periodic;
+		public HapticCondition condition;
+		public HapticRamp ramp;
+		public HapticLeftRight leftright;
+		public HapticCustom custom;
+	}
+	[CCode (cname="SDL_Haptic", destroy_function="SDL_HapticClose", cheader_filename="SDL2/SDL_haptic.h")]
+	[Compact]
+	public class Haptic{
+		[CCode (cname="SDL_HapticOpen")]
+		public Haptic(int device_index);
+		[CCode (cname="SDL_HapticOpenfromJoystick")]
+		public Haptic.from_joystick(Joystick joystick);
+		[CCode (cname="SDL_HapticOpenfromMouse")]
+		public Haptic.from_mouse();
+		[CCode (cname="SDL_NumHaptics")]
+		public static int num_devices();
+		[CCode (cname="SDL_HapticName")]
+		public static unowned string device_name(int device_index);
+		[CCode (cname="SDL_HapticNewEffect")]
+		public int upload_effect(HapticEffect effect);
+		[CCode (cname="SDL_HapticRunEffect")]
+		public int run_effect(int effect_id);
+		[CCode (cname="SDl_HapticUpdateEffect")]
+		public int update_effect(int effect_id, HapticEffect new_effect);
+		[CCode (cname="SDL_HapticDestroyEffect")]
+		public int destroy_effect(int effect_id);
+		[CCode (cname="SDL_HapticGetEffectStatus")]
+		public int get_effect_status(int effect_id);
+		//Returns negative on error, that's why it's not a bool
+		[CCode (cname="SDL_HapticEffectSupported")]
+		public int supports_effect(HapticEffect effect);
+		[CCode (cname="SDL_HapticNumEffects")]
+		public int effects_capacity();
+		[CCode (cname="SDL_HapticNumEffectsPlaying")]
+		public int effects_playing();
+		[CCode (cname="SDL_HapticNumAxes")]
+		public int num_axes();
+		[CCode (cname="SDL_HapticIndex")]
+		public int get_index();
+		[CCode (cname="SDL_HapticSetGain")]
+		public int set_gain(int gain);
+		[CCode (cname="SDL_HapticsetAutocenter")]
+		public int set_autocenter(int percentage);
+		[CCode (cname="SDL_HapticRumbleInit")]
+		public int rumble_init();
+		[CCode (cname="SDL_HapticRumblePlay")]
+		public int rumble_play();
+		[CCode (cname="SDL_HapticRumbleStop")]
+		public int rumble_stop();
+		[CCode (cname="SDL_HapticRumbleSupported")]
+		public int rumble_supported();
+		[CCode (cname="SDL_HapticOpened")]
+		public bool is_open();
+		[CCode (cname="SDL_HapticQuery")]
+		public uint query();
+		[CCode (cname="SDL_HapticPause")]
+		public int pause();
+		[CCode (cname="SDL_HapticUnpause")]
+		public int resume();
+		[CCode (cname="SDL_HapticStopAll")]
+		public int stop();
+		[CCode (cname="SDL_HapticStopEffect")]
+		public int stop_effect(int effect_id);
+	
+	}//Force Feedback
 	
 	
 	///
 	/// Audio
 	///
-	[CCode (cname="Uint16", cprefix="AUDIO_", cheader="SDL2/SDL_audio.h")]
+	[CCode (cname="Uint16", cprefix="AUDIO_", cheader_filename="SDL2/SDL_audio.h")]
 	public enum AudioFormat {
 		U8, S8, U16LSB, S16LSB, U16MSB, S16MSB, U16, S16,
 		S32LSB, S32MSB, S32, F32LSB, F32MSB, F32,
@@ -1611,7 +1864,7 @@ namespace SDL {
 		STOPPED, PLAYING, PAUSED
 	}// AudioStatus
 	
-	[CCode (cname="int", cprefix="SDL_AUDIO_ALLOW_", cheader="SDL2/SDL_audio.h")]
+	[CCode (cname="int", cprefix="SDL_AUDIO_ALLOW_", cheader_filename="SDL2/SDL_audio.h")]
 	public enum AudioAllowFlags {
 		FREQUENCY_CHANGE,
 		FORMAT_CHANGE,
@@ -1619,10 +1872,10 @@ namespace SDL {
 		ANY_CHANGE
 	}// AudioAllowFlags
 
-	[CCode (cname="SDL_AudioCallback", instance_pos = 0.1, cheader="SDL2/SDL_audio.h")]
+	[CCode (cname="SDL_AudioCallback", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
 	public delegate void AudioCallback(void *userdata, uint8[] stream, int len);
 
-	[CCode (cname="SDL_AudioSpec", cheader="SDL2/SDL_audio.h")]
+	[CCode (cname="SDL_AudioSpec", cheader_filename="SDL2/SDL_audio.h")]
 	public struct AudioSpec {
 		public int freq;
 		public SDL.AudioFormat format;
@@ -1635,10 +1888,10 @@ namespace SDL {
 		public unowned SDL.AudioCallback callback;
 	}// AudioSpec
 	
-	[CCode (cname="SDL_AudioFilter", instance_pos = 0.1, cheader="SDL2/SDL_audio.h")]
+	[CCode (cname="SDL_AudioFilter", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
 	public delegate void AudioFilter(AudioConverter cvt, AudioFormat format);
 
-	[CCode (cname="SDL_AudioCVT", cheader="SDL2/SDL_audio.h")]
+	[CCode (cname="SDL_AudioCVT", cheader_filename="SDL2/SDL_audio.h")]
 	[Compact]
 	public class AudioConverter {
 		public int needed;
@@ -1663,10 +1916,10 @@ namespace SDL {
 		public int convert();
 	}// AudioConverter
 	
-	[CCode (cname="SDL_AudioDeviceID", cheader="SDL2/SDL_audio.h")]
+	[CCode (cname="SDL_AudioDeviceID", cheader_filename="SDL2/SDL_audio.h")]
 	public struct AudioDeviceID {}// AudioDeviceID
 
-	[CCode (cheader="SDL2/SDL_audio.h")]
+	[CCode (cheader_filename="SDL2/SDL_audio.h")]
 	[Compact]
 	public class Audio {
 		[CCode (cname="SDL_GetNumAudioDrivers")]
@@ -1753,10 +2006,10 @@ namespace SDL {
 	///
 	/// Timers
 	///
-	[CCode (cname="SDL_TimerCallback", cheader="SDL2/SDL_timer.h")]
+	[CCode (cname="SDL_TimerCallback", cheader_filename="SDL2/SDL_timer.h")]
 	public delegate uint32 TimerCallback(uint32 interval,  void *param);
 
-	[CCode (cname="SDL_TimerID", ref_function="", unref_function="", cheader="SDL2/SDL_timer.h")]
+	[CCode (cname="SDL_TimerID", ref_function="", unref_function="", cheader_filename="SDL2/SDL_timer.h")]
 	[Compact]
 	public class Timer {
 		[CCode (cname="SDL_GetTicks")]
@@ -1782,7 +2035,7 @@ namespace SDL {
 	///
 	/// Render
 	///
-	[CCode (cname="SDL_RendererFlags", cprefix="SDL_RENDERER_", cheader="SDL2/SDL_render.h")]
+	[CCode (cname="SDL_RendererFlags", cprefix="SDL_RENDERER_", cheader_filename="SDL2/SDL_render.h")]
 	public enum RendererFlags {
 		SOFTWARE, ACCELERATED,
 		PRESENTVSYNC, TARGETTEXTURE
