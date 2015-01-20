@@ -325,9 +325,8 @@ namespace SDL {
 		[CCode (cname="SDL_LoadBMP_RW")]
 		public Surface.from_bmp_rw(SDL.RWops src, int freesrc=0);
 
-		public Surface.from_bmp(string file){
-			Surface.from_bmp_rw(new SDL.RWops.from_file(file, "rb"), 1);
-		}
+		[CCode (cname="SDL_LoadBMP")]
+		public Surface.from_bmp(string file);
 
 		[CCode (cname="SDL_SetSurfacePalette")]
 		public int set_palette (SDL.Palette palette);
