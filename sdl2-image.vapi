@@ -22,10 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 //FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
-//Maintainer: PedroHLC and Txasatonga
-
-//FOR: SDL2.0 IMAGE - This is not official, to be futurely changed for the official binding
-//Maintainer: PedroHLC
+//Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 [CCode (cheader_filename = "SDL2/SDL_image.h")]
 namespace SDLImage {
