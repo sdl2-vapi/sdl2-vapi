@@ -978,7 +978,7 @@ namespace SDL {
 	[CCode (cname="SDL_WindowEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct WindowEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		uint8 event;
 		uint8 padding1;
 		uint8 padding2;
@@ -990,7 +990,7 @@ namespace SDL {
 	[CCode (cname="SDL_KeyboardEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct KeyboardEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		uint8 state;
 		uint8 repeat;
 		uint8 padding2;
@@ -1004,7 +1004,7 @@ namespace SDL {
 		[CCode (cname="SDL_TEXTEDITINGEVENT_TEXT_SIZE")]
 		public static const uint8 TEXT_SIZE;
 		
-		uint32 windowID;
+		uint32 window_id;
 		string text; //Or it would be better a string?
 		int32 start;
 		int32 length;
@@ -1016,14 +1016,14 @@ namespace SDL {
 		[CCode (cname="SDL_TEXTINPUTEVENT_TEXT_SIZE")]
 		public static const uint8 TEXT_SIZE;
 		
-		uint32 windowID;
+		uint32 window_id;
 		string text; //is better a string?
 	}// TextInputEvent
 	
 	[CCode (cname="SDL_MouseMotionEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct MouseMotionEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		uint32 which;
 		uint8 state;
 		uint8 padding1;
@@ -1038,7 +1038,7 @@ namespace SDL {
 	[CCode (cname="SDL_MouseButtonEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct MouseButtonEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		uint32 which;
 		uint8 button;
 		uint8 state;
@@ -1051,7 +1051,7 @@ namespace SDL {
 	[CCode (cname="SDL_MouseWheelEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct MouseWheelEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		uint32 which;
 		int32 x;
 		int32 y;
@@ -1060,7 +1060,7 @@ namespace SDL {
 	[CCode (cname="SDL_JoyAxisEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyAxisEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 axis;
 		uint8 padding1;
@@ -1073,7 +1073,7 @@ namespace SDL {
 	[CCode (cname="SDL_JoyBallEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyBallEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 ball;
 		uint8 padding1;
@@ -1093,7 +1093,7 @@ namespace SDL {
 	[CCode (cname="SDL_JoyHatEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyHatEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 hat;
 		SDL.HatValue value;
@@ -1104,7 +1104,7 @@ namespace SDL {
 	[CCode (cname="SDL_JoyButtonEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyButtonEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 button;
 		uint8 state;
@@ -1115,14 +1115,14 @@ namespace SDL {
 	[CCode (cname="SDL_JoyDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyDeviceEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 	}// JoyDeviceEvent
 	
 	[CCode (cname="SDL_ControllerAxisEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct ControllerAxisEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 axis;
 		uint8 padding1;
@@ -1135,7 +1135,7 @@ namespace SDL {
 	[CCode (cname="SDL_ControllerButtonEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct ControllerButtonEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 button;
 		uint8 state;
@@ -1146,7 +1146,7 @@ namespace SDL {
 	[CCode (cname="SDL_ControllerDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct ControllerDeviceEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		SDL.JoystickID which;
 	}// ControllerDeviceEvent
 	
@@ -1189,7 +1189,7 @@ namespace SDL {
 	[CCode (cname="SDL_DropEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct DropEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		int32 code;
 		void *data1;
 		void *data2;
@@ -1198,7 +1198,7 @@ namespace SDL {
 	[CCode (cname="SDL_UserEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct UserEvent : GenericEvent {
-		uint32 windowID;
+		uint32 window_id;
 		string file;
 	}// UserEvent
 	
@@ -1636,6 +1636,12 @@ namespace SDL {
 		[CCode (cname="SDL_GetTouchFinger")]
 		public Finger(SDL.TouchID touch_id, int index);
 	}// Finger
+	
+	///
+	/// Game Controller
+	///
+	
+	
 	
 	///
 	/// Force Feedback
