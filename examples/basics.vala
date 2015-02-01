@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 //FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
-//Maintainer: PedroHLC and Txasatonga
+//Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 // Compilation command:
 // valac -o "Example_1" --pkg gee-1.0 --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx "Example_1.vala"
@@ -36,28 +36,25 @@ using SDLMixer;
 public class Example 
 	{
 	protected static SDL.Window window;
-	protected static SDL.Renderer WIN_RENDERER;
+	protected static SDL.Renderer window_renderer;
 
-	public static void main () 
-		{
+	public static void main()	{
 		SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
 		SDLTTF.init();
 		
-		window = new Window ("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Window.POS_CENTERED, Window.POS_CENTERED, 800,600, WindowFlags.RESIZABLE);
+		window = new SDL.Window("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Window.POS_CENTERED, Window.POS_CENTERED, 800,600, WindowFlags.RESIZABLE);
 		var a= SDLMixer.open(44100,SDL.AudioFormat.S16LSB,2,4096); stdout.printf("%d\n",a);
-		WIN_RENDERER = new SDL.Renderer (window, -1, SDL.RendererFlags.ACCELERATED | SDL.RendererFlags.PRESENTVSYNC);
-		
-		window.show ();
-		Event e;
+		window_renderer = new SDL.Renderer(window, -1, SDL.RendererFlags.ACCELERATED | SDL.RendererFlags.PRESENTVSYNC);
+		window.show();
 		// Open surface and after transform to texture
-		SDL.Surface imagen= SDLImage.load("boy.png");
-		SDL.Texture Timagen= new Texture.from_surface (WIN_RENDERER, imagen);		
+		SDL.Surface img= SDLImage.load("boy.png");
+		SDL.Texture texture_img= new Texture.from_surface (window_renderer, img);		
 		
 		// Load music
-		Music musica= new Music ("yahoo.ogg");
+		Music sfx= new Music("yahoo.ogg");
 		
 		// Load font as surface and transform to texture.
-		Font Fuente= new Font("KatamotzIkasi.ttf", 30);
+		Font font= new Font("KatamotzIkasi.ttf", 30);
 		string text;
 		int seconds;
 		int percentage;
@@ -79,53 +76,39 @@ public class Example
 				text = "We don't really know what's going on with your system energy";
 				break;
 		}
-		SDL.Surface letras= Fuente.render_blended_wrapped_utf8(text, {10,10,10,255}, 240);
-		SDL.Texture Tletras = new Texture.from_surface (WIN_RENDERER, letras);	
-
+		SDL.Surface info= font.render_blended_wrapped_utf8(text, {10,10,10,255}, 240);
+		SDL.Texture texture_info = new Texture.from_surface(window_renderer, info);	
 		var row =0;
 		var column =0;
-
 		//Main loop
-		for (e = {0}; e.type != EventType.QUIT; Event.poll (out e)){
-			WIN_RENDERER.clear();
-			WIN_RENDERER.set_draw_color(100, 200, 200, 250);
-			WIN_RENDERER.fill_rect( {0, 0, 800, 600} ) ;
+		for (Event e = {0}; e.type != EventType.QUIT; Event.poll(out e)){
+			window_renderer.clear();
+			window_renderer.set_draw_color(100, 200, 200, 250);
+			window_renderer.fill_rect( {0, 0, 800, 600} ) ;
 			
-			if (e.type==EventType.KEYDOWN)
-				{
-				if ( e.key.keysym.sym== Keycode.DOWN)
-					{
+			if (e.type==EventType.KEYDOWN){
+				if ( e.key.keysym.sym== Keycode.DOWN){
 					row+=10;
-					}
-				if ( e.key.keysym.sym== Keycode.UP)
-					{
-					row-=10;
-					}
-					
-				if ( e.key.keysym.sym== Keycode.LEFT)
-					{
-					column-=20;
-					}
-				if ( e.key.keysym.sym== Keycode.RIGHT)
-					{
-					column+=20;
-					}
-				if ( e.key.keysym.sym== Keycode.SPACE) // When press space sounds.
-					{
-					musica.play(1);
-					}
-			
 				}
-						
-			WIN_RENDERER.copy (Timagen, {0, 0, imagen.w, imagen.h} , {column, row, imagen.w*2, imagen.h*2});
-			WIN_RENDERER.copy (Tletras, {0, 0, letras.w, letras.h} , {500, 400, letras.w, letras.h});
-			WIN_RENDERER.present();
-			window.update_surface ();
-			SDL.Timer.delay(10);
-
+				if ( e.key.keysym.sym== Keycode.UP)	{
+					row-=10;
+				}
+					
+				if ( e.key.keysym.sym== Keycode.LEFT){
+					column-=20;
+				}
+				if ( e.key.keysym.sym== Keycode.RIGHT){
+					column+=20;
+				}
+				if ( e.key.keysym.sym== Keycode.SPACE){ // When press space sounds.
+					sfx.play(1);
+				}
 			}
-
-	window.destroy (); //Actually useless since it is called when window is disposed
-	SDL.quit ();
+		window_renderer.copy(texture_img, {0, 0, img.w, img.h} , {column, row, img.w*2, img.h*2});
+		window_renderer.copy(texture_info, {0, 0, info.w, info.h} , {500, 400, info.w, info.h});			window_renderer.present();
+		window.update_surface();
+		SDL.Timer.delay(10);
+		}
+	SDL.quit();
 	}
 }
