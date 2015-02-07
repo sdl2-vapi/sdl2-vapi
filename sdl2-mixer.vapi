@@ -30,13 +30,13 @@ namespace SDLMixer {
 	public static unowned SDL.Version linked();
 
 	[CCode (cname="Mix_OpenAudio")]
-	public static int open(int frequency, uint16 format, int channels, int chunksize);
+	public static int open(int frequency, SDL.Audio.Format format, int channels, int chunksize);
 
 	[CCode (cname="Mix_CloseAudio")]
 	public static void close();
 
 	[CCode (cname="Mix_QuerySpec")]
-	public static int query(ref int frequency, ref uint16 format, ref int channels);
+	public static int query(ref int frequency, ref SDL.Audio.Format format, ref int channels);
 
 	[CCode (cname="Mix_SetPostMix")]
 	public static void set_post_mixer(MixFunction f, void* arg);

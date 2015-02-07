@@ -786,28 +786,27 @@ namespace SDL {
 	///
 	/// OpenGL
 	///
-	[CCode (cname="SDL_GLattr", cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]
-	public enum GLattr {
-		RED_SIZE, GREEN_SIZE, BLUE_SIZE, ALPHA_SIZE, 
-		BUFFER_SIZE, DOUBLEBUFFER, DEPTH_SIZE, STENCIL_SIZE, 
-		ACCUM_RED_SIZE, ACCUM_GREEN_SIZE, ACCUM_BLUE_SIZE, 
-		ACCUM_ALPHA_SIZE, STEREO, MULTISAMPLEBUFFERS, 
-		MULTISAMPLESAMPLES, ACCELERATED_VISUAL, RETAINED_BACKING,
-		CONTEXT_MAJOR_VERSION, CONTEXT_MINOR_VERSION,
-		CONTEXT_EGL, CONTEXT_FLAGS, CONTEXT_PROFILE_MASK,
-		SHARE_WITH_CURRENT_CONTEXT
-	}// GLattr
-
-	[CCode (type_id="SDL_GLContext", cname="SDL_GLContext", cheader_filename="SDL2/SDL_video.h")]
-	public class GLContext{
-		// Private type
-	}// GLContext
+	[CCode (cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]	
+	namespace GL {
 	
+		[CCode (type_id="SDL_GLContext", cname="SDL_GLContext", destroy_function="SDL_GL_DeleteContext", cheader_filename="SDL2/SDL_video.h")]
+		public class Context{
+			[CCode (cname="SDL_GL_CreateContext")]
+			public Context(SDL.Window window);
+		}// GLContext
+		
+		[CCode (cname="SDL_GLattr", cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]
+		public enum Attributes{
+			RED_SIZE, GREEN_SIZE, BLUE_SIZE, ALPHA_SIZE, 
+			BUFFER_SIZE, DOUBLEBUFFER, DEPTH_SIZE, STENCIL_SIZE, 
+			ACCUM_RED_SIZE, ACCUM_GREEN_SIZE, ACCUM_BLUE_SIZE, 
+			ACCUM_ALPHA_SIZE, STEREO, MULTISAMPLEBUFFERS, 
+			MULTISAMPLESAMPLES, ACCELERATED_VISUAL, RETAINED_BACKING,
+			CONTEXT_MAJOR_VERSION, CONTEXT_MINOR_VERSION,
+			CONTEXT_EGL, CONTEXT_FLAGS, CONTEXT_PROFILE_MASK,
+			SHARE_WITH_CURRENT_CONTEXT
+		}// GLattr
 	
-
-	[CCode (cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]
-	[Compact]
-	public class GL {
 		[CCode (cname="SDL_GL_LoadLibrary")]
 		public static int load_library(string path);
 
@@ -820,17 +819,14 @@ namespace SDL {
 		[CCode (cname="SDL_GL_ExtensionSupported")]
 		public static bool is_extension_supported(string extension);
 
-		[CCode (cname="SDL_GL_SetAttribute")]
-		public static int set_attribute(SDL.GLattr attr, int val);
+		[CCode (cname="SDL_GL_SetAttributes")]
+		public static int set_attribute(SDL.GL.Attributes attr, int val);
 
-		[CCode (cname="SDL_GL_GetAttribute")]
-		public static int get_attribute(SDL.GLattr attr, ref int val);
-
-		[CCode (cname="SDL_GL_CreateContext")]
-		public static SDL.GLContext create_context(SDL.Window window);
+		[CCode (cname="SDL_GL_GetAttributes")]
+		public static int get_attribute(SDL.GL.Attributes attr, ref int val);
 
 		[CCode (cname="SDL_GL_MakeCurrent")]
-		public static int make_current(SDL.Window window, SDL.GLContext context);
+		public static int make_current(SDL.Window window, SDL.GL.Context context);
 
 		[CCode (cname="SDL_GL_SetSwapInterval")]
 		public static int set_swapinterval(int interval);
@@ -841,75 +837,68 @@ namespace SDL {
 		[CCode (cname="SDL_GL_SwapWindow")]
 		public static void swap_window(SDL.Window window);
 
-		[CCode (cname="SDL_GL_DeleteContext")]
-		public static void delete_context(SDL.GLContext context);
+		
 	}// GL
 	
 	///
 	/// MessageBox
 	///
-	[Flags, CCode (cname="SDL_MessageBoxFlags", cprefix="SDL_MESSAGEBOX_", cheader_filename="SDL2/SDL_messagebox.h")]
-	public enum MessageBoxFlags {
-		ERROR, 	   	/**< error dialog */
-		WARNING,   	/**< warning dialog */
-		INFORMATION  /**< informational dialog */
-	} // MessageBoxFlags;
-	
-	[Flags, CCode (cname="SDL_MessageBoxButtonFlags", cprefix="SDL_MESSAGEBOX_BUTTON_", cheader_filename="SDL2/SDL_messagebox.h")]
-	public enum MessageBoxButtonFlags{
-    RETURNKEY_DEFAULT ,  /**< Marks the default button when return is hit */
-    ESCAPEKEY_DEFAULT    /**< Marks the default button when escape is hit */
-	} //MessageBoxButtonFlags;
+	[CCode (cprefix="SDL_", cheader_filename="SDL2/SDL_messagebox.h")]
+	namespace MessageBox{
+		[Flags, CCode (cname="SDL_MessageBoxFlags", cprefix="SDL_MESSAGEBOX_", cheader_filename="SDL2/SDL_messagebox.h")]
+		public enum Flags {
+			ERROR, 	   	/**< error dialog */
+			WARNING,   	/**< warning dialog */
+			INFORMATION  /**< informational dialog */
+		} // MessageBoxFlags;
+		[Flags, CCode (cname="SDL_MessageBoxButtonFlags", cprefix="SDL_MESSAGEBOX_BUTTON_", cheader_filename="SDL2/SDL_messagebox.h")]
+		public enum ButtonFlags{
+		    RETURNKEY_DEFAULT ,  /**< Marks the default button when return is hit */
+		    ESCAPEKEY_DEFAULT    /**< Marks the default button when escape is hit */
+		} //MessageBoxButtonFlags;
+		[Flags, CCode (cname="SDL_MessageBoxColorType", cprefix="SDL_MESSAGEBOX_COLOR_", cheader_filename="SDL2/SDL_messagebox.h")]
+		public enum ColorType{
+		    BACKGROUND,
+		    TEXT,
+		    BUTTON_BORDER,
+		    BUTTON_BACKGROUND,
+		    BUTTON_SELECTED,
+		    MAX
+		} //MessageBoxColorType;
+		[CCode (cname="SDL_MessageBoxButtonData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+		public struct ButtonData{
+		    MessageBox.ButtonFlags flags;       /**< ::SDL_MessageBoxButtonFlags */
+		    int buttonid;       /**< User defined button id (value returned via SDL_ShowMessageBox) */
+		    string text;  /**< The UTF-8 button text */
+		} //MessageBoxButtonData;
+		[CCode (cname="SDL_MessageBoxColor", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+		public struct Color{
+		    uint8 r;
+		    uint8 g;
+		    uint8 b;
+		} // MessageBoxColor;
+		[CCode (cname="SDL_MessageBoxColorScheme", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+		public struct ColorScheme{
+			SDL.MessageBox.Color colors [SDL.MessageBox.ColorType.MAX];
+		} // MessageBoxColorScheme;
 
-	[Flags, CCode (cname="SDL_MessageBoxColorType", cprefix="SDL_MESSAGEBOX_COLOR_", cheader_filename="SDL2/SDL_messagebox.h")]
-	public enum MessageBoxColorType{
-    BACKGROUND,
-    TEXT,
-    BUTTON_BORDER,
-    BUTTON_BACKGROUND,
-    BUTTON_SELECTED,
-    MAX
-	} //MessageBoxColorType;
-
-	[CCode (cname="SDL_MessageBoxButtonData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
-	public struct MessageBoxButtonData{
-    uint32 flags;       /**< ::SDL_MessageBoxButtonFlags */
-    int buttonid;       /**< User defined button id (value returned via SDL_ShowMessageBox) */
-    string text;  /**< The UTF-8 button text */
-	} //MessageBoxButtonData;
-
-	[CCode (cname="SDL_MessageBoxColor", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
-	public struct MessageBoxColor{
-    uint8 r;
-    uint8 g;
-    uint8 b;
-	} // MessageBoxColor;
-
-	[CCode (cname="SDL_MessageBoxColorScheme", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
-	public struct MessageBoxColorScheme{
-    //SDL.MessageBoxColor colors [SDL.MessageBoxColorType.MAX];
-	} // MessageBoxColorScheme;
-
-
-	[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
-	public struct MessageBoxData {
-    uint32 flags;                       /**< ::SDL_MessageBoxFlags */
-    SDL.Window window;                 /**< Parent window, can be NULL */
-    string title;                  /**< UTF-8 title */
-    string message;                /**< UTF-8 message text */
-    int numbuttons;
-    SDL.MessageBoxButtonData buttons;
-    SDL.MessageBoxColorScheme colorScheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
-	} //MessageBoxData;
-
-
-	[CCode (cprefix="SDL_", cname="SDL_ShowSimpleMessageBox", cheader_filename="SDL2/SDL_messagebox.h")]
-	public class MessageBox{
+		[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
+		public struct Data {
+		    MessageBox.Flags flags;                       /**< ::SDL_MessageBoxFlags */
+		    SDL.Window? window;                 /**< Parent window, can be NULL */
+		    string title;                  /**< UTF-8 title */
+		    string message;                /**< UTF-8 message text */
+		    int numbuttons;
+		    SDL.MessageBox.ButtonData buttons;
+		    SDL.MessageBox.ColorScheme? colorScheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
+		} //MessageBoxData;
+		
 		[CCode (cname="SDL_ShowSimpleMessageBox")]
 		public static int simple_show(uint32 flags, string title, string message, SDL.Window window);
-	
+
 		[CCode (cname="SDL_ShowMessageBox")]
-		public static int show(MessageBoxData data, int buttonid);
+		public static int show(MessageBox.Data data, int buttonid);
+	
 	}// MessageBox
 	
 	
@@ -1066,7 +1055,7 @@ namespace SDL {
 		uint8 padding1;
 		uint8 padding2;
 		uint8 padding3;
-		int16 value;
+		int16 @value;
 		uint16 padding4;
 	}// JoyAxisEvent
 	
@@ -1128,7 +1117,7 @@ namespace SDL {
 		uint8 padding1;
 		uint8 padding2;
 		uint8 padding3;
-		int16 value;
+		int16 @value;
 		uint16 padding4;
 	}// ControllerAxisEvent
 	
@@ -1153,8 +1142,8 @@ namespace SDL {
 	[CCode (cname="SDL_TouchFingerEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct TouchFingerEvent : GenericEvent {
-		SDL.TouchID touchId;
-		SDL.FingerID fingerId;
+		SDL.TouchID touch_id;
+		SDL.FingerID finger_id;
 		float x;
 		float y;
 		float dx;
@@ -1165,22 +1154,22 @@ namespace SDL {
 	[CCode (cname="SDL_MultiGestureEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct MultiGestureEvent : GenericEvent {
-		SDL.TouchID touchId;
+		SDL.TouchID touch_id;
 		float dTheta;
 		float dDist;
 		float x;
 		float y;
 		float pressure;
-		uint16 numFingers;
+		uint16 num_fingers;
 		uint16 padding;
 	}// MultiGestureEvent
 	
 	[CCode (cname="SDL_DollarGestureEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct DollarGestureEvent : GenericEvent {
-		SDL.TouchID touchId;
-		SDL.GestureID gestureId;
-		uint32 numFingers;
+		SDL.TouchID touch_id;
+		SDL.GestureID gesture_id;
+		uint32 num_fingers;
 		float error;
 		float x;
 		float y;
@@ -1536,10 +1525,10 @@ namespace SDL {
 		public Cursor.from_system(SDL.SystemCursor id);
 
 		[CCode (cname="SDL_SetCursor")]
-		public static void set(SDL.Cursor cursor);
+		public void set_active();
 
 		[CCode (cname="SDL_GetCursor")]
-		public static SDL.Cursor get();
+		public static SDL.Cursor get_active();
 
 		[CCode (cname="SDL_ShowCursor")]
 		public static int show(int toggle);
@@ -1640,8 +1629,10 @@ namespace SDL {
 	///
 	/// Game Controller
 	///
-	
-	
+	[CCode (cprefix="SDL_CONTROLLER_AXIS_", cheader_filename="SDL2/SDL_gamecontroller.h")]
+	public enum GameControllerAxis{
+		INVALID, LEFTX, LEFTY, RIGHTX, RIGHTY, TRIGGERLEFT, TRIGGERRIGHT, MAX
+	}
 	
 	///
 	/// Force Feedback
@@ -1857,76 +1848,77 @@ namespace SDL {
 	///
 	/// Audio
 	///
-	[CCode (cname="Uint16", cprefix="AUDIO_", cheader_filename="SDL2/SDL_audio.h")]
-	public enum AudioFormat {
+	
+	[CCode (cheader_filename="SDL2/SDL_audio.h")]
+	namespace Audio {
+		[CCode (cname="Uint16", cprefix="AUDIO_", cheader_filename="SDL2/SDL_audio.h")]
+		public enum Format {
 		U8, S8, U16LSB, S16LSB, U16MSB, S16MSB, U16, S16,
 		S32LSB, S32MSB, S32, F32LSB, F32MSB, F32,
 		U16SYS, S16SYS, U32SYS, S32SYS,
-	}// AudioFormat
+		}// AudioFormat
 
-	[CCode (cname="int", cprefix="SDL_AUDIO_")]
-	public enum AudioStatus {
-		STOPPED, PLAYING, PAUSED
-	}// AudioStatus
+		[CCode (cname="int", cprefix="SDL_AUDIO_")]
+		public enum Status {
+			STOPPED, PLAYING, PAUSED
+		}// AudioStatus
 	
-	[CCode (cname="int", cprefix="SDL_AUDIO_ALLOW_", cheader_filename="SDL2/SDL_audio.h")]
-	public enum AudioAllowFlags {
-		FREQUENCY_CHANGE,
-		FORMAT_CHANGE,
-		CHANNELS_CHANGE,
-		ANY_CHANGE
-	}// AudioAllowFlags
+			[CCode (cname="int", cprefix="SDL_AUDIO_ALLOW_", cheader_filename="SDL2/SDL_audio.h")]
+		public enum AllowFlags {
+			FREQUENCY_CHANGE,
+			FORMAT_CHANGE,
+			CHANNELS_CHANGE,
+			ANY_CHANGE
+		}// AudioAllowFlags
 
-	[CCode (cname="SDL_AudioCallback", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
-	public delegate void AudioCallback(void *userdata, uint8[] stream, int len);
+		[CCode (cname="SDL_AudioCallback", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
+		public delegate void Callback(void *userdata, uint8[] stream, int len);
 
-	[CCode (cname="SDL_AudioSpec", cheader_filename="SDL2/SDL_audio.h")]
-	public struct AudioSpec {
-		public int freq;
-		public SDL.AudioFormat format;
-		public uint8 channels;
-		public uint8 silence;
-		public uint16 samples;
-		public uint16 padding;
-		public uint32 size;
-		[CCode (delegate_target_cname = "userdata")]
-		public unowned SDL.AudioCallback callback;
-	}// AudioSpec
-	
-	[CCode (cname="SDL_AudioFilter", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
-	public delegate void AudioFilter(AudioConverter cvt, AudioFormat format);
+		[CCode (cname="SDL_AudioSpec", cheader_filename="SDL2/SDL_audio.h")]
+		public struct Spec {
+			public int freq;
+			public SDL.Audio.Format format;
+			public uint8 channels;
+			public uint8 silence;
+			public uint16 samples;
+			public uint16 padding;
+			public uint32 size;
+			[CCode (delegate_target_cname = "userdata")]
+			public unowned SDL.Audio.Callback callback;
+		}// AudioSpec
+		
+		[CCode (cname="SDL_AudioFilter", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
+		public delegate void Filter(Audio.Converter cvt, Audio.Format format);
 
-	[CCode (cname="SDL_AudioCVT", cheader_filename="SDL2/SDL_audio.h")]
-	[Compact]
-	public class AudioConverter {
-		public int needed;
-		public SDL.AudioFormat src_format;
-		public SDL.AudioFormat dst_format;
-		public double rate_incr;
+		[CCode (cname="SDL_AudioCVT", cheader_filename="SDL2/SDL_audio.h")]
+		public struct Converter {
+			public int needed;
+			public SDL.Audio.Format src_format;
+			public SDL.Audio.Format dst_format;
+			public double rate_incr;
+			public uint8* buf;
+			public int len;
+			public int len_cvt;
+			public int len_mult;
+			public double len_ratio;
+			public Audio.Filter filters[10];
+			public int filter_index;
 
-		public uint8* buf;
-		public int len;
-		public int len_cvt;
-		public int len_mult;
-		public double len_ratio;
-		public SDL.AudioFilter filters[10];
-		public int filter_index;
-
-		[CCode (cname="SDL_BuildAudioCVT")]
-		public static int build(AudioConverter cvt, AudioFormat src_format, 
-			uchar src_channels, int src_rate, AudioFormat dst_format, 
+			[CCode (cname="SDL_BuildAudioCVT")]
+			public static int build(Audio.Converter cvt, Audio.Format src_format, 
+			uchar src_channels, int src_rate, Audio.Format dst_format, 
 			uchar dst_channels, int dst_rate);
 
-		[CCode (cname="SDL_ConvertAudio")]
-		public int convert();
-	}// AudioConverter
+			[CCode (cname="SDL_ConvertAudio")]
+			public int convert();
+		}// AudioConverter
 	
-	[CCode (cname="SDL_AudioDeviceID", cheader_filename="SDL2/SDL_audio.h")]
-	public struct AudioDeviceID {}// AudioDeviceID
+		[CCode (cname="SDL_AudioDeviceID", has_type_id = false, cheader_filename="SDL2/SDL_audio.h")]
+		[SimpleType]
+		[IntegerType (rank = 7)]
+		public struct DeviceID : uint32 {}// AudioDeviceID
 
-	[CCode (cheader_filename="SDL2/SDL_audio.h")]
-	[Compact]
-	public class Audio {
+	
 		[CCode (cname="SDL_GetNumAudioDrivers")]
 		public static int num_drivers();
 		
@@ -1952,26 +1944,26 @@ namespace SDL {
 		public static unowned string get_devicename(int index);
 		
 		[CCode (cname="SDL_OpenAudioDevice")]
-		public static SDL.AudioDeviceID open_device(string device,
-			int iscapture, SDL.AudioSpec desired, SDL.AudioSpec obtained,
+		public static Audio.DeviceID open_device(string device,
+			int iscapture, Audio.Spec desired, Audio.Spec obtained,
 				int allowed_changes);
 
 		[CCode (cname="SDL_GetAudioStatus")]
-		public static SDL.AudioStatus status();
+		public static Audio.Status status();
 
 		[CCode (cname="SDL_GetAudioDeviceStatus")]
-		public static SDL.AudioStatus status_device(SDL.AudioDeviceID dev);
+		public static Audio.Status status_device(Audio.DeviceID dev);
 		
 		[CCode (cname="SDL_PauseAudio")]
 		public static void pause(int pause_on);
 		
 		[CCode (cname="SDL_PauseAudioDevice")]
-		public static void pause_device(SDL.AudioDeviceID dev, int pause_on);
+		public static void pause_device(Audio.DeviceID dev, int pause_on);
 		
 		[CCode (cname="SDL_LoadWAV_RW")]
-		public static unowned AudioSpec? load_rw(RWops src, int freesrc, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len);
+		public static unowned Audio.Spec? load_rw(RWops src, int freesrc, ref Audio.Spec spec, out uint8[] audio_buf, out uint32 audio_len);
 
-		public static unowned AudioSpec? load(string file, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len){
+		public static unowned Audio.Spec? load(string file, ref Audio.Spec spec, out uint8[] audio_buf, out uint32 audio_len){
 			return load_rw(new SDL.RWops.from_file(file, "rb"), 1,
 			ref spec, out audio_buf, out audio_len);
 		}
@@ -1983,7 +1975,7 @@ namespace SDL {
 		public static void mix(out uint8[] dst, uint8[] src, uint32 len, int volume);
 		
 		[CCode (cname="SDL_MixAudioFormat")]
-		public static void mix_device(out uint8[] dst, uint8[] src, SDL.AudioFormat format, uint32 len, int volume);
+		public static void mix_device(out uint8[] dst, uint8[] src, SDL.Audio.Format format, uint32 len, int volume);
 
 		[CCode (cname="SDL_LockAudio")]
 		public static void do_lock();
@@ -1992,19 +1984,19 @@ namespace SDL {
 		public static void unlock();
 
 		[CCode (cname="SDL_LockAudioDevice")]
-		public static void do_lock_device(SDL.AudioDeviceID dev);
+		public static void do_lock_device(SDL.Audio.DeviceID dev);
 
 		[CCode (cname="SDL_LockAudioDevice")]
-		public static void unlock_device(SDL.AudioDeviceID dev);
+		public static void unlock_device(SDL.Audio.DeviceID dev);
 
 		[CCode (cname="SDL_CloseAudio")]
 		public static void close();
 
 		[CCode (cname="SDL_CloseAudioDevice")]
-		public static void close_device(SDL.AudioDeviceID dev);
+		public static void close_device(SDL.Audio.DeviceID dev);
 
 		[CCode (cname="SDL_AudioDeviceConnected")]
-		public static int is_device_connected(SDL.AudioDeviceID dev);
+		public static int is_device_connected(SDL.Audio.DeviceID dev);
 	}// Audio
 	
 	
