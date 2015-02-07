@@ -25,7 +25,7 @@ THE SOFTWARE.
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 // Compilation command:
-// valac -o "Example_1" --pkg gee-1.0 --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx "Example_1.vala"
+// valac -o "basics" --pkg gee-1.0 --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx "basics.vala"
 
 using SDL;
 using SDLImage;
@@ -43,7 +43,7 @@ public class Example
 		SDLTTF.init();
 		
 		window = new SDL.Window("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Window.POS_CENTERED, Window.POS_CENTERED, 800,600, WindowFlags.RESIZABLE);
-		var a= SDLMixer.open(44100,SDL.AudioFormat.S16LSB,2,4096); stdout.printf("%d\n",a);
+		var a= SDLMixer.open(44100,Audio.Format.S16LSB,2,4096); stdout.printf("%d\n",a);
 		window_renderer = new SDL.Renderer(window, -1, SDL.RendererFlags.ACCELERATED | SDL.RendererFlags.PRESENTVSYNC);
 		window.show();
 		// Open surface and after transform to texture
@@ -90,7 +90,7 @@ public class Example
 				if ( e.key.keysym.sym== Keycode.DOWN){
 					row+=10;
 				}
-				if ( e.key.keysym.sym== Keycode.UP)	{
+				if ( e.key.keysym.sym== Keycode.UP){
 					row-=10;
 				}
 					
