@@ -294,10 +294,10 @@ namespace SDL {
 		public SDL.PackedLayout get_pixel_layout();
 
 		[CCode (cname="SDL_BITSPERPIXEL")]
-		public uchar get_perbits_bits();
+		public uchar bits_per_pixel();
 
 		[CCode (cname="SDL_BYTESPERPIXEL")]
-		public uchar get_perbits_bytes();
+		public uchar bytes_per_pixel();
 
 		[CCode (cname="SDL_ISPIXELFORMAT_INDEXED")]
 		public bool is_indexed();
@@ -374,21 +374,25 @@ namespace SDL {
 	
 	
 	
-	[CCode (type_id="SDL_Palette", cname="SDL_Palette", cheader_filename="SDL2/SDL_pixels.h", cprefix="SDL_", free_function="SDL_FreePalette")]
+	[CCode (type_id="SDL_Palette", cname="SDL_Palette", cheader_filename="SDL2/SDL_pixels.h", cprefix="SDL_", free_function="SDL_FreePalette", ref_function = "SDL_Palette_up", unref_function = "SDL_FreePalette")]
 	public class Palette {
-		public int ncolors;
+        [CCode (array_length_cname = "ncolors", array_length_type = "int")]
 		public SDL.Color[] colors;
 		public uint32 version;
 		public int refcount;
+        public unowned Palette up () {
+			GLib.AtomicInt.inc(ref this.refcount);
+			return this;
+		}
 
 		[CCode (cname="SDL_AllocPalette")]
 		public Palette(int colors_num);
 
-		[CCode (cname="SDL_SetPaletteColors")]
-		public int set_colors(SDL.Color[] colors, int first_color, int colors_num);
+		[CCode (cname="SDL_SetPaletteColors", array_length_pos=2.1)]
+		public int set_colors(SDL.Color[] colors, int first_color);
 	}
 	
-	[CCode (type_id="SDL_PixelFormat", cname="SDL_PixelFormat", cheader_filename="SDL2/SDL_pixels.h", cprefix="SDL_", free_function="SDL_FreeFormat")]
+	[CCode (type_id="SDL_PixelFormat", cname="SDL_PixelFormat", cheader_filename="SDL2/SDL_pixels.h", cprefix="SDL_", free_function="SDL_FreeFormat", ref_function = "SDL_PixelFormat_up", unref_function = "SDL_FreeFormat")]
 	public class PixelFormat {
 		public SDL.PixelRAWFormat format;
 		public SDL.Palette palette;
@@ -413,9 +417,14 @@ namespace SDL {
 		public uint8 g_shift;
 		public uint8 b_shift;
 		public uint8 a_shift;
-
+		
 		public int refcount;
 		public SDL.PixelFormat next;
+		
+        public unowned PixelFormat up () {
+			GLib.AtomicInt.inc(ref this.refcount);
+			return this;
+		}
 		
 		[CCode (cname="SDL_AllocFormat")]
 		public PixelFormat(uint32 pixel_format);
@@ -451,10 +460,10 @@ namespace SDL {
 	}// PixelFormat
 
 	[CCode (cname="SDL_blit", cheader_filename="SDL2/SDL_surface.h")]
-	public delegate int blit (SDL.Surface src, SDL.Rect? srcrect,
+	public delegate int BlitFunc (SDL.Surface src, SDL.Rect? srcrect,
 	                          SDL.Surface dst, SDL.Rect? dstrect);
 
-	[CCode (type_id="SDL_Surface", cname="SDL_Surface", free_function="SDL_FreeSurface", cheader_filename="SDL2/SDL_surface.h",unref_function="")]
+	[CCode (type_id="SDL_Surface", cname="SDL_Surface", free_function="SDL_FreeSurface", cheader_filename="SDL2/SDL_surface.h", ref_function = "SDL_Surface_up", unref_function = "SDL_FreeSurface")]
 	public class Surface {
 		public uint32 flags;
 		public SDL.PixelFormat format;
@@ -468,6 +477,11 @@ namespace SDL {
 		public SDL.Rect clip_rect;
 		public SDL.BlitMap map;
 		public int refcount;
+		
+        public unowned Surface up () {
+			GLib.AtomicInt.inc(ref this.refcount);
+			return this;
+		}
 
 		[CCode (cname="SDL_CreateRGBSurface")]
 		public Surface.rgb(uint32 flags, int width, int height, int depth,
@@ -549,7 +563,7 @@ namespace SDL {
 		public int fill_rect(SDL.Rect? rect, uint32 color);
 		
 		[CCode (cname="SDL_FillRects")]
-		public int fill_rects(SDL.Rect[] rects, int count, uint32 color);
+		public int fill_rects(SDL.Rect[] rects, uint32 color);
 
 		[CCode (cname="SDL_BlitSurface")]
 		public int blit(SDL.Rect? srcrect, SDL.Surface dst, SDL.Rect? dstrect);
@@ -578,7 +592,7 @@ namespace SDL {
 		public int w;
 		public int h;
 		public int refresh_rate;
-		public void *driverdata; //Plese, initialize as NULL
+		public void *driverdata; //Please, initialize as NULL
 	}// DisplayMode
 
 	[Flags, CCode (cname="SDL_WindowFlags", cprefix="SDL_WINDOW_", cheader_filename="SDL2/SDL_video.h")]
@@ -650,7 +664,7 @@ namespace SDL {
 		
 		[CCode (cname="SDL_GetClosestDisplayMode")]
 		public static SDL.DisplayMode get_closest_mode(int index, SDL.DisplayMode mode, out SDL.DisplayMode closest);
-	}// Dysplay
+	}// Display
 	
 	[CCode (cprefix="SDL_", cname = "SDL_Window", destroy_function = "SDL_DestroyWindow", cheader_filename="SDL2/SDL_video.h")]
 	[Compact]
@@ -759,7 +773,7 @@ namespace SDL {
 		public int update_surface();
 		
 		[CCode (cname="SDL_UpdateWindowSurfaceRects")]
-		public int update_surface_rects(SDL.Rect[] rects, int rects_num);
+		public int update_surface_rects(SDL.Rect[] rects);
 		
 		[CCode (cname="SDL_SetWindowGrab")]
 		public void set_grab(bool grabbed);
@@ -885,16 +899,16 @@ namespace SDL {
 		[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Data {
 		    MessageBox.Flags flags;                       /**< ::SDL_MessageBoxFlags */
-		    SDL.Window? window;                 /**< Parent window, can be NULL */
+		    SDL.Window? parent;                 /**< Parent window, can be NULL */
 		    string title;                  /**< UTF-8 title */
 		    string message;                /**< UTF-8 message text */
-		    int numbuttons;
+		    int num_buttons;
 		    SDL.MessageBox.ButtonData buttons;
-		    SDL.MessageBox.ColorScheme? colorScheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
+		    SDL.MessageBox.ColorScheme? color_scheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
 		} //MessageBoxData;
 		
 		[CCode (cname="SDL_ShowSimpleMessageBox")]
-		public static int simple_show(uint32 flags, string title, string message, SDL.Window window);
+		public static int simple_show(uint32 flags, string title, string message, SDL.Window parent);
 
 		[CCode (cname="SDL_ShowMessageBox")]
 		public static int show(MessageBox.Data data, int buttonid);
@@ -994,7 +1008,7 @@ namespace SDL {
 		public static const uint8 TEXT_SIZE;
 		
 		uint32 window_id;
-		string text; //Or it would be better a string?
+		string? text;
 		int32 start;
 		int32 length;
 	}// TextEditingEvent
@@ -1006,7 +1020,7 @@ namespace SDL {
 		public static const uint8 TEXT_SIZE;
 		
 		uint32 window_id;
-		string text; //is better a string?
+		string? text;
 	}// TextInputEvent
 	
 	[CCode (cname="SDL_MouseMotionEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -1015,9 +1029,6 @@ namespace SDL {
 		uint32 window_id;
 		uint32 which;
 		uint8 state;
-		uint8 padding1;
-		uint8 padding2;
-		uint8 padding3;
 		int32 x;
 		int32 y;
 		int32 xrel;
@@ -1031,8 +1042,6 @@ namespace SDL {
 		uint32 which;
 		uint8 button;
 		uint8 state;
-		uint8 padding1;
-		uint8 padding2;
 		int32 x;
 		int32 y;
 	}// MouseButtonEvent
@@ -1052,11 +1061,7 @@ namespace SDL {
 		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 axis;
-		uint8 padding1;
-		uint8 padding2;
-		uint8 padding3;
 		int16 @value;
-		uint16 padding4;
 	}// JoyAxisEvent
 	
 	[CCode (cname="SDL_JoyBallEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -1065,9 +1070,6 @@ namespace SDL {
 		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 ball;
-		uint8 padding1;
-		uint8 padding2;
-		uint8 padding3;
 		int16 xrel;
 		int16 yrel;
 	}// JoyBallEvent
@@ -1085,9 +1087,7 @@ namespace SDL {
 		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 hat;
-		SDL.HatValue value;
-		uint8 padding1;
-		uint8 padding2;
+		SDL.HatValue hat_value;
 	}// JoyHatEvent
 	
 	[CCode (cname="SDL_JoyButtonEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -1097,8 +1097,6 @@ namespace SDL {
 		SDL.JoystickID which;
 		uint8 button;
 		uint8 state;
-		uint8 padding1;
-		uint8 padding2;
 	}// JoyButtonEvent
 	
 	[CCode (cname="SDL_JoyDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -1114,11 +1112,8 @@ namespace SDL {
 		uint32 window_id;
 		SDL.JoystickID which;
 		uint8 axis;
-		uint8 padding1;
-		uint8 padding2;
-		uint8 padding3;
 		int16 @value;
-		uint16 padding4;
+
 	}// ControllerAxisEvent
 	
 	[CCode (cname="SDL_ControllerButtonEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -1128,8 +1123,6 @@ namespace SDL {
 		SDL.JoystickID which;
 		uint8 button;
 		uint8 state;
-		uint8 padding1;
-		uint8 padding2;
 	}// ControllerButtonEvent
 	
 	[CCode (cname="SDL_ControllerDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -1155,13 +1148,12 @@ namespace SDL {
 	[Compact]
 	public struct MultiGestureEvent : GenericEvent {
 		SDL.TouchID touch_id;
-		float dTheta;
-		float dDist;
+		float d_theta;
+		float d_dist;
 		float x;
 		float y;
 		float pressure;
 		uint16 num_fingers;
-		uint16 padding;
 	}// MultiGestureEvent
 	
 	[CCode (cname="SDL_DollarGestureEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -2003,8 +1995,8 @@ namespace SDL {
 	///
 	/// Timers
 	///
-	[CCode (cname="SDL_TimerCallback", cheader_filename="SDL2/SDL_timer.h")]
-	public delegate uint32 TimerCallback(uint32 interval,  void *param);
+	[CCode (cname="SDL_TimerCallback", cheader_filename="SDL2/SDL_timer.h", has_target = true,  delegate_target_pos = 0.1)]
+	public delegate uint32 TimerCallback(uint32 interval);
 
 	[CCode (cname="SDL_TimerID", ref_function="", unref_function="", cheader_filename="SDL2/SDL_timer.h")]
 	[Compact]
@@ -2021,10 +2013,11 @@ namespace SDL {
 		[CCode (cname="SDL_Delay")]
 		public static void delay(uint32 ms);
 
-		[CCode (cname="SDL_AddTimer")]
-		public Timer (uint32 interval, SDL.TimerCallback callback, void *param);
+		[CCode (cname="SDL_AddTimer", delegate_target_pos= 1.1)]
+		public Timer (uint32 interval, SDL.TimerCallback callback);
 		
 		[CCode (cname="SDL_RemoveTimer")]
+		[DestroysInstance]
 		public bool remove ();
 	}// Timer
 	
@@ -2228,8 +2221,8 @@ namespace SDL {
     ///
     /// Threading
     ///
-    
-    public delegate int ThreadFunc(void* data);
+    [CCode (has_target = true)]
+    public delegate int ThreadFunc();
  
  	
 	[CCode (cname="SDL_ThreadPriority", cprefix="SDL_THREAD_PRIORITY_", cheader_filename="SDL2/SDL_thread.h")]
@@ -2240,8 +2233,8 @@ namespace SDL {
     [CCode (cname="SDL_Thread", free_function="SDL_WaitThread", cheader_filename="SDL2/SDL_thread.h")]
     [Compact]
     public class Thread {
-        [CCode (cname="SDL_CreateThread")]
-        public Thread(ThreadFunc f, string name, void* data);
+        [CCode (cname="SDL_CreateThread", delegate_target_pos= 1.1)]
+        public Thread(ThreadFunc f, string name);
         
         [CCode (cname="SDL_ThreadID")]
         public static uint32 id();
