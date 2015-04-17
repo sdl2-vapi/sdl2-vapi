@@ -69,8 +69,8 @@ namespace SDL {
 	///
 	/// Hints
 	///
-	[CCode (cname ="SDL_HintCallback", cheader_filename="SDL2/SDL_hints.h")]
-	public delegate void HintFunc(void* userdata, string name, string oldValue, string? newValue);
+	[CCode (cname ="SDL_HintCallback", delegate_target_pos=0, has_target=true, cheader_filename="SDL2/SDL_hints.h")]
+	public delegate void HintFunc(string name, string old_value, string? new_value);
 	[CCode (cname ="SDL_HintPriority", cheader_filename="SDL2/SDL_hints.h", cprefix="SDL_HINT_" )]
 	public enum HintPriority{
 	DEFAULT,NORMAL,OVERRIDE
@@ -171,10 +171,10 @@ namespace SDL {
 		public const string IDLE_TIMER_DISABLED;
 		
 		[CCode (cname ="SDL_AddHintCallback", cheader_filename="SDL2/SDL_hints.h")]
-		public static void add_callback(string name, HintFunc callback, void *userdata);
+		public static void add_callback(string name, HintFunc callback);
 		
 		[CCode (cname ="SDL_DelHintCallback", cheader_filename="SDL2/SDL_hints.h")]
-		public static void del_callback (string name, HintFunc callback, void *userdata);
+		public static void del_callback (string name, HintFunc callback);
 		
 		[CCode (cname ="SDL_SetHint", cheader_filename="SDL2/SDL_hints.h")]
 		public static bool set_hint (string name, string hint_value);
@@ -500,6 +500,9 @@ namespace SDL {
 		[CCode (cname="SDL_SetSurfacePalette")]
 		public int set_palette (SDL.Palette palette);
 
+		[CCode(cname= "SDL_MUSTLOCK")]
+		public bool must_lock();
+		
 		[CCode (cname="SDL_LockSurface")]
 		public int do_lock();
 
@@ -703,11 +706,10 @@ namespace SDL {
 		[CCode (cname="SDL_GetWindowFlags")]
 		public uint32 get_flags();
 		
-		[CCode (cname="SDL_SetWindowTitle")]
-		public void set_title(string title);
-		
-		[CCode (cname="SDL_GetWindowTitle")]
-		public string get_title();
+		public string title{
+			[CCode (cname="SDL_GetWindowTitle")]get;
+			[CCode (cname="SDL_SetWindowTitle")]set;
+		}
 		
 		[CCode (cname="SDL_SetWindowIcon")]
 		public void set_icon(SDL.Surface icon);
@@ -775,11 +777,12 @@ namespace SDL {
 		[CCode (cname="SDL_UpdateWindowSurfaceRects")]
 		public int update_surface_rects(SDL.Rect[] rects);
 		
-		[CCode (cname="SDL_SetWindowGrab")]
-		public void set_grab(bool grabbed);
+		public bool grab{
+			[CCode (cname="SDL_GetWindowGrab")]get;
+			[CCode (cname="SDL_SetWindowGrab")]set;
+		}
 		
-		[CCode (cname="SDL_GetWindowGrab")]
-		public bool get_grab();
+		
 		
 		[CCode (cname="SDL_SetWindowBrightness")]
 		public int set_brightness(float brightness);
@@ -837,7 +840,7 @@ namespace SDL {
 		public static int set_attribute(SDL.GL.Attributes attr, int val);
 
 		[CCode (cname="SDL_GL_GetAttributes")]
-		public static int get_attribute(SDL.GL.Attributes attr, ref int val);
+		public static int get_attribute(SDL.GL.Attributes attr, out int val);
 
 		[CCode (cname="SDL_GL_MakeCurrent")]
 		public static int make_current(SDL.Window window, SDL.GL.Context context);
@@ -899,11 +902,13 @@ namespace SDL {
 		[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Data {
 		    MessageBox.Flags flags;                       /**< ::SDL_MessageBoxFlags */
+		    [CCode (cname=window)]
 		    SDL.Window? parent;                 /**< Parent window, can be NULL */
 		    string title;                  /**< UTF-8 title */
 		    string message;                /**< UTF-8 message text */
-		    int num_buttons;
-		    SDL.MessageBox.ButtonData buttons;
+			[CCode (array_length_cname = "numbuttons", array_length_type = "int")]
+		    SDL.MessageBox.ButtonData[] buttons;
+		    [CCode (cname="colorScheme")]
 		    SDL.MessageBox.ColorScheme? color_scheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
 		} //MessageBoxData;
 		
@@ -961,27 +966,27 @@ namespace SDL {
 	///
 	[CCode (cname="SDL_EventType", cprefix="SDL_", cheader_filename="SDL2/SDL_events.h")]
 	public enum EventType {
-		QUIT, WINDOWEVENT, SYSWMEVENT, KEYDOWN, KEYUP, TEXTEDITING,
-		TEXTINPUT, MOUSEMOTION, MOUSEBUTTONUP, MOUSEBUTTONDOWN, 
-		MOUSEWHEEL, JOYAXISMOTION, JOYBALLMOTION, JOYHATMOTION, JOYBUTTONUP, 
-		JOYBUTTONDOWN, JOYDEVICEADDED, JOYDEVICEREMOVED, CONTROLLERAXISMOTION, 
-		CONTROLLERBUTTONDOWN, CONTROLLERBUTTONUP, CONTROLLERDEVICEADDED,
-		CONTROLLERDEVICEREMOVED, CONTROLLERDEVICEREMAPPED, FINGERDOWN,
-		FINGERUP, FINGERMOTION, DOLLARGESTURE, DOLLARRECORD, MULTIGESTURE,
-		CLIPBOARDUPDATE, DROPFILE, USEREVENT
+		FIRSTEVENT,QUIT,APP_TERMINATING,APP_LOWMEMORY,APP_WILLENTERBACKGROUND,APP_DIDENTERBACKGROUND,
+		APP_WILLENTERFOREGROUND, APP_DIDENTERFOREGROUND,WINDOWEVENT,SYSWMEVENT,KEYDOWN,KEYUP,TEXTEDITING,
+		TEXTINPUT,MOUSEMOTION,MOUSEBUTTONDOWN,MOUSEBUTTONUP,MOUSEWHEEL,JOYAXISMOTION,JOYBALLMOTION, 
+		JOYHATMOTION,JOYBUTTONDOWN,JOYBUTTONUP,JOYDEVICEADDED,JOYDEVICEREMOVED,CONTROLLERAXISMOTION,
+		CONTROLLERBUTTONDOWN,CONTROLLERBUTTONUP,CONTROLLERDEVICEADDED,CONTROLLERDEVICEREMOVED,
+		CONTROLLERDEVICEREMAPPED,FINGERDOWN,FINGERUP,FINGERMOTION,DOLLARGESTURE,DOLLARRECORD,MULTIGESTURE,
+		CLIPBOARDUPDATE,DROPFILE,AUDIODEVICEADDED,AUDIODEVICEREMOVED,RENDER_TARGETS_RESET,RENDER_DEVICE_RESET,
+		USEREVENT,LASTEVENT;
 	}// EventType
 	
-	[CCode (cname="SDL_GenericEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
+	[CCode (cname="SDL_CommonEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct GenericEvent {
+	public struct CommonEvent {
 		SDL.EventType type;
 		uint32 timestamp;
-	}// GenericEvent
+	}// CommonEvent
 	
 	[CCode (cname="SDL_WindowEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct WindowEvent : GenericEvent {
-		uint32 window_id;
+	public struct WindowEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		uint8 event;
 		uint8 padding1;
 		uint8 padding2;
@@ -990,10 +995,17 @@ namespace SDL {
 		int32 data2;
 	}// WindowEvent
 	
+	[CCode (cname="SDL_AudioDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
+	[Compact]
+	public struct AudioDeviceEvent{
+			uint32 which;
+			bool iscapture;
+   } 
+	
 	[CCode (cname="SDL_KeyboardEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct KeyboardEvent : GenericEvent {
-		uint32 window_id;
+	public struct KeyboardEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		uint8 state;
 		uint8 repeat;
 		uint8 padding2;
@@ -1003,11 +1015,11 @@ namespace SDL {
 	
 	[CCode (cname="SDL_TextEditingEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct TextEditingEvent : GenericEvent {
+	public struct TextEditingEvent : CommonEvent {
 		[CCode (cname="SDL_TEXTEDITINGEVENT_TEXT_SIZE")]
 		public static const uint8 TEXT_SIZE;
 		
-		uint32 window_id;
+		[CCode (cname="windowID")] uint32 window_id;
 		string? text;
 		int32 start;
 		int32 length;
@@ -1015,18 +1027,18 @@ namespace SDL {
 	
 	[CCode (cname="SDL_TextInputEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct TextInputEvent : GenericEvent {
+	public struct TextInputEvent : CommonEvent {
 		[CCode (cname="SDL_TEXTINPUTEVENT_TEXT_SIZE")]
 		public static const uint8 TEXT_SIZE;
 		
-		uint32 window_id;
+		[CCode (cname="windowID")] uint32 window_id;
 		string? text;
 	}// TextInputEvent
 	
 	[CCode (cname="SDL_MouseMotionEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct MouseMotionEvent : GenericEvent {
-		uint32 window_id;
+	public struct MouseMotionEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		uint32 which;
 		uint8 state;
 		int32 x;
@@ -1037,8 +1049,8 @@ namespace SDL {
 	
 	[CCode (cname="SDL_MouseButtonEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct MouseButtonEvent : GenericEvent {
-		uint32 window_id;
+	public struct MouseButtonEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		uint32 which;
 		uint8 button;
 		uint8 state;
@@ -1048,8 +1060,8 @@ namespace SDL {
 	
 	[CCode (cname="SDL_MouseWheelEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct MouseWheelEvent : GenericEvent {
-		uint32 window_id;
+	public struct MouseWheelEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		uint32 which;
 		int32 x;
 		int32 y;
@@ -1057,8 +1069,8 @@ namespace SDL {
 	
 	[CCode (cname="SDL_JoyAxisEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct JoyAxisEvent : GenericEvent {
-		uint32 window_id;
+	public struct JoyAxisEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 		uint8 axis;
 		int16 @value;
@@ -1066,8 +1078,8 @@ namespace SDL {
 	
 	[CCode (cname="SDL_JoyBallEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct JoyBallEvent : GenericEvent {
-		uint32 window_id;
+	public struct JoyBallEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 		uint8 ball;
 		int16 xrel;
@@ -1083,8 +1095,8 @@ namespace SDL {
 	
 	[CCode (cname="SDL_JoyHatEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct JoyHatEvent : GenericEvent {
-		uint32 window_id;
+	public struct JoyHatEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 		uint8 hat;
 		SDL.HatValue hat_value;
@@ -1092,8 +1104,8 @@ namespace SDL {
 	
 	[CCode (cname="SDL_JoyButtonEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct JoyButtonEvent : GenericEvent {
-		uint32 window_id;
+	public struct JoyButtonEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 		uint8 button;
 		uint8 state;
@@ -1101,15 +1113,15 @@ namespace SDL {
 	
 	[CCode (cname="SDL_JoyDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct JoyDeviceEvent : GenericEvent {
-		uint32 window_id;
+	public struct JoyDeviceEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 	}// JoyDeviceEvent
 	
 	[CCode (cname="SDL_ControllerAxisEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct ControllerAxisEvent : GenericEvent {
-		uint32 window_id;
+	public struct ControllerAxisEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 		uint8 axis;
 		int16 @value;
@@ -1118,8 +1130,8 @@ namespace SDL {
 	
 	[CCode (cname="SDL_ControllerButtonEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct ControllerButtonEvent : GenericEvent {
-		uint32 window_id;
+	public struct ControllerButtonEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 		uint8 button;
 		uint8 state;
@@ -1127,15 +1139,17 @@ namespace SDL {
 	
 	[CCode (cname="SDL_ControllerDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct ControllerDeviceEvent : GenericEvent {
-		uint32 window_id;
+	public struct ControllerDeviceEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
 		SDL.JoystickID which;
 	}// ControllerDeviceEvent
 	
 	[CCode (cname="SDL_TouchFingerEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct TouchFingerEvent : GenericEvent {
+	public struct TouchFingerEvent : CommonEvent {
+		[CCode (cname="touchID")]
 		SDL.TouchID touch_id;
+		[CCode (cname="fingerID")]
 		SDL.FingerID finger_id;
 		float x;
 		float y;
@@ -1146,21 +1160,28 @@ namespace SDL {
 	
 	[CCode (cname="SDL_MultiGestureEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct MultiGestureEvent : GenericEvent {
+	public struct MultiGestureEvent : CommonEvent {
+		[CCode (cname="touchID")]
 		SDL.TouchID touch_id;
+		[CCode (cname="dTheta")]
 		float d_theta;
+		[CCode (cname="dDist")]
 		float d_dist;
 		float x;
 		float y;
 		float pressure;
+		[CCode (cname="numFingers")]
 		uint16 num_fingers;
 	}// MultiGestureEvent
 	
 	[CCode (cname="SDL_DollarGestureEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct DollarGestureEvent : GenericEvent {
+	public struct DollarGestureEvent : CommonEvent {
+		[CCode (cname="touchID")]
 		SDL.TouchID touch_id;
+		[CCode (cname="gestureID")]
 		SDL.GestureID gesture_id;
+		[CCode (cname="numFingers")]
 		uint32 num_fingers;
 		float error;
 		float x;
@@ -1169,35 +1190,39 @@ namespace SDL {
 	
 	[CCode (cname="SDL_DropEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct DropEvent : GenericEvent {
-		uint32 window_id;
-		int32 code;
-		void *data1;
-		void *data2;
+	public struct DropEvent : CommonEvent {
+		string file;
 	}// DropEvent
 	
 	[CCode (cname="SDL_UserEvent", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct UserEvent : GenericEvent {
-		uint32 window_id;
-		string file;
+	public struct UserEvent : CommonEvent {
+		[CCode (cname="windowID")] uint32 window_id;
+		int32 code;
+		void* data1;
+		void* data2;
 	}// UserEvent
 	
 	[CCode (cname="SDL_QuitEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct QuitEvent : GenericEvent {}// QuitEvent
+	public struct QuitEvent : CommonEvent {}// QuitEvent
+	
+	
+	[CCode (cname="SDL_OSEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
+	[Compact]
+	public struct OSEvent : CommonEvent {}// OSEvent
 	
 	[CCode (cname="SDL_TouchID", cheader_filename="SDL2/SDL_touch.h")]
-	public struct TouchID {}// TouchID
+	public struct TouchID : int {}// TouchID
 	
 	[CCode (cname="SDL_FingerID", cheader_filename="SDL2/SDL_touch.h")]
-	public struct FingerID {}// FingerID
+	public struct FingerID : int {}// FingerID
 	
 	[CCode (cname="SDL_GestureID", cheader_filename="SDL2/SDL_gesture.h")]
-	public struct GestureID {}// GestureID
+	public struct GestureID : int {}// GestureID
 	
 	[CCode (cname="SDL_JoystickID", cheader_filename="SDL2/SDL_joystick.h")]
-	public struct JoystickID {}// JoystickID
+	public struct JoystickID : int {}// JoystickID
 	
 	[CCode (cname="SDL_SysWMmsg", cheader_filename="SDL2/SDL_syswm.h")]
 	public struct SysWMmsg {}// SysWMmsg
@@ -1207,13 +1232,14 @@ namespace SDL {
 		public SysWMmsg msg;
 	}// SysWMEvent
 	
-	public delegate int EventFilter (void *userdata, SDL.Event ev);
+	[CCode (has_target = true)]
+	public delegate int EventFilter (SDL.Event ev);
 	
 	[CCode (cname="SDL_Event", has_type_id=false, has_target=false, destroy_function="", cheader_filename="SDL2/SDL_events.h")]
 	[SimpleType]
 	public struct Event {
 		public SDL.EventType type;
-		public SDL.GenericEvent generic;
+		public SDL.CommonEvent generic;
 		public SDL.WindowEvent window;
 		public SDL.KeyboardEvent key;
 		public SDL.TextEditingEvent edit;
@@ -1229,6 +1255,7 @@ namespace SDL {
 		public SDL.ControllerAxisEvent caxis;
 		public SDL.ControllerButtonEvent cbutton;
 		public SDL.ControllerDeviceEvent cdevice;
+		public SDL.AudioDeviceEvent adevice;
 		public SDL.QuitEvent quit; 
 		public SDL.UserEvent user;
 		public SDL.SysWMEvent syswm;
@@ -1236,27 +1263,25 @@ namespace SDL {
 		public SDL.MultiGestureEvent mgesture;
 		public SDL.DollarGestureEvent dgesture;
 		public SDL.DropEvent drop;
-
-		public int8 padding[56];
 		
 		[CCode (cname="SDL_PumpEvents")]
 		public static void pump();
 
 		[CCode (cname="SDL_PeepEvents")]
-		public static void peep(SDL.Event[] events, int numevents, 
-			EventAction action, uint32 minType, uint32 maxType);
+		public static void peep(SDL.Event[] events,	EventAction action, 
+			uint32 min_type, uint32 max_type);
 
 		[CCode (cname="SDL_HasEvent")]
 		public static bool has_event(SDL.EventType type);
 
 		[CCode (cname="SDL_HasEvents")]
-		public static bool has_events(uint32 minType, uint32 maxType);
+		public static bool has_events(uint32 min_type, uint32 max_type);
 
 		[CCode (cname="SDL_FlushEvent")]
 		public static void flush_event(SDL.EventType type);
 
 		[CCode (cname="SDL_FlushEvents")]
-		public static void flush_events(uint32 minType, uint32 maxType);
+		public static void flush_events(uint32 min_type, uint32 max_type);
 
 		[CCode (cname="SDL_PollEvent")]
 		public static int poll(out SDL.Event ev);
@@ -1269,27 +1294,62 @@ namespace SDL {
 
 		[CCode (cname="SDL_PushEvent")]
 		public static int push(SDL.Event ev);
-
+		
 		[CCode (cname="SDL_SetEventFilter")]
-		public static void set_eventfilter(SDL.EventFilter filter, void* user_data);
+		public static void set_eventfilter(SDL.EventFilter filter);
 
 		[CCode (cname="SDL_GetEventFilter")]
-		public static bool get_eventfilter(SDL.EventFilter filter, out void* user_data);
+		public static bool get_eventfilter(out SDL.EventFilter filter);
 
 		[CCode (cname="SDL_AddEventWatch")]
-		public static void add_eventwatch(SDL.EventFilter filter, void* user_data);
+		public static void add_eventwatch(SDL.EventFilter filter);
 
 		[CCode (cname="SDL_DelEventWatch")]
-		public static void del_eventwatch(SDL.EventFilter filter, void* user_data);
+		public static void del_eventwatch(SDL.EventFilter filter);
 
 		[CCode (cname="SDL_FilterEvents")]
-		public static void filter_events(SDL.EventFilter filter, void* user_data);
+		public static void filter_events(SDL.EventFilter filter);
 
 		[CCode (cname="SDL_EventState")]
 		public static uint8 state(SDL.EventType type, SDL.EventState state);
 
 		[CCode (cname="SDL_RegisterEvents")]
 		public static uint32 register_events(int numevents);
+		
+		[CCode (cname="SDL_QuitRequested")]
+		public static bool quit_requested();
+		
+		[CCode (cname="SDL_RecordGesture")]
+		public static int record_gesture(SDL.TouchID touch_id);
+		
+		[CCode (cname="SDL_GetTouchFinger")]
+		public static unowned SDL.Finger get_touch_finger(SDL.TouchID touch_id, int index);
+		
+		[CCode (cname="SDL_GetTouchDevice")]
+		public static TouchID get_touch_device(int index);
+		
+		[CCode (cname="SDL_GetNumTouchFingers")]
+		public static int SDL_get_num_touch_fingers(SDL.TouchID touch_id);
+		
+		[CCode (cname="SDL_GetNumTouchDevices")]
+		public static int SDL_get_num_touch_devices();
+		
+		[CCode (cname="SDL_LoadDollarTemplate")]
+		public static int load_dollar_template_rw(SDL.TouchID touch_id, SDL.RWops src);
+
+        public static int load_dollar_template(SDL.TouchID touch_id, string file){
+        	return load_dollar_tempalte_rw(touch_id,new SDL.RWops.from_file(file, "wb"));
+        }
+		
+		[CCode (cname="SDL_SaveDollarTemplate")]
+		public static bool save_dollar_template_rw(SDL.GestureID gesture_id, SDL.RWops dst);
+
+        public static bool save_dollar_template(SDL.GestureID gesture_id, string file){
+        	return save_dollar_tempalte_rw(gesture_id,new SDL.RWops.from_file(file, "wb"));
+        }
+        
+        
+		
 	}// Event
 	
 	[CCode (cname="int", cprefix="SDL_", cheader_filename="SDL2/SDL_events.h")]
@@ -1302,7 +1362,7 @@ namespace SDL {
 		ADDEVENT, PEEKEVENT, GETEVENT
 	}// EventAction
 	
-
+	
 	///
 	/// Input
 	///
@@ -1553,7 +1613,14 @@ namespace SDL {
 		public SDL.JoystickGUID get_guid();
 		
 		[CCode (cname="SDL_JoystickGetGUIDString")]
-		public static void guid_string(SDL.JoystickGUID  guid, string psz, int cb);
+		public static void guid_buffer(SDL.JoystickGUID  guid, out uint8[] ps);
+		
+		//Convenience method, use guid_buffer if the GUID is truncated here
+		public static string guid_string(SDL.JoystickGUID guid){
+			uint8[16] buf;
+			guid_buffer(guid, buf)
+			return (string)buf;
+		}
 		
 		[CCode (cname="SDL_JoystickGetGUIDFromString")]
 		public static SDL.JoystickGUID get_guid_from_string(string pch);
@@ -1562,7 +1629,7 @@ namespace SDL {
 		public bool get_attached();
 		
 		[CCode (cname="SDL_JoystickInstanceID")]
-		public static SDL.JoystickID get_instance();
+		public SDL.JoystickID get_instance();
 		
 		[CCode (cname="SDL_JoystickNumAxes")]
 		public int num_axes();
@@ -1596,6 +1663,7 @@ namespace SDL {
 	}// Joystick
 	
 	[CCode (cname="SDL_Finger", type_id="SDL_Finger", cheader_filename="SDL2/SDL_touch.h")]
+	[Compact]
 	public class Finger {
 		SDL.FingerID id;
 		float x;
@@ -1621,10 +1689,124 @@ namespace SDL {
 	///
 	/// Game Controller
 	///
-	[CCode (cprefix="SDL_CONTROLLER_AXIS_", cheader_filename="SDL2/SDL_gamecontroller.h")]
-	public enum GameControllerAxis{
-		INVALID, LEFTX, LEFTY, RIGHTX, RIGHTY, TRIGGERLEFT, TRIGGERRIGHT, MAX
+	[CCode (cname="SDL_GameController", free_function="SDL_GameControllerClose", cheader_filename="SDL2/SDL_gamecontroller.h.h")]
+	[Compact]
+	public class GameController{
+		
+		[CCode (cname = "SDL_GameControllerOpen")]
+		public GameController(int device_index);
+		
+		
+		public string? name{
+			[CCode (cname= "SDL_GameControllerName")] get;
+		}
+		
+		[CCode (cname="SDL_GameControllerMapping")]
+		public string get_mapping();
+		
+		[CCode (cname="SDL_GameControllerGetJoystick")]
+		public SDL.Joystick to_joystick();
+		
+		[CCode (cname="SDL_GameControllerGetAttached")]
+		public bool is_attached();
+		
+		[CCode (cname="SDL_GameControllerGetAxis")]
+		public int16 get_axis_status (GameController.Axis axis);
+		
+		[CCode (cname="SDL_GameControllerGetButton")]
+		public uint8 get_button_status (GameController.Button button);
+		
+		[CCode (cname="SDL_GameControllerGetBindForAxis")]
+		public SDL.GameController.ButtonBind get_axis_bind(GameController.Axis axis);
+		
+		[CCode (cname="SDL_GameControllerGetBindForButton")]
+		public SDL.GameController.ButtonBind get_button_bind(GameController.Button button);
+	
+	
+		
+		[CCode (cname= "SDL_GameControllerEventState")]
+		public static void set_event_state(SDL.EventState state);
+		
+		[CCode (cname= "SDL_IsGameController")]
+		public static bool is_game_controller(int device_index);
+		
+		[CCode (cname="SDL_GameControllerNameForIndex")]
+		public static string? name_for_index(int device index);
+		
+		[CCode (cname="SDL_GameControllerAddMapping")]
+		public static int load_mapping(string mapping);
+		
+		[CCode (cname="SDL_GameControllerAddMappingsFromFile")]
+		public static int load_mapping_file(string path);
+		
+		[CCode (cname="SDL_GameControllerAddMappingsFromFile")]
+		public static int load_mapping_rw(SDL.RWops rw, bool freerw = true);
+		
+		[CCode (cname="SDL_GameControllerMappingForGUID")]
+		public static string mapping_for_guid(SDL.JoystickGUID guid)
+		public static int count(){
+			int controllernum = 0;
+			for ( int i = 0; i < SDL.Joystick.count(); i++ ) {
+				if ( is_game_controller(i)) ) {
+					controllernum++;
+				}
+			}
+			return controllernum;
+		}
+		[CCode (cname="SDL_GameControllerUpdate")]
+		public static void update_controls();
+		
+		[CCode (cprefix="SDL_CONTROLLER_AXIS_", cheader_filename="SDL2/SDL_gamecontroller.h")]
+		public enum Axis{
+			INVALID, LEFTX, LEFTY, RIGHTX, RIGHTY, TRIGGERLEFT, TRIGGERRIGHT, MAX;
+			[CCode (cname="SDL_GameControllerGetStringForAxis")]
+			private string? _to_string();
+			
+			public string to_string(){
+				string? val = _to_string();
+				return val ?? "INVALID";
+			}
+			[CCode(cname="SDL_GameControllerGetAxisFromString")]
+			public static GameController.Axis from_string(string axis_string);
+		}
+	
+		[CCode (cprefix="SDL_CONTROLLER_BUTTON_", cheader_filename="SDL2/SDL_gamecontroller.h")]
+		public enum Button{
+			INVALID, A, B, X, Y, BACK, GUIDE, START, LEFTSTICK, RIGHTSTICK, 
+			LEFTSHOULDER, RIGHTSHOULDER, DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT, MAX;
+			[CCode (cname="SDL_GameControllerGetStringForButton")]
+			private string? _to_string();
+			
+			public string to_string(){
+				string? val = _to_string();
+				return val ?? "INVALID";
+			}
+			[CCode (cname="SDL_GameControllerGetButtonFromString")]
+			public static GameController.Button from_string(string button_string);
+		}
+		[CCode (cprefix="SDL_CONTROLLER_BINDTYPE_", cheader_filename="SDL2/SDL_gamecontroller.h")]
+		public enum BindType{
+			NONE, BUTTON, AXIS, HAT	
+		}
+		
+		[CCode (cname= "SDL_GameControllerButtonBind")]
+		public struct ButtonBind{
+			[CCode(cname="bindType")]
+			BindType bind_type;
+			
+			[CCode (cname="value.button")]
+			int button;
+			[CCode (cname="value.axis")]
+			int axis;
+			[CCode (cname="value.hat")]
+			public struct hat {
+				int hat;
+				int hat_mask;
+			} 
+		}
 	}
+	
+	
 	
 	///
 	/// Force Feedback
@@ -1863,8 +2045,8 @@ namespace SDL {
 			ANY_CHANGE
 		}// AudioAllowFlags
 
-		[CCode (cname="SDL_AudioCallback", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
-		public delegate void Callback(void *userdata, uint8[] stream, int len);
+		[CCode (cname="SDL_AudioCallback", instance_pos = 0.1, has_target = true, delegate_target_pos=0,   cheader_filename="SDL2/SDL_audio.h")]
+		public delegate void Callback(uint8[] stream, int len);
 
 		[CCode (cname="SDL_AudioSpec", cheader_filename="SDL2/SDL_audio.h")]
 		public struct Spec {
@@ -1908,7 +2090,26 @@ namespace SDL {
 		[CCode (cname="SDL_AudioDeviceID", has_type_id = false, cheader_filename="SDL2/SDL_audio.h")]
 		[SimpleType]
 		[IntegerType (rank = 7)]
-		public struct DeviceID : uint32 {}// AudioDeviceID
+		public struct Device : uint32 {
+			[CCode (cname="SDL_OpenAudioDevice")]
+			public Device(string device_name, bool is_capture, 
+								Audio.Spec desired, Audio.Spec obtained,
+				AllowFlags allowed_changes);
+			
+			[CCode (cname="SDL_PauseAudioDevice")]
+			public void pause_device(int pause_on);
+			
+			[CCode (cname="SDL_GetAudioDeviceStatus")]
+			public Audio.Status get_status();
+						
+			[CCode (cname="SDL_LockAudioDevice")]
+			public void do_lock();
+
+			[CCode (cname="SDL_LockAudioDevice")]
+			public void unlock();
+
+		
+		}// AudioDeviceID
 
 	
 		[CCode (cname="SDL_GetNumAudioDrivers")]
@@ -1935,22 +2136,11 @@ namespace SDL {
 		[CCode (cname="SDL_GetAudioDeviceName")]
 		public static unowned string get_devicename(int index);
 		
-		[CCode (cname="SDL_OpenAudioDevice")]
-		public static Audio.DeviceID open_device(string device,
-			int iscapture, Audio.Spec desired, Audio.Spec obtained,
-				int allowed_changes);
-
 		[CCode (cname="SDL_GetAudioStatus")]
 		public static Audio.Status status();
-
-		[CCode (cname="SDL_GetAudioDeviceStatus")]
-		public static Audio.Status status_device(Audio.DeviceID dev);
 		
 		[CCode (cname="SDL_PauseAudio")]
 		public static void pause(int pause_on);
-		
-		[CCode (cname="SDL_PauseAudioDevice")]
-		public static void pause_device(Audio.DeviceID dev, int pause_on);
 		
 		[CCode (cname="SDL_LoadWAV_RW")]
 		public static unowned Audio.Spec? load_rw(RWops src, int freesrc, ref Audio.Spec spec, out uint8[] audio_buf, out uint32 audio_len);
@@ -1974,12 +2164,6 @@ namespace SDL {
 
 		[CCode (cname="SDL_UnlockAudio")]
 		public static void unlock();
-
-		[CCode (cname="SDL_LockAudioDevice")]
-		public static void do_lock_device(SDL.Audio.DeviceID dev);
-
-		[CCode (cname="SDL_LockAudioDevice")]
-		public static void unlock_device(SDL.Audio.DeviceID dev);
 
 		[CCode (cname="SDL_CloseAudio")]
 		public static void close();
