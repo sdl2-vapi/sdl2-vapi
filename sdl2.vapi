@@ -873,7 +873,7 @@ namespace SDL {
 		    RETURNKEY_DEFAULT ,  /**< Marks the default button when return is hit */
 		    ESCAPEKEY_DEFAULT    /**< Marks the default button when escape is hit */
 		} //MessageBoxButtonFlags;
-		[Flags, CCode (cname="SDL_MessageBoxColorType", cprefix="SDL_MESSAGEBOX_COLOR_", cheader_filename="SDL2/SDL_messagebox.h")]
+		[CCode (cname="SDL_MessageBoxColorType", cprefix="SDL_MESSAGEBOX_COLOR_", cheader_filename="SDL2/SDL_messagebox.h")]
 		public enum ColorType{
 		    BACKGROUND,
 		    TEXT,
@@ -896,14 +896,15 @@ namespace SDL {
 		} // MessageBoxColor;
 		[CCode (cname="SDL_MessageBoxColorScheme", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct ColorScheme{
-			SDL.MessageBox.Color colors [SDL.MessageBox.ColorType.MAX];
+			[CCode (array_length_cname="SDL_MessageBoxColorType.MAX", array_length_type="int")]
+			SDL.MessageBox.Color colors [];
 		} // MessageBoxColorScheme;
 
 		[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Data {
 		    MessageBox.Flags flags;                       /**< ::SDL_MessageBoxFlags */
 		    [CCode (cname="window")]
-		    SDL.Window? parent;                 /**< Parent window, can be NULL */
+		    SDL.Window? parent_window;                 /**< Parent window, can be NULL */
 		    string title;                  /**< UTF-8 title */
 		    string message;                /**< UTF-8 message text */
 			[CCode (array_length_cname = "numbuttons", array_length_type = "int")]
@@ -1338,14 +1339,14 @@ namespace SDL {
 		public static int load_dollar_template_rw(SDL.TouchID touch_id, SDL.RWops src);
 
         public static int load_dollar_template(SDL.TouchID touch_id, string file){
-        	return load_dollar_tempalte_rw(touch_id,new SDL.RWops.from_file(file, "wb"));
+        	return load_dollar_template_rw(touch_id,new SDL.RWops.from_file(file, "rb"));
         }
 		
 		[CCode (cname="SDL_SaveDollarTemplate")]
 		public static bool save_dollar_template_rw(SDL.GestureID gesture_id, SDL.RWops dst);
 
         public static bool save_dollar_template(SDL.GestureID gesture_id, string file){
-        	return save_dollar_tempalte_rw(gesture_id,new SDL.RWops.from_file(file, "wb"));
+        	return save_dollar_template_rw(gesture_id,new SDL.RWops.from_file(file, "wb"));
         }
         
         
@@ -1618,7 +1619,7 @@ namespace SDL {
 		//Convenience method, use guid_buffer if the GUID is truncated here
 		public static string guid_string(SDL.JoystickGUID guid){
 			uint8[16] buf;
-			guid_buffer(guid, buf);
+			guid_buffer(guid, out buf);
 			return (string)buf;
 		}
 		
