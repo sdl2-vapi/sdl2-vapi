@@ -831,7 +831,7 @@ namespace SDL {
 		public static void* get_proc_address(string proc);
 		
 		[CCode (cname="SDL_GL_UnloadLibrary")]
-		public static void unload_lybrary();
+		public static void unload_lbrary();
 		
 		[CCode (cname="SDL_GL_ExtensionSupported")]
 		public static bool is_extension_supported(string extension);
@@ -902,7 +902,7 @@ namespace SDL {
 		[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Data {
 		    MessageBox.Flags flags;                       /**< ::SDL_MessageBoxFlags */
-		    [CCode (cname=window)]
+		    [CCode (cname="window")]
 		    SDL.Window? parent;                 /**< Parent window, can be NULL */
 		    string title;                  /**< UTF-8 title */
 		    string message;                /**< UTF-8 message text */
@@ -1618,7 +1618,7 @@ namespace SDL {
 		//Convenience method, use guid_buffer if the GUID is truncated here
 		public static string guid_string(SDL.JoystickGUID guid){
 			uint8[16] buf;
-			guid_buffer(guid, buf)
+			guid_buffer(guid, buf);
 			return (string)buf;
 		}
 		
@@ -1731,7 +1731,7 @@ namespace SDL {
 		public static bool is_game_controller(int device_index);
 		
 		[CCode (cname="SDL_GameControllerNameForIndex")]
-		public static string? name_for_index(int device index);
+		public static string? name_for_index(int device_index);
 		
 		[CCode (cname="SDL_GameControllerAddMapping")]
 		public static int load_mapping(string mapping);
@@ -1743,16 +1743,18 @@ namespace SDL {
 		public static int load_mapping_rw(SDL.RWops rw, bool freerw = true);
 		
 		[CCode (cname="SDL_GameControllerMappingForGUID")]
-		public static string mapping_for_guid(SDL.JoystickGUID guid)
+		public static string mapping_for_guid(SDL.JoystickGUID guid);
+		
 		public static int count(){
 			int controllernum = 0;
 			for ( int i = 0; i < SDL.Joystick.count(); i++ ) {
-				if ( is_game_controller(i)) ) {
+				if ( is_game_controller(i) ){
 					controllernum++;
 				}
 			}
 			return controllernum;
 		}
+		
 		[CCode (cname="SDL_GameControllerUpdate")]
 		public static void update_controls();
 		
@@ -1799,7 +1801,7 @@ namespace SDL {
 			[CCode (cname="value.axis")]
 			int axis;
 			[CCode (cname="value.hat")]
-			public struct hat {
+			struct hat {
 				int hat;
 				int hat_mask;
 			} 
@@ -1829,14 +1831,14 @@ namespace SDL {
 	[CCode (cname="SDL_HapticPeriodic", cheader_filename="SDL2/SDL_haptic.h")]
 	public struct HapticPeriodic{
 		//Header
-		public HapticEffectType type
+		public HapticEffectType type;
 		public HapticDirection direction; 
 		//Replay
 		public uint32 length;
 		public uint16 delay;
 		//Trigger
 		public uint16 button;
-		public uint16 interval
+		public uint16 interval;
 		//Periodic
 		public uint16 period;
 		public int16 magnitude;
@@ -1852,14 +1854,14 @@ namespace SDL {
 	[CCode (cname="SDL_HapticConstant", cheader_filename="SDL2/SDL_haptic.h")]
 	public struct HapticConstant{
 		//Header
-		public HapticEffectType type
+		public HapticEffectType type;
 		public HapticDirection direction; 
 		//Replay
 		public uint32 length;
 		public uint16 delay;
 		//Trigger
 		public uint16 button;
-		public uint16 interval
+		public uint16 interval;
 		//Constant
 		public int16 level;
 		//Envelope
@@ -1872,17 +1874,17 @@ namespace SDL {
 	[CCode (cname="SDL_HapticCondition", cheader_filename="SDL2/SDL_haptic.h")]
 	public struct HapticCondition{
 		//Header
-		public HapticEffectType type
+		public HapticEffectType type;
 		public HapticDirection direction; 
 		//Replay
 		public uint32 length;
 		public uint16 delay;
 		//Trigger
 		public uint16 button;
-		public uint16 interval
+		public uint16 interval;
 		//Condition
 		public uint16 right_sat;
-		public uint16 left_sat
+		public uint16 left_sat;
 		public int16 right_coeff;
 		public int16 left_coeff;
 		public uint16 deadband;
@@ -1896,14 +1898,14 @@ namespace SDL {
 	[CCode (cname="SDL_HapticRamp", cheader_filename="SDL2/SDL_haptic.h")]
 	public struct HapticRamp{
 		//Header
-		public HapticEffectType type
+		public HapticEffectType type;
 		public HapticDirection direction; 
 		//Replay
 		public uint32 length;
 		public uint16 delay;
 		//Trigger
 		public uint16 button;
-		public uint16 interval
+		public uint16 interval;
 		//Ramp
 		public int16 start;
 		public int16 end;
@@ -1916,24 +1918,24 @@ namespace SDL {
 	[CCode (cname="SDL_HapticLeftRight", cheader_filename="SDL2/SDL_haptic.h")]
 	public struct HapticLeftRight{
 		//Header
-		public HapticEffectType type
+		public HapticEffectType type;
 		//Replay
 		public uint32 length;
 		//Rumble
 		public uint16 large_magnitude;
 		public uint16 small_magnitude;
 	}
-	[CCode (cname="SDL_HapticPeriodic", cheader_filename="SDL2/SDL_haptic.h")]
-	public struct HapticPeriodic{
+	[CCode (cname="SDL_HapticCustom", cheader_filename="SDL2/SDL_haptic.h")]
+	public struct HapticCustom{
 		//Header
-		public HapticEffectType type
+		public HapticEffectType type;
 		public HapticDirection direction; 
 		//Replay
 		public uint32 length;
 		public uint16 delay;
 		//Trigger
 		public uint16 button;
-		public uint16 interval
+		public uint16 interval;
 		//Custom
 		public uint8 channels;
 		public uint16 period;
