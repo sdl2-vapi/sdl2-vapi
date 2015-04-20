@@ -376,11 +376,11 @@ namespace SDL {
 	
 	[CCode (type_id="SDL_Palette", cname="SDL_Palette", cheader_filename="SDL2/SDL_pixels.h", cprefix="SDL_", free_function="SDL_FreePalette", ref_function = "SDL_Palette_up", unref_function = "SDL_FreePalette")]
 	public class Palette {
-        [CCode (array_length_cname = "ncolors", array_length_type = "int")]
+		[CCode (array_length_cname = "ncolors", array_length_type = "int")]
 		public SDL.Color[] colors;
 		public uint32 version;
 		public int refcount;
-        public unowned Palette up () {
+		public unowned Palette up () {
 			GLib.AtomicInt.inc(ref this.refcount);
 			return this;
 		}
@@ -421,7 +421,7 @@ namespace SDL {
 		public int refcount;
 		public SDL.PixelFormat next;
 		
-        public unowned PixelFormat up () {
+		public unowned PixelFormat up () {
 			GLib.AtomicInt.inc(ref this.refcount);
 			return this;
 		}
@@ -461,7 +461,7 @@ namespace SDL {
 
 	[CCode (cname="SDL_blit", cheader_filename="SDL2/SDL_surface.h")]
 	public delegate int BlitFunc (SDL.Surface src, SDL.Rect? srcrect,
-	                          SDL.Surface dst, SDL.Rect? dstrect);
+	  SDL.Surface dst, SDL.Rect? dstrect);
 
 	[CCode (type_id="SDL_Surface", cname="SDL_Surface", free_function="SDL_FreeSurface", cheader_filename="SDL2/SDL_surface.h", ref_function = "SDL_Surface_up", unref_function = "SDL_FreeSurface")]
 	public class Surface {
@@ -478,7 +478,7 @@ namespace SDL {
 		public SDL.BlitMap map;
 		public int refcount;
 		
-        public unowned Surface up () {
+		public unowned Surface up () {
 			GLib.AtomicInt.inc(ref this.refcount);
 			return this;
 		}
@@ -557,10 +557,10 @@ namespace SDL {
 
 		[CCode (cname="SDL_ConvertPixels")]
 		public static int convert_pixels(int width, int height,
-                                              SDL.PixelRAWFormat.Standards src_format,
-                                              void *src, int src_pitch,
-                                              SDL.PixelRAWFormat.Standards dst_format,
-                                              void * dst, int dst_pitch);
+  SDL.PixelRAWFormat.Standards src_format,
+  void *src, int src_pitch,
+  SDL.PixelRAWFormat.Standards dst_format,
+  void * dst, int dst_pitch);
 		
 		[CCode (cname="SDL_FillRect")]
 		public int fill_rect(SDL.Rect? rect, uint32 color);
@@ -602,7 +602,7 @@ namespace SDL {
 	public enum WindowFlags {
 		FULLSCREEN, OPENGL, SHOWN, HIDDEN, BORDERLESS, RESIZABLE,
 		MINIMIZED, MAXIMIZED, INPUT_GRABBED, INPUT_FOCUS, MOUSE_FOCUS,
-		FULLSCREEN_DESKTOP, FOREIGN
+		FULLSCREEN_DESKTOP, FOREIGN, ALLOW_HIGHDPI, MOUSE_CAPTURE
 	}// WindowFlags
 
 	[Flags, CCode (cname="SDL_WindowEventID", cprefix="SDL_WINDOWEVENT_", cheader_filename="SDL2/SDL_video.h")]
@@ -669,6 +669,37 @@ namespace SDL {
 		public static SDL.DisplayMode get_closest_mode(int index, SDL.DisplayMode mode, out SDL.DisplayMode closest);
 	}// Display
 	
+	[CCode (cname=" SDL_SYSWM_TYPE", cprefix="SDL_SYSWM_", cheader_filename="SDL2/SDL_syswm.h")]
+	public enum SysWMType{
+		UNKNOWN,WINDOWS,X11,DIRECTFB,COCOA,UIKIT;
+	}
+	[CCode (cname="SDL_SysWMmsg", cheader_filename="SDL2/SDL_syswm.h")]
+	public struct SysWMmsg {
+		[CCode (cname="msg.dummy")]
+		int msg;
+		SysWmType type;
+		SDL.Version version;		
+	}// SysWMmsg
+	
+	[CCode (cname="SDL_SysWMinfo", cheader_filename="SDL2/SDL_syswm.h")]
+	public struct SysWMInfo {
+		[CCode (cname="info.dummy")]
+		int info;
+		SysWmType type;
+		SDL.Version version;		
+	}// SysWMmsg
+	
+	[CCode (cname=" SDL_HitTestResult", cprefix="SDL_HITTEST_", cheader_filename="SDL2/SDL_video.h")]
+	public enum HitTestResult{
+		NORMAL, DRAGGABLE, RESIZE_TOPLEFT, RESIZE_TOP, RESIZE_TOPRIGHT, 
+		RESIZE_RIGHT, RESIZE_BOTTOMRIGHT, RESIZE_BOTTOM, RESIZE_BOTTOMLEFT,
+		RESIZE_LEFT;
+	}
+	
+	[CCode (cname = "SDL_HitTest", has_target= true, delegate_target_pos = 1.1)]
+	public delegate HitTestResult HitTestFunc(Window window, ref SDL.Point area)
+	
+	
 	[CCode (cprefix="SDL_", cname = "SDL_Window", destroy_function = "SDL_DestroyWindow", cheader_filename="SDL2/SDL_video.h")]
 	[Compact]
 	public class Window {
@@ -696,6 +727,9 @@ namespace SDL {
 		
 		[CCode (cname="SDL_GetWindowDisplayMode")]
 		public int get_display_mode(out SDL.DisplayMode mode);
+		
+		[CCode (cname="SDL_SetWindowHitTest")]
+		public int set_hit_test(HitTestFunc callback);
 		
 		[CCode (cname="SDL_GetWindowPixelFormat")]
 		public uint32 get_pixelformat();
@@ -781,9 +815,7 @@ namespace SDL {
 			[CCode (cname="SDL_GetWindowGrab")]get;
 			[CCode (cname="SDL_SetWindowGrab")]set;
 		}
-		
-		
-		
+			
 		[CCode (cname="SDL_SetWindowBrightness")]
 		public int set_brightness(float brightness);
 		
@@ -795,6 +827,9 @@ namespace SDL {
 		
 		[CCode (cname="SDL_GetWindowGammaRamp")]
 		public int get_gammaramp(out uint16[]? red,out uint16[]? green, out uint16[]? blue);
+		
+		[CCode (cname="SDL_GetWindowWMInfo", cheader_filename="SDL2/SDL_syswm.h")]
+		public bool get_wm_info(out SysWMInfo info);
 		
 		[CCode (cname="SDL_DestroyWindow")]
 		public void destroy();
@@ -821,9 +856,20 @@ namespace SDL {
 			MULTISAMPLESAMPLES, ACCELERATED_VISUAL, RETAINED_BACKING,
 			CONTEXT_MAJOR_VERSION, CONTEXT_MINOR_VERSION,
 			CONTEXT_EGL, CONTEXT_FLAGS, CONTEXT_PROFILE_MASK,
-			SHARE_WITH_CURRENT_CONTEXT
+			SHARE_WITH_CURRENT_CONTEXT, FRAMEBUFFER_SRGB_CAPABLE,
+			CONTEXT_RELEASE_BEHAVIOR
 		}// GLattr
-	
+		
+		[CCode (cname="SDL_GLprofile", cprefix="SDL_GL_CONTEXT_PROFILE_", cheader_filename="SDL2/SDL_video.h")]
+		public enum ProfileType{
+			CORE, COMPATIBILITY, ES;
+		}// GLprofile
+		
+		[CCode (cname="SDL_GLcontextFlag", cprefix="SDL_GL_CONTEXT_", lower_case_csuffix="flag" cheader_filename="SDL2/SDL_video.h")]
+		public enum ContextFlag{
+			
+			DEBUG, FORWARD_COMPATIBLE, ROBUST_ACCESS, RESET_ISOLATION
+		}
 		[CCode (cname="SDL_GL_LoadLibrary")]
 		public static int load_library(string path);
 
@@ -870,29 +916,29 @@ namespace SDL {
 		} // MessageBoxFlags;
 		[Flags, CCode (cname="SDL_MessageBoxButtonFlags", cprefix="SDL_MESSAGEBOX_BUTTON_", cheader_filename="SDL2/SDL_messagebox.h")]
 		public enum ButtonFlags{
-		    RETURNKEY_DEFAULT ,  /**< Marks the default button when return is hit */
-		    ESCAPEKEY_DEFAULT    /**< Marks the default button when escape is hit */
+		RETURNKEY_DEFAULT ,  /**< Marks the default button when return is hit */
+		ESCAPEKEY_DEFAULT/**< Marks the default button when escape is hit */
 		} //MessageBoxButtonFlags;
 		[CCode (cname="SDL_MessageBoxColorType", cprefix="SDL_MESSAGEBOX_COLOR_", cheader_filename="SDL2/SDL_messagebox.h")]
 		public enum ColorType{
-		    BACKGROUND,
-		    TEXT,
-		    BUTTON_BORDER,
-		    BUTTON_BACKGROUND,
-		    BUTTON_SELECTED,
-		    MAX
+		BACKGROUND,
+		TEXT,
+		BUTTON_BORDER,
+		BUTTON_BACKGROUND,
+		BUTTON_SELECTED,
+		MAX
 		} //MessageBoxColorType;
 		[CCode (cname="SDL_MessageBoxButtonData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct ButtonData{
-		    MessageBox.ButtonFlags flags;       /**< ::SDL_MessageBoxButtonFlags */
-		    int buttonid;       /**< User defined button id (value returned via SDL_ShowMessageBox) */
-		    string text;  /**< The UTF-8 button text */
+		MessageBox.ButtonFlags flags;   /**< ::SDL_MessageBoxButtonFlags */
+		int buttonid;   /**< User defined button id (value returned via SDL_ShowMessageBox) */
+		string text;  /**< The UTF-8 button text */
 		} //MessageBoxButtonData;
 		[CCode (cname="SDL_MessageBoxColor", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Color{
-		    uint8 r;
-		    uint8 g;
-		    uint8 b;
+		uint8 r;
+		uint8 g;
+		uint8 b;
 		} // MessageBoxColor;
 		[CCode (cname="SDL_MessageBoxColorScheme", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct ColorScheme{
@@ -902,19 +948,19 @@ namespace SDL {
 
 		[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Data {
-		    MessageBox.Flags flags;                       /**< ::SDL_MessageBoxFlags */
-		    [CCode (cname="window")]
-		    SDL.Window? parent_window;                 /**< Parent window, can be NULL */
-		    string title;                  /**< UTF-8 title */
-		    string message;                /**< UTF-8 message text */
+		MessageBox.Flags flags;   /**< ::SDL_MessageBoxFlags */
+		[CCode (cname="window")]
+		SDL.Window? parent_window; /**< Parent window, can be NULL */
+		string title;  /**< UTF-8 title */
+		string message;/**< UTF-8 message text */
 			[CCode (array_length_cname = "numbuttons", array_length_type = "int")]
-		    SDL.MessageBox.ButtonData[] buttons;
-		    [CCode (cname="colorScheme")]
-		    SDL.MessageBox.ColorScheme? color_scheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
+		SDL.MessageBox.ButtonData[] buttons;
+		[CCode (cname="colorScheme")]
+		SDL.MessageBox.ColorScheme? color_scheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
 		} //MessageBoxData;
 		
 		[CCode (cname="SDL_ShowSimpleMessageBox")]
-		public static int simple_show(uint32 flags, string title, string message, SDL.Window parent);
+		public static int simple_show(MessageBox.Flags flags, string title, string message, SDL.Window? parent = null);
 
 		[CCode (cname="SDL_ShowMessageBox")]
 		public static int show(MessageBox.Data data, int buttonid);
@@ -998,7 +1044,7 @@ namespace SDL {
 	
 	[CCode (cname="SDL_AudioDeviceEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
-	public struct AudioDeviceEvent{
+	public struct AudioDeviceEvent : CommonEvent{
 			uint32 which;
 			bool iscapture;
    } 
@@ -1179,9 +1225,9 @@ namespace SDL {
 	[Compact]
 	public struct DollarGestureEvent : CommonEvent {
 		[CCode (cname="touchID")]
-		SDL.TouchID touch_id;
+		SDL.Gesture.TouchID touch_id;
 		[CCode (cname="gestureID")]
-		SDL.GestureID gesture_id;
+		SDL.Gesture.GestureID gesture_id;
 		[CCode (cname="numFingers")]
 		uint32 num_fingers;
 		float error;
@@ -1212,21 +1258,6 @@ namespace SDL {
 	[CCode (cname="SDL_OSEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
 	public struct OSEvent : CommonEvent {}// OSEvent
-	
-	[CCode (cname="SDL_TouchID", cheader_filename="SDL2/SDL_touch.h")]
-	public struct TouchID : int {}// TouchID
-	
-	[CCode (cname="SDL_FingerID", cheader_filename="SDL2/SDL_touch.h")]
-	public struct FingerID : int {}// FingerID
-	
-	[CCode (cname="SDL_GestureID", cheader_filename="SDL2/SDL_gesture.h")]
-	public struct GestureID : int {}// GestureID
-	
-	[CCode (cname="SDL_JoystickID", cheader_filename="SDL2/SDL_joystick.h")]
-	public struct JoystickID : int {}// JoystickID
-	
-	[CCode (cname="SDL_SysWMmsg", cheader_filename="SDL2/SDL_syswm.h")]
-	public struct SysWMmsg {}// SysWMmsg
 
 	[CCode (cname="SDL_SysWMEvent", type_id="SDL_SysWMEvent", cheader_filename="SDL2/SDL_events.h")]
 	public struct SysWMEvent {
@@ -1319,39 +1350,32 @@ namespace SDL {
 		
 		[CCode (cname="SDL_QuitRequested")]
 		public static bool quit_requested();
+
 		
+	}// Event
+	[CCode (cheader_filename="SDL2/SDL_gesture.h")]	
+	namespace Gesture{
+		[CCode (cname="SDL_GestureID", cheader_filename="SDL2/SDL_gesture.h")]
+		public struct GestureID : int {}// GestureID
+	
 		[CCode (cname="SDL_RecordGesture")]
 		public static int record_gesture(SDL.TouchID touch_id);
-		
-		[CCode (cname="SDL_GetTouchFinger")]
-		public static unowned SDL.Finger get_touch_finger(SDL.TouchID touch_id, int index);
-		
-		[CCode (cname="SDL_GetTouchDevice")]
-		public static TouchID get_touch_device(int index);
-		
-		[CCode (cname="SDL_GetNumTouchFingers")]
-		public static int SDL_get_num_touch_fingers(SDL.TouchID touch_id);
-		
-		[CCode (cname="SDL_GetNumTouchDevices")]
-		public static int SDL_get_num_touch_devices();
 		
 		[CCode (cname="SDL_LoadDollarTemplate")]
 		public static int load_dollar_template_rw(SDL.TouchID touch_id, SDL.RWops src);
 
-        public static int load_dollar_template(SDL.TouchID touch_id, string file){
-        	return load_dollar_template_rw(touch_id,new SDL.RWops.from_file(file, "rb"));
-        }
+		public static int load_dollar_template(SDL.TouchID touch_id, string file){
+			return load_dollar_template_rw(touch_id,new SDL.RWops.from_file(file, "rb"));
+		}
 		
 		[CCode (cname="SDL_SaveDollarTemplate")]
 		public static bool save_dollar_template_rw(SDL.GestureID gesture_id, SDL.RWops dst);
 
-        public static bool save_dollar_template(SDL.GestureID gesture_id, string file){
-        	return save_dollar_template_rw(gesture_id,new SDL.RWops.from_file(file, "wb"));
-        }
-        
-        
-		
-	}// Event
+		public static bool save_dollar_template(SDL.GestureID gesture_id, string file){
+			return save_dollar_template_rw(gesture_id,new SDL.RWops.from_file(file, "wb"));
+		}
+
+	}
 	
 	[CCode (cname="int", cprefix="SDL_", cheader_filename="SDL2/SDL_events.h")]
 	public enum EventState {
@@ -1555,8 +1579,15 @@ namespace SDL {
 		[CCode (cname="SDL_GetMouseState")]
 		public static uint32 get_state(ref int x, ref int y);
 
+		[CCode (cname="SDL_GetGlobalMouseState")]
+		public static uint32 get_global_state(ref int? x, ref int? y);
+
+
 		[CCode (cname="SDL_GetRelativeMouseState")]
 		public static uint32 get_relative_state(ref int x, ref int y);
+		
+		[CCode (cname="SDL_CaptureMouse")]
+		public static int toggle_capture (bool active)
 
 		[CCode (cname="SDL_WarpMouse")]
 		public static void warp_inwindow(SDL.Window window, int x, int y);
@@ -1564,14 +1595,14 @@ namespace SDL {
 		[CCode (cname="SDL_SetRelativeMouseMode")]
 		public static int set_relative_mode(bool enabled);
 
-		[CCode (cname="SDL_GetRelativeMouseState")]
+		[CCode (cname="SDL_GetRelativeMouseMode")]
 		public static bool get_relative_mode();
 
 		[CCode (cname="SDL_CreateCursor")]
 		public Cursor(uint8* data, uint8* mask, int w, int h, 
 			int hot_x, int hot_y);
 
-		[CCode (cname="SDL_CreateCursor")]
+		[CCode (cname="SDL_CreateColorCursor")]
 		public Cursor.from_color(SDL.Surface surface, int hot_x, int hot_y);
 
 		[CCode (cname="SDL_SystemCursor")]
@@ -1582,6 +1613,9 @@ namespace SDL {
 
 		[CCode (cname="SDL_GetCursor")]
 		public static SDL.Cursor get_active();
+		
+		[CCode (cname="SDL_GetDefaultCursor")]
+		public static SDL.Cursor get_default();
 
 		[CCode (cname="SDL_ShowCursor")]
 		public static int show(int toggle);
@@ -1591,7 +1625,11 @@ namespace SDL {
 	public struct JoystickGUID{
 		uint8 data[16];
 	}
+	
+	[CCode (cname="SDL_JoystickID", cheader_filename="SDL2/SDL_joystick.h")]
+	public struct JoystickID : int {}// JoystickID
 
+	
 	[CCode (cname="SDL_Joystick", free_function="SDL_JoystickClose", cheader_filename="SDL2/SDL_joystick.h")]
 	[Compact]
 	public class Joystick {
@@ -1663,30 +1701,39 @@ namespace SDL {
 		public SDL.ButtonState get_button(int button);
 	}// Joystick
 	
-	[CCode (cname="SDL_Finger", type_id="SDL_Finger", cheader_filename="SDL2/SDL_touch.h")]
-	[Compact]
-	public class Finger {
-		SDL.FingerID id;
-		float x;
-		float y;
-		float pressure;
+	[CCode(cheader_filename="SDL2/SDL_touch.h"))]
+	namespace Touch{
+		[CCode (cname="SDL_TouchID"]
+		public struct TouchID : int {}// TouchID
+		
+		[CCode (cname="SDL_FingerID", cheader_filename="SDL2/SDL_touch.h")]
+		public struct FingerID : int {}// FingerID	
 		
 		[CCode (cname="SDL_TOUCH_MOUSEID")]
-		public static uint32 TOUCH_MOUSEID;
-		
-		[CCode (cname="SDL_GetNumTouchDevices")]
-		public static int num_devices();
-		
-		[CCode (cname="SDL_GetTouchDevice")]
-		public static SDL.TouchID get_device(int index);
-		
-		[CCode (cname="SDL_GetNumTouchFingers")]
-		public static int num_fingers(SDL.TouchID touch_id);
-		
-		[CCode (cname="SDL_GetTouchFinger")]
-		public Finger(SDL.TouchID touch_id, int index);
-	}// Finger
-	
+		public struct TouchMouseID : uint32 {}
+			
+
+		[CCode (cname="SDL_Finger", type_id="SDL_Finger", cheader_filename="SDL2/SDL_touch.h")]
+		[Compact]
+		public class Finger {
+			FingerID id;
+			float x;
+			float y;
+			float pressure;
+			
+			[CCode (cname="SDL_GetNumTouchDevices")]
+			public static int num_devices();
+			
+			[CCode (cname="SDL_GetTouchDevice")]
+			public static TouchID get_touch_device(int index);
+			
+			[CCode (cname="SDL_GetNumTouchFingers")]
+			public static int num_fingers(TouchID touch_id);
+			
+			[CCode (cname="SDL_GetTouchFinger")]
+			public Finger(TouchID touch_id, int index);
+		}// Finger
+	}
 	///
 	/// Game Controller
 	///
@@ -1813,155 +1860,157 @@ namespace SDL {
 	///
 	/// Force Feedback
 	///
-	[CCode (cname="Uint8", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
-	public enum HapticDirectionType{
-		POLAR, CARTESIAN, SPHERICAL
-	}
-	[CCode (cname="Uint16", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
-	public enum HapticEffectType{
-		SINE, SQUARE, TRIANGLE, SAWTOOTHUP, SAWTOOTHDOWN, CONSTANT, 
-		CUSTOM, LEFTRIGHT, SPRING, DAMPER, INERTIA, FRICTION, RAMP
-	}
-	[CCode (cname="SDL_HapticDirection", cheader_filename="SDL2/SDL_haptic.h")]
-	[SimpleType]
-	public struct HapticDirection{
-		public HapticDirectionType type;
-		public int32 dir;
-	}
-	[CCode (cname="SDL_HapticPeriodic", cheader_filename="SDL2/SDL_haptic.h")]
-	public struct HapticPeriodic{
-		//Header
-		public HapticEffectType type;
-		public HapticDirection direction; 
-		//Replay
-		public uint32 length;
-		public uint16 delay;
-		//Trigger
-		public uint16 button;
-		public uint16 interval;
-		//Periodic
-		public uint16 period;
-		public int16 magnitude;
-		public int16 offset;
-		public uint16 phase;
-		//Envelope
-		public uint16 attack_length;
-		public uint16 attack_level;
-		public uint16 fade_langth;
-		public uint16 fade_level;
-	}
-	
-	[CCode (cname="SDL_HapticConstant", cheader_filename="SDL2/SDL_haptic.h")]
-	public struct HapticConstant{
-		//Header
-		public HapticEffectType type;
-		public HapticDirection direction; 
-		//Replay
-		public uint32 length;
-		public uint16 delay;
-		//Trigger
-		public uint16 button;
-		public uint16 interval;
-		//Constant
-		public int16 level;
-		//Envelope
-		public uint16 attack_length;
-		public uint16 attack_level;
-		public uint16 fade_langth;
-		public uint16 fade_level;
-	}
-	
-	[CCode (cname="SDL_HapticCondition", cheader_filename="SDL2/SDL_haptic.h")]
-	public struct HapticCondition{
-		//Header
-		public HapticEffectType type;
-		public HapticDirection direction; 
-		//Replay
-		public uint32 length;
-		public uint16 delay;
-		//Trigger
-		public uint16 button;
-		public uint16 interval;
-		//Condition
-		public uint16 right_sat;
-		public uint16 left_sat;
-		public int16 right_coeff;
-		public int16 left_coeff;
-		public uint16 deadband;
-		public int16 center;
-		//Envelope
-		public uint16 attack_length;
-		public uint16 attack_level;
-		public uint16 fade_langth;
-		public uint16 fade_level;
-	}
-	[CCode (cname="SDL_HapticRamp", cheader_filename="SDL2/SDL_haptic.h")]
-	public struct HapticRamp{
-		//Header
-		public HapticEffectType type;
-		public HapticDirection direction; 
-		//Replay
-		public uint32 length;
-		public uint16 delay;
-		//Trigger
-		public uint16 button;
-		public uint16 interval;
-		//Ramp
-		public int16 start;
-		public int16 end;
-		//Envelope
-		public uint16 attack_length;
-		public uint16 attack_level;
-		public uint16 fade_langth;
-		public uint16 fade_level;
-	}
-	[CCode (cname="SDL_HapticLeftRight", cheader_filename="SDL2/SDL_haptic.h")]
-	public struct HapticLeftRight{
-		//Header
-		public HapticEffectType type;
-		//Replay
-		public uint32 length;
-		//Rumble
-		public uint16 large_magnitude;
-		public uint16 small_magnitude;
-	}
-	[CCode (cname="SDL_HapticCustom", cheader_filename="SDL2/SDL_haptic.h")]
-	public struct HapticCustom{
-		//Header
-		public HapticEffectType type;
-		public HapticDirection direction; 
-		//Replay
-		public uint32 length;
-		public uint16 delay;
-		//Trigger
-		public uint16 button;
-		public uint16 interval;
-		//Custom
-		public uint8 channels;
-		public uint16 period;
-		public uint16 samples;
-		public uint16[] data;
-		//Envelope
-		public uint16 attack_length;
-		public uint16 attack_level;
-		public uint16 fade_langth;
-		public uint16 fade_level;
-	}
-
-	[CCode (cname= "SDL_HapticEffect", has_type_id=false, has_target=false, destroy_function="", cheader_filename="SDL2/SDL_haptic.h")]
-	[SimpleType]
-	public struct HapticEffect{
-		public HapticEffectType type;
-		public HapticConstant constant;
-		public HapticPeriodic periodic;
-		public HapticCondition condition;
-		public HapticRamp ramp;
-		public HapticLeftRight leftright;
-		public HapticCustom custom;
-	}
 	[CCode (cname="SDL_Haptic", destroy_function="SDL_HapticClose", cheader_filename="SDL2/SDL_haptic.h")]
 	[Compact]
 	public class Haptic{
+		[CCode (cname="Uint8", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
+		public enum HapticDirectionType{
+			POLAR, CARTESIAN, SPHERICAL
+		}
+		[Flags, CCode (cname="Uint16", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
+		public enum HapticEffectType{
+			SINE, SQUARE, TRIANGLE, SAWTOOTHUP, SAWTOOTHDOWN, CONSTANT, 
+			CUSTOM, LEFTRIGHT, SPRING, DAMPER, INERTIA, FRICTION, RAMP
+		}
+		[CCode (cname="SDL_HapticDirection", cheader_filename="SDL2/SDL_haptic.h")]
+		[SimpleType]
+		public struct HapticDirection{
+			public HapticDirectionType type;
+			public int32 dir;
+		}
+		[CCode (cname="SDL_HapticPeriodic", cheader_filename="SDL2/SDL_haptic.h")]
+		public struct HapticPeriodic{
+			//Header
+			public HapticEffectType type;
+			public HapticDirection direction; 
+			//Replay
+			public uint32 length;
+			public uint16 delay;
+			//Trigger
+			public uint16 button;
+			public uint16 interval;
+			//Periodic
+			public uint16 period;
+			public int16 magnitude;
+			public int16 offset;
+			public uint16 phase;
+			//Envelope
+			public uint16 attack_length;
+			public uint16 attack_level;
+			public uint16 fade_langth;
+			public uint16 fade_level;
+		}
+		
+		[CCode (cname="SDL_HapticConstant", cheader_filename="SDL2/SDL_haptic.h")]
+		public struct HapticConstant{
+			//Header
+			public HapticEffectType type;
+			public HapticDirection direction; 
+			//Replay
+			public uint32 length;
+			public uint16 delay;
+			//Trigger
+			public uint16 button;
+			public uint16 interval;
+			//Constant
+			public int16 level;
+			//Envelope
+			public uint16 attack_length;
+			public uint16 attack_level;
+			public uint16 fade_langth;
+			public uint16 fade_level;
+		}
+		
+		[CCode (cname="SDL_HapticCondition", cheader_filename="SDL2/SDL_haptic.h")]
+		public struct HapticCondition{
+			//Header
+			public HapticEffectType type;
+			public HapticDirection direction; 
+			//Replay
+			public uint32 length;
+			public uint16 delay;
+			//Trigger
+			public uint16 button;
+			public uint16 interval;
+			//Condition
+			public uint16 right_sat;
+			public uint16 left_sat;
+			public int16 right_coeff;
+			public int16 left_coeff;
+			public uint16 deadband;
+			public int16 center;
+			//Envelope
+			public uint16 attack_length;
+			public uint16 attack_level;
+			public uint16 fade_langth;
+			public uint16 fade_level;
+		}
+		[CCode (cname="SDL_HapticRamp", cheader_filename="SDL2/SDL_haptic.h")]
+		public struct HapticRamp{
+			//Header
+			public HapticEffectType type;
+			public HapticDirection direction; 
+			//Replay
+			public uint32 length;
+			public uint16 delay;
+			//Trigger
+			public uint16 button;
+			public uint16 interval;
+			//Ramp
+			public int16 start;
+			public int16 end;
+			//Envelope
+			public uint16 attack_length;
+			public uint16 attack_level;
+			public uint16 fade_langth;
+			public uint16 fade_level;
+		}
+		[CCode (cname="SDL_HapticLeftRight", cheader_filename="SDL2/SDL_haptic.h")]
+		public struct HapticLeftRight{
+			//Header
+			public HapticEffectType type;
+			//Replay
+			public uint32 length;
+			//Rumble
+			public uint16 large_magnitude;
+			public uint16 small_magnitude;
+		}
+		[CCode (cname="SDL_HapticCustom", cheader_filename="SDL2/SDL_haptic.h")]
+		public struct HapticCustom{
+			//Header
+			public HapticEffectType type;
+			public HapticDirection direction; 
+			//Replay
+			public uint32 length;
+			public uint16 delay;
+			//Trigger
+			public uint16 button;
+			public uint16 interval;
+			//Custom
+			public uint8 channels;
+			public uint16 period;
+			public uint16 samples;
+			public uint16[] data;
+			//Envelope
+			public uint16 attack_length;
+			public uint16 attack_level;
+			public uint16 fade_langth;
+			public uint16 fade_level;
+		}
+	
+		[CCode (cname= "SDL_HapticEffect", has_type_id=false, has_target=false, destroy_function="", cheader_filename="SDL2/SDL_haptic.h")]
+		[SimpleType]
+		public struct HapticEffect{
+			public HapticEffectType type;
+			public HapticConstant constant;
+			public HapticPeriodic periodic;
+			public HapticCondition condition;
+			public HapticRamp ramp;
+			public HapticLeftRight leftright;
+			public HapticCustom custom;
+		}
+		
+		
 		[CCode (cname="SDL_HapticOpen")]
 		public Haptic(int device_index);
 		[CCode (cname="SDL_HapticOpenfromJoystick")]
@@ -2404,11 +2453,11 @@ namespace SDL {
 	}// Texture
 	
 	
-    ///
-    /// Threading
-    ///
-    [CCode (has_target = true)]
-    public delegate int ThreadFunc();
+	///
+	/// Threading
+	///
+	[CCode (has_target = true)]
+	public delegate int ThreadFunc();
  
  	
 	[CCode (cname="SDL_ThreadPriority", cprefix="SDL_THREAD_PRIORITY_", cheader_filename="SDL2/SDL_thread.h")]
@@ -2416,84 +2465,83 @@ namespace SDL {
 		LOW, NORMAL, HIGH
 	}
  
-    [CCode (cname="SDL_Thread", free_function="SDL_WaitThread", cheader_filename="SDL2/SDL_thread.h")]
-    [Compact]
-    public class Thread {
-        [CCode (cname="SDL_CreateThread", delegate_target_pos= 1.1)]
-        public Thread(ThreadFunc f, string name);
-        
-        [CCode (cname="SDL_ThreadID")]
-        public static uint32 id();
-        
-        [CCode (cname="SDL_GetThreadID")]
-        public uint32 get_id();
-        
-        [CCode (cname="SDL_GetThreadName")]
-        public string get_name();
-        
-        [CCode (cname="SDL_SetThreadPriority")]
-        public static int set_priotity(ThreadPriority priority);
+	[CCode (cname="SDL_Thread", free_function="SDL_WaitThread", cheader_filename="SDL2/SDL_thread.h")]
+	[Compact]
+	public class Thread {
+		[CCode (cname="SDL_CreateThread", delegate_target_pos= 1.1)]
+		public Thread(ThreadFunc f, string name);
+
+		[CCode (cname="SDL_ThreadID")]
+		public static uint32 id();
+
+		[CCode (cname="SDL_GetThreadID")]
+		public uint32 get_id();
+
+		[CCode (cname="SDL_GetThreadName")]
+		public string get_name();
+
+		[CCode (cname="SDL_SetThreadPriority")]
+		public static int set_priotity(ThreadPriority priority);
  
  		[CCode (cname="SDL_DetachThread")]
-        public void detach(); 
-    }// Thread
+		public void detach(); 
+	}// Thread
  
-    [CCode (cname="SDL_Mutex", free_function="SDL_DestroyMutex")]
-    [Compact]
-    public class Mutex {
-        [CCode (cname="SDL_CreateMutex")]
-        public Mutex();
-
+	[CCode (cname="SDL_Mutex", free_function="SDL_DestroyMutex")]
+	[Compact]
+	public class Mutex {
+		[CCode (cname="SDL_CreateMutex")]
+		public Mutex();
+	
 		[CCode (cname="SDL_TryLockMutex")]
  		public int try_lock();
  		
-        [CCode (cname="SDL_LockMutex")]
-        public int do_lock();
+		[CCode (cname="SDL_LockMutex")]
+		public int do_lock();
  
-        [CCode (cname="SDL_UnlockMutex")]
-        public int unlock();
-    }// Mutex
+		[CCode (cname="SDL_UnlockMutex")]
+		public int unlock();
+	}// Mutex
  
-    [CCode (cname="SDL_sem", free_function="SDL_DestroySemaphore")]
-    [Compact]
-    public class Semaphore {
-        [CCode (cname="SDL_CreateSemaphore")]
-        public Semaphore(uint32 initial_value);
+	[CCode (cname="SDL_sem", free_function="SDL_DestroySemaphore")]
+	[Compact]
+	public class Semaphore {
+		[CCode (cname="SDL_CreateSemaphore")]
+		public Semaphore(uint32 initial_value);
+		 
+		[CCode (cname="SDL_SemWait")]
+		public int wait();
+		 
+		[CCode (cname="SDL_SemTryWait")]
+		public int try_wait();
+		 
+		[CCode (cname="SDL_SemWaitTimeout")]
+		public int wait_timeout(uint32 ms);
+		 
+		[CCode (cname="SDL_SemPost")]
+		public int post();
+		 
+		[CCode (cname="SDL_SemValue")]
+		public uint32 get_value();
+	}// Semaphore
  
-        [CCode (cname="SDL_SemWait")]
-        public int wait();
- 
-        [CCode (cname="SDL_SemTryWait")]
-        public int try_wait();
- 
-        [CCode (cname="SDL_SemWaitTimeout")]
-        public int wait_timeout(uint32 ms);
- 
-        [CCode (cname="SDL_SemPost")]
-        public int post();
- 
-        [CCode (cname="SDL_SemValue")]
-        public uint32 get_value();
-    }// Semaphore
- 
-    [CCode (cname="SDL_cond", free_function="SDL_DestroyCond")]
-    [Compact]
-    public class Condition {
-        [CCode (cname="SDL_CreateCond")]
-        public Condition();
- 
-        [CCode (cname="SDL_CondSignal")]
-        public int signalize();
- 
-        [CCode (cname="SDL_CondBroadcast")]
-        public int broadcast();
- 
-        [CCode (cname="SDL_CondWait")]
-        public int wait(SDL.Mutex mut);
- 
-        [CCode (cname="SDL_CondWaitTimeout")]
-        public int wait_timeout(SDL.Mutex mut, uint32 ms);
-    }// Condition
-    
- 
+	[CCode (cname="SDL_cond", free_function="SDL_DestroyCond")]
+	[Compact]
+	public class Condition {
+		[CCode (cname="SDL_CreateCond")]
+		public Condition();
+		 
+		[CCode (cname="SDL_CondSignal")]
+		public int signalize();
+		 
+		[CCode (cname="SDL_CondBroadcast")]
+		public int broadcast();
+		 
+		[CCode (cname="SDL_CondWait")]
+		public int wait(SDL.Mutex mut);
+		 
+		[CCode (cname="SDL_CondWaitTimeout")]
+		public int wait_timeout(SDL.Mutex mut, uint32 ms);
+	}// Condition
+	 
 }// SDL
