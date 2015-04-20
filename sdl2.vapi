@@ -1800,11 +1800,10 @@ namespace SDL {
 			int button;
 			[CCode (cname="value.axis")]
 			int axis;
-			[CCode (cname="value.hat")]
-			struct hat {
-				int hat;
-				int hat_mask;
-			} 
+			[CCode (cname="value.hat.hat")]
+			int hat;
+			[CCode (cname="value.hat.hat_mask")]
+			int hat_mask;
 		}
 	}
 	
@@ -2130,7 +2129,7 @@ namespace SDL {
 		public static unowned string get_currentdriver();
 		
 		[CCode (cname="SDL_OpenAudio")]
-		public static int open(AudioSpec desired, out AudioSpec obtained);
+		public static int open(Audio.Spec desired, out Audio.Spec obtained);
 		
 		[CCode (cname="SDL_GetNumAudioDevices")]
 		public static int num_devices();
@@ -2171,10 +2170,10 @@ namespace SDL {
 		public static void close();
 
 		[CCode (cname="SDL_CloseAudioDevice")]
-		public static void close_device(SDL.Audio.DeviceID dev);
+		public static void close_device(SDL.Audio.Device dev);
 
 		[CCode (cname="SDL_AudioDeviceConnected")]
-		public static int is_device_connected(SDL.Audio.DeviceID dev);
+		public static int is_device_connected(SDL.Audio.Device dev);
 	}// Audio
 	
 	

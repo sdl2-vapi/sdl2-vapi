@@ -36,10 +36,10 @@ namespace SDLMixer {
 	public static void close();
 
 	[CCode (cname="Mix_QuerySpec")]
-	public static int query(ref int frequency, ref SDL.Audio.Format format, ref int channels);
+	public static int query(out int frequency, out SDL.Audio.Format format, out int channels);
 
 	[CCode (cname="Mix_SetPostMix")]
-	public static void set_post_mixer(MixFunction f, void* arg);
+	public static void set_post_mixer(MixFunction f);
 
 	[CCode (cname="Mix_SetSynchroValue")]
 	public static int set_synchro_value(int value);
@@ -47,11 +47,14 @@ namespace SDLMixer {
 	[CCode (cname="Mix_GetSynchroValue")]
 	public static int get_synchro_value();
 
-	public delegate void MixFunction(void* udata, uchar[] stream);
+	[CCode (has_target = true, delegate_target_pos = 0)]
+	public delegate void MixFunction(uchar[] stream);
 	public delegate void MusicFinishedCallback();
 	public delegate void ChannelFinishedCallback(int channel);
-	public delegate void EffectCallback(int chan, void* stream, int len, void* udata);
-	public delegate void EffectDoneCallback(int chan, void* udata);
+	[CCode (has_target = true, delegate_target_pos = 2.1)]
+	public delegate void EffectCallback(int chan, void* stream, int len);
+	[CCode (has_target = true, delegate_target_pos = 0.1)]
+	public delegate void EffectDoneCallback(int chan);
 
 	[CCode (cname="int", cprefix="MIX_")]
 	public enum FadeStatus {
@@ -89,7 +92,7 @@ namespace SDLMixer {
 		public static void* get_hook_data();
 
 		[CCode (cname="Mix_HookMusic")]
-		public static void hook_mixer(MixFunction? f, void* arg);
+		public static void hook_mixer(MixFunction? f);
 
 		[CCode (cname="Mix_HookMusicFinished")]
 		public static void hook_finished(MusicFinishedCallback cb);
@@ -147,7 +150,7 @@ namespace SDLMixer {
 	public class Effect {
 		[CCode (cname="Mix_RegisterEffect")]
 		public static int register(int chan, EffectCallback f, 
-			EffectDoneCallback? d, void* arg);
+			EffectDoneCallback? d);
 
 		[CCode (cname="Mix_UnregisterEffect")]
 		public static int unregister(int chan, EffectCallback f);
