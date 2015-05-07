@@ -677,7 +677,7 @@ namespace SDL {
 	public struct SysWMmsg {
 		[CCode (cname="msg.dummy")]
 		int msg;
-		SysWmType type;
+		SysWMType type;
 		SDL.Version version;		
 	}// SysWMmsg
 	
@@ -685,7 +685,7 @@ namespace SDL {
 	public struct SysWMInfo {
 		[CCode (cname="info.dummy")]
 		int info;
-		SysWmType type;
+		SysWMType type;
 		SDL.Version version;		
 	}// SysWMmsg
 	
@@ -697,7 +697,7 @@ namespace SDL {
 	}
 	
 	[CCode (cname = "SDL_HitTest", has_target= true, delegate_target_pos = 1.1)]
-	public delegate HitTestResult HitTestFunc(Window window, ref SDL.Point area)
+	public delegate HitTestResult HitTestFunc(Window window, ref SDL.Point area);
 	
 	
 	[CCode (cprefix="SDL_", cname = "SDL_Window", destroy_function = "SDL_DestroyWindow", cheader_filename="SDL2/SDL_video.h")]
@@ -865,9 +865,8 @@ namespace SDL {
 			CORE, COMPATIBILITY, ES;
 		}// GLprofile
 		
-		[CCode (cname="SDL_GLcontextFlag", cprefix="SDL_GL_CONTEXT_", lower_case_csuffix="flag" cheader_filename="SDL2/SDL_video.h")]
+		[CCode (cname="SDL_GLcontextFlag", cprefix="SDL_GL_CONTEXT_", lower_case_csuffix="flag", cheader_filename="SDL2/SDL_video.h")]
 		public enum ContextFlag{
-			
 			DEBUG, FORWARD_COMPATIBLE, ROBUST_ACCESS, RESET_ISOLATION
 		}
 		[CCode (cname="SDL_GL_LoadLibrary")]
@@ -1195,9 +1194,9 @@ namespace SDL {
 	[Compact]
 	public struct TouchFingerEvent : CommonEvent {
 		[CCode (cname="touchID")]
-		SDL.TouchID touch_id;
+		SDL.Touch.TouchID touch_id;
 		[CCode (cname="fingerID")]
-		SDL.FingerID finger_id;
+		SDL.Touch.FingerID finger_id;
 		float x;
 		float y;
 		float dx;
@@ -1209,7 +1208,7 @@ namespace SDL {
 	[Compact]
 	public struct MultiGestureEvent : CommonEvent {
 		[CCode (cname="touchID")]
-		SDL.TouchID touch_id;
+		SDL.Touch.TouchID touch_id;
 		[CCode (cname="dTheta")]
 		float d_theta;
 		[CCode (cname="dDist")]
@@ -1225,7 +1224,7 @@ namespace SDL {
 	[Compact]
 	public struct DollarGestureEvent : CommonEvent {
 		[CCode (cname="touchID")]
-		SDL.Gesture.TouchID touch_id;
+		SDL.Touch.TouchID touch_id;
 		[CCode (cname="gestureID")]
 		SDL.Gesture.GestureID gesture_id;
 		[CCode (cname="numFingers")]
@@ -1359,19 +1358,19 @@ namespace SDL {
 		public struct GestureID : int {}// GestureID
 	
 		[CCode (cname="SDL_RecordGesture")]
-		public static int record_gesture(SDL.TouchID touch_id);
+		public static int record_gesture(Touch.TouchID touch_id);
 		
 		[CCode (cname="SDL_LoadDollarTemplate")]
-		public static int load_dollar_template_rw(SDL.TouchID touch_id, SDL.RWops src);
+		public static int load_dollar_template_rw(Touch.TouchID touch_id, SDL.RWops src);
 
-		public static int load_dollar_template(SDL.TouchID touch_id, string file){
+		public static int load_dollar_template(Touch.TouchID touch_id, string file){
 			return load_dollar_template_rw(touch_id,new SDL.RWops.from_file(file, "rb"));
 		}
 		
 		[CCode (cname="SDL_SaveDollarTemplate")]
-		public static bool save_dollar_template_rw(SDL.GestureID gesture_id, SDL.RWops dst);
+		public static bool save_dollar_template_rw(GestureID gesture_id, SDL.RWops dst);
 
-		public static bool save_dollar_template(SDL.GestureID gesture_id, string file){
+		public static bool save_dollar_template(GestureID gesture_id, string file){
 			return save_dollar_template_rw(gesture_id,new SDL.RWops.from_file(file, "wb"));
 		}
 
@@ -1587,7 +1586,7 @@ namespace SDL {
 		public static uint32 get_relative_state(ref int x, ref int y);
 		
 		[CCode (cname="SDL_CaptureMouse")]
-		public static int toggle_capture (bool active)
+		public static int toggle_capture (bool active);
 
 		[CCode (cname="SDL_WarpMouse")]
 		public static void warp_inwindow(SDL.Window window, int x, int y);
@@ -1701,9 +1700,9 @@ namespace SDL {
 		public SDL.ButtonState get_button(int button);
 	}// Joystick
 	
-	[CCode(cheader_filename="SDL2/SDL_touch.h"))]
+	[CCode(cheader_filename="SDL2/SDL_touch.h")]
 	namespace Touch{
-		[CCode (cname="SDL_TouchID"]
+		[CCode (cname="SDL_TouchID")]
 		public struct TouchID : int {}// TouchID
 		
 		[CCode (cname="SDL_FingerID", cheader_filename="SDL2/SDL_touch.h")]
