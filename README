@@ -4,4 +4,10 @@ This edited version is created because there are some issues that need to be iro
 If you spot any bug, any missing functionality, or any regression, you can report it here too, but please, also report it in the Gitorious repo.
 Thanks
 
+
 Mario Daniel Ruiz Saavedra
+
+===But wait, where's SDL_Log, SDL_Assert, ..., etc?===
+
+Vala provides much more powerful constructs for that, so for a Vala binding those make no sense
+
