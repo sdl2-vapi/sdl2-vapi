@@ -50,6 +50,55 @@ namespace SDL {
 	[CCode (cname="SDL_QuitSubSystem")]
 	public static void quit_subsystem(uint32 flags);
 
+	//
+	// CPU Info
+	//
+
+	[CCode (cheader_filename="SDL2/SDL_version.h")]
+	namespace CPU{
+		[CCode (cname ="SDL_GetCPUCacheLineSize", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static int get_cache_line_size();
+		
+		[CCode (cname ="SDL_GetCPUCount", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static int get_num_cores();
+		
+		[CCode (cname ="SDL_GetSystemRAM", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static int get_system_ram();
+		
+		[CCode (cname ="SDL_Has3DNow", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_3dnow();
+		
+		[CCode (cname ="SDL_HasAVX", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_avx();
+		
+		[CCode (cname ="SDL_HasAVX2", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_avx2();
+		
+		[CCode (cname ="SDL_HasAltiVec", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_altivec();
+		
+		[CCode (cname ="SDL_HasMMX", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_mmx();
+		
+		[CCode (cname ="SDL_HasRDTSC", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_rdtsc();
+		
+		[CCode (cname ="SDL_HasSSE", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_sse();
+		
+		[CCode (cname ="SDL_HasSSE2", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_sse2();
+		
+		[CCode (cname ="SDL_HasSSE3", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_sse3();
+		
+		[CCode (cname ="SDL_HasSSE41", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_sse41();
+		
+		[CCode (cname ="SDL_HasSSE42", cheader_filename="SDL2/SDL_cpuinfo.h")]
+		public static bool has_sse42();
+	}
+
 	[CCode (type_id="SDL_version", cheader_filename="SDL2/SDL_version.h", cname="SDL_version")]
 	public class Version {
 		public uint8 major;
@@ -1636,7 +1685,7 @@ namespace SDL {
 		public static int count();
 
 		[CCode (cname="SDL_JoystickNameForIndex")]
-		public static unowned string name_forindex(int device_index);
+		public static unowned string get_name_for_index(int device_index);
 
 		[CCode (cname="SDL_JoystickOpen")]
 		public Joystick(int device_index);
