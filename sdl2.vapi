@@ -950,7 +950,7 @@ namespace SDL {
 		public static int set_attribute(SDL.GL.Attributes attr, int val);
 
 		[CCode (cname="SDL_GL_GetAttribute")]
-		public static int get_attribute(SDL.GL.Attributes attr, ref int val);
+		public static int get_attribute(SDL.GL.Attributes attr, out int val);
 
 		[CCode (cname="SDL_GL_MakeCurrent")]
 		public static int make_current(SDL.Window window, SDL.GL.Context context);
@@ -1691,7 +1691,7 @@ namespace SDL {
 		public static int show(int toggle);
 	}// Cursor
 	
-	[CCode (cname="SDL_JoystickGUID", cheader="SDL2/SDL_joystick.h")]
+	[CCode (cname="SDL_JoystickGUID", cheader_filename="SDL2/SDL_joystick.h")]
 	public struct JoystickGUID{
 		uint8 data[16];
 	}
@@ -1714,9 +1714,6 @@ namespace SDL {
 
 		[CCode (cname="SDL_JoystickName")]
 		public unowned string get_name();
-
-		[CCode (cname="SDL_JoystickName")]
-		public static unowned string get_name_from_index(int device_index);
 		
 		[CCode (cname="SDL_JoystickGetDeviceGUID")]
 		public static SDL.JoystickGUID get_guid_from_device(int device_index);
