@@ -2480,10 +2480,10 @@ namespace SDL {
 	[Compact]
 	public class Texture {
 		[CCode (cname="SDL_CreateTexture")]
-		public Texture(SDL.Renderer renderer, SDL.PixelRAWFormat format, int access, int w, int h);
+		public static Texture create(SDL.Renderer renderer, SDL.PixelRAWFormat format, int access, int w, int h);
 		
 		[CCode (cname="SDL_CreateTextureFromSurface")]
-		public Texture.from_surface(SDL.Renderer renderer, SDL.Surface surface);
+		public static Texture from_surface(SDL.Renderer renderer, SDL.Surface surface);
 		
 		[CCode (cname="SDL_QueryTexture")]
 		public int query(out SDL.PixelRAWFormat format, out int access, out int w, out int h); 
