@@ -1743,7 +1743,7 @@ namespace SDL {
 		public SDL.HatValue get_hat(int hat);
 
 		[CCode (cname="SDL_JoystickGetBall")]
-		public SDL.HatValue get_ball(int ball, ref int dx, ref int dy);
+		public SDL.HatValue get_ball(int ball, out int dx, out int dy);
 
 		[CCode (cname="SDL_JoystickGetButton")]
 		public SDL.ButtonState get_button(int button);
@@ -2327,7 +2327,7 @@ namespace SDL {
 		public uint32 num_texture_formats;
 		
 		[CCode (cname="texture_formats")]
-		public uint32 texture_formats[];
+		public SDL.PixelFormat texture_formats[16];
 		
 		[CCode (cname="max_texture_width")]
 		public int max_texture_width;
