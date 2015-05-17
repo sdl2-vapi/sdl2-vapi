@@ -405,8 +405,6 @@ namespace SDL {
 		}
 
 		[CCode (cname="SDL_RectEquals")]
-		public bool is_equal(SDL.Rect other_rect);
-
 		public bool is_equal(SDL.Rect other_rect){
 			return(this == other_rect ||
 			       (this.x==other_rect.x &&
@@ -420,8 +418,6 @@ namespace SDL {
 			return x >= this.x && this.y >= this.y &&
 				x < this.x + this.w && y < this.y + this.h;
 		}
-
->>>>>>> wh1sper.123.wtfit@gmail.com fixes
 		[CCode (cname="SDL_HasIntersection")]
 		public bool is_intersecting(SDL.Rect other_rect);
 
