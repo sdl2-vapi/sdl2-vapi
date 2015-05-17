@@ -1063,9 +1063,6 @@ namespace SDL {
 		[CCode (cname="SDL_RWclose")]
 		public int64 close();
 		
-		[CCode (cname="SDL_RWclose")]
-		public int close();
-		
 		[CCode (cname="SDL_RWFromFile")]
 		public RWops.from_file(string file, string mode);
 
