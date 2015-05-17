@@ -1,3 +1,5 @@
+#README
+
 This is a unnoficial set of vapi files for SDL2, please be wary of using it in stable code.
 This edited version is created because there are some issues that need to be ironed out before merging again with the not-so-unofficial repo at https://gitorious.org/sdl-2-0-vala-vapi
 
@@ -5,9 +7,15 @@ If you spot any bug, any missing functionality, or any regression, you can repor
 Thanks
 
 
-Mario Daniel Ruiz Saavedra
+###But wait, where's SDL_Log, ..., etc?
 
-===But wait, where's SDL_Log, SDL_Assert, ..., etc?===
-
-Vala provides much more powerful constructs for that, so for a Vala binding those make no sense
+The following will not be implemented:
+ - SDL_loadso.h: There's a better implementation of that using gmodule-2.0 (part of GLib framework)
+ - SDL_log.h: GLib provides a more powerful log implementation
+ - SDL_system.h: Already provided by GLib
+ - SDL_platform.h: Not useful on Vala
+ - SDL_endian.h: Already provided by GLib
+ - SDL_bits.h: Already provided by GLib
+ - SDL_stdinc.h: Already provided by GLib
+ - SDL_filesystem.h: Already provided by GLib
 
