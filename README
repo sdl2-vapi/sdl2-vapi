@@ -1,9 +1,9 @@
 #README
 
 This is a unnoficial set of vapi files for SDL2, please be wary of using it in stable code.
-This edited version is created because there are some issues that need to be ironed out before merging again with the not-so-unofficial repo at https://gitorious.org/sdl-2-0-vala-vapi
+This version is meant to be a continuation and direct replacement for the gitorious repo located  at https://gitorious.org/sdl-2-0-vala-vapi, and any personal repo from PedroHLC and Desiderantes
 
-If you spot any bug, any missing functionality, or any regression, you can report it here too, but please, also report it in the Gitorious repo.
+If you spot any bug, any missing functionality, or any regression, you should report it here instead of the Gitorious repo, but please, keep in mind that this is still not stable
 Thanks
 
 
