@@ -143,11 +143,11 @@ namespace SDL {
 	/**
 	 * Use this function to clean up all initialized subsystems. You should call it upon all exit conditions.
 	 *
-	 * You should call this function even if you have already shutdown each initialized subsystem with {@link SDL.quit_sub_system}.
+	 * You should call this function even if you have already shutdown each initialized subsystem with {@link SDL.quit_subsystem}.
 	 * It is safe to call this function even in the case of errors in initialization.
 	 *
 	 * If you start a subsystem using a call to that subsystem's init function (for example {@link SDL.Video.init})
-	 * instead of {@link SDL.init} or {@link SDL.init_sub_system}, then you must use that subsystem's quit function ({@link SDL.Video.quit})
+	 * instead of {@link SDL.init} or {@link SDL.init_subsystem}, then you must use that subsystem's quit function ({@link SDL.Video.quit})
 	 * to shut it down before calling {@link SDL.quit}.
 	 */
 	[CCode (cname="SDL_Quit")]
@@ -1085,14 +1085,29 @@ namespace SDL {
 	namespace MessageBox{
 		[Flags, CCode (cname="SDL_MessageBoxFlags", cprefix="SDL_MESSAGEBOX_", cheader_filename="SDL2/SDL_messagebox.h")]
 		public enum Flags {
-			ERROR, 	   	/**< error dialog */
-			WARNING,   	/**< warning dialog */
-			INFORMATION  /**< informational dialog */
+			/**
+			 * error dialog
+			 */
+			ERROR,
+			/**
+			 * warning dialog
+			 */
+			WARNING,
+			/**
+			 * informational dialog
+			 */
+			INFORMATION
 		} // MessageBoxFlags;
 		[Flags, CCode (cname="SDL_MessageBoxButtonFlags", cprefix="SDL_MESSAGEBOX_BUTTON_", cheader_filename="SDL2/SDL_messagebox.h")]
 		public enum ButtonFlags{
-		RETURNKEY_DEFAULT ,  /**< Marks the default button when return is hit */
-		ESCAPEKEY_DEFAULT/**< Marks the default button when escape is hit */
+		/**
+		 * Marks the default button when return is hit
+		 */
+		RETURNKEY_DEFAULT,
+		/**
+		 * Marks the default button when escape is hit
+		 */
+		ESCAPEKEY_DEFAULT
 		} //MessageBoxButtonFlags;
 		[CCode (cname="SDL_MessageBoxColorType", cprefix="SDL_MESSAGEBOX_COLOR_", cheader_filename="SDL2/SDL_messagebox.h")]
 		public enum ColorType{
@@ -1105,9 +1120,15 @@ namespace SDL {
 		} //MessageBoxColorType;
 		[CCode (cname="SDL_MessageBoxButtonData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct ButtonData{
-		MessageBox.ButtonFlags flags;   /**< ::SDL_MessageBoxButtonFlags */
+		/**
+		 * ::SDL_MessageBoxButtonFlags
+		 */
+		MessageBox.ButtonFlags flags;
 		int buttonid;   /**< User defined button id (value returned via SDL_ShowMessageBox) */
-		string text;  /**< The UTF-8 button text */
+		/**
+		 * The UTF-8 button text
+		 */
+		string text;
 		} //MessageBoxButtonData;
 		[CCode (cname="SDL_MessageBoxColor", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Color{
@@ -1124,14 +1145,23 @@ namespace SDL {
 		[CCode (cname="SDL_MessageBoxData", destroy_function="", cheader_filename="SDL2/SDL_messagebox.h")]
 		public struct Data {
 		MessageBox.Flags flags;   /**< ::SDL_MessageBoxFlags */
+		/**
+		 * Parent window, can be null
+		 */
 		[CCode (cname="window")]
-		SDL.Window? parent_window; /**< Parent window, can be NULL */
+		SDL.Window? parent_window;
 		string title;  /**< UTF-8 title */
-		string message;/**< UTF-8 message text */
-			[CCode (array_length_cname = "numbuttons", array_length_type = "int")]
+		/**
+		 * UTF-8 message text
+		 */
+		string message;
+		[CCode (array_length_cname = "numbuttons", array_length_type = "int")]
 		SDL.MessageBox.ButtonData[] buttons;
+		/**
+		 * ::SDL_MessageBoxColorScheme, can be NULL to use system settings
+		 */
 		[CCode (cname="colorScheme")]
-		SDL.MessageBox.ColorScheme? color_scheme;   /**< ::SDL_MessageBoxColorScheme, can be NULL to use system settings */
+		SDL.MessageBox.ColorScheme? color_scheme;
 		} //MessageBoxData;
 		
 		[CCode (cname="SDL_ShowSimpleMessageBox")]
