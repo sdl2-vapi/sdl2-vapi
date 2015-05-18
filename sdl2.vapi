@@ -29,24 +29,135 @@ namespace SDL {
 	///
 	/// Initialization
 	///
+	/**
+	 * These flags can be OR'd together.
+	 */
 	[Flags, CCode (cname="int", cprefix="SDL_INIT_")]
 	public enum InitFlag {
-		TIMER, AUDIO, VIDEO, JOYSTICK, HAPTIC,
-		GAMECONTROLLER, NOPARACHUTE, EVERYTHING
+		/**
+		 * timer subsystem
+		 */
+		TIMER,
+		/**
+		 * audio subsystem
+		 */
+		AUDIO,
+		/**
+		 * video subsystem
+		 */
+		VIDEO,
+		/**
+		 * joystick subsystem
+		 */
+		JOYSTICK,
+		/**
+		 * haptic (force feedback) subsystem
+		 */
+		HAPTIC,
+		/**
+		 * controller subsystem
+		 */
+		GAMECONTROLLER,
+		/**
+		 * events subsystem
+		 */
+		EVENTS,
+		/**
+		 * All of the above subsystems beside.
+		 */
+		EVERYTHING,
+		/**
+		 * Prevents SDL from catching fatal signals.
+		 */
+		NOPARACHUTE
 	}// InitFlag
 
+	/**
+	 * Use this function to initialize the SDL library. This must be called before using any other SDL function.
+	 *
+	 * All subsystems are initialized by default.
+	 *
+	 * If you want to initialize subsystems separately you would call:
+	 *
+	 * {{{
+	 * SDL.init(0);
+	 * }}}
+	 *
+	 * followed by {@link SDL.init_subsystem} with the desired subsystem flag.
+	 *
+	 * @param flags subsystem initialization flags.
+	 *
+	 * @return Returns 0 on success or a negative error code on failure; call {@link SDL.get_error} for more information.
+	 */
 	[CCode (cname="SDL_Init")]
 	public static int init(uint32 flags = SDL.InitFlag.EVERYTHING);
 
+	/**
+	 * Use this function to initialize specific SDL subsystems.
+	 *
+	 * {@link SDL.init} initializes assertions and crash protection and then calls {@link SDL.init_subsystem}.
+	 * If you want to bypass those protections you can call {@link SDL.init_subsystem} directly.
+	 *
+	 * Subsystem initialization is ref-counted, you must call {@link SDL.quit_subsystem} for each {@link SDL.init_subsystem}
+	 * to correctly shutdown a subsystem manually (or call {@link SDL.quit} to force shutdown).
+	 * If a subsystem is already loaded then this call will increase the ref-count and return.
+	 *
+	 * @param flags any of the flags used by {@link SDL.init}.
+	 *
+	 * @return Returns 0 on success or a negative error code on failure; call {@link SDL.get_error} for more information.
+	 */
 	[CCode (cname="SDL_InitSubSystem")]
 	public static int init_subsystem(uint32 flags);
 
+	/**
+	 * Use this function to return a mask of the specified subsystems which have previously been initialized.
+	 *
+	 * Examples:
+	 * {{{
+	 * // Get init data on all the subsystems
+	 * uint32 subsystemInit = SDL.get_initialized(SDL.InitFlag.EVERYTHING);
+	 * if (subsystemInit & SDL.InitFlag.VIDEO)
+	 *   //Video is initalized
+	 * }}}
+	 * {{{
+	 * // Just check for one specific subsystem
+	 * if (SDL.get_initialized(SDL.InitFlag.VIDEO) != 0)
+	 *   //Video is initialized
+	 * }}}
+	 * {{{
+	 * // Check for two subsystems
+	 * uint32 mask = SDL.InitFlag.VIDEO | SDL.InitFlag.AUDIO;
+	 * if (SDL.get_initialized(mask) == mask)
+	 *   //Video and Audio is initialized
+	 * }}}
+	 *
+	 * @param flags any of the flags used by {@link SDL.init}.
+	 *
+	 * @return If flags is 0 it returns a mask of all initialized subsystems, otherwise it returns the initialization status of the specified subsystems.
+	 * The return value does not include {@link SDL.InitFlag.NOPARACHUTE}.
+	 */
 	[CCode (cname="SDL_WasInit")]
 	public static uint32 get_initialized(uint32 flags);
 
+
+	/**
+	 * Use this function to clean up all initialized subsystems. You should call it upon all exit conditions.
+	 *
+	 * You should call this function even if you have already shutdown each initialized subsystem with {@link SDL.quit_sub_system}.
+	 * It is safe to call this function even in the case of errors in initialization.
+	 *
+	 * If you start a subsystem using a call to that subsystem's init function (for example {@link SDL.Video.init})
+	 * instead of {@link SDL.init} or {@link SDL.init_sub_system}, then you must use that subsystem's quit function ({@link SDL.Video.quit})
+	 * to shut it down before calling {@link SDL.quit}.
+	 */
 	[CCode (cname="SDL_Quit")]
 	public static void quit();
 
+	/**
+	 * Use this function to shut down specific SDL subsystems.
+	 *
+	 * @param flags any of the flags used by {@link SDL.init}.
+	 */
 	[CCode (cname="SDL_QuitSubSystem")]
 	public static void quit_subsystem(uint32 flags);
 
