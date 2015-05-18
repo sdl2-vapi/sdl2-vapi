@@ -36,7 +36,7 @@ using SDLMixer;
 public class Example 
 	{
 	protected static SDL.Window window;
-	protected static SDL.Renderer window_renderer;
+	protected static SDL.Renderer? window_renderer;
 
 	public static void main()	{
 		SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
@@ -44,12 +44,13 @@ public class Example
 		
 		window = new SDL.Window("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Window.POS_CENTERED, Window.POS_CENTERED, 800,600, WindowFlags.RESIZABLE);
 		var a= SDLMixer.open(44100,Audio.Format.S16LSB,2,4096); stdout.printf("%d\n",a);
-		window_renderer = new SDL.Renderer(window, -1, SDL.RendererFlags.ACCELERATED | SDL.RendererFlags.PRESENTVSYNC);
+		window_renderer = Renderer.create(window, -1, SDL.RendererFlags.ACCELERATED | SDL.RendererFlags.PRESENTVSYNC);
 		window.show();
+		assert(window_renderer == null);
 		// Open surface and after transform to texture
 		SDL.Surface img= SDLImage.load("boy.png");
-		SDL.Texture texture_img= new Texture.from_surface (window_renderer, img);		
-		
+		var texture_img= Texture.create_from_surface (window_renderer, img);		
+		assert(texture_img ==null);
 		// Load music
 		Music sfx= new Music("yahoo.ogg");
 		
@@ -77,7 +78,8 @@ public class Example
 				break;
 		}
 		SDL.Surface info= font.render_blended_wrapped_utf8(text, {10,10,10,255}, 240);
-		SDL.Texture texture_info = new Texture.from_surface(window_renderer, info);	
+		var texture_info = Texture.create_from_surface(window_renderer, info);	
+		assert(texture_info ==null);
 		var row =0;
 		var column =0;
 		//Main loop
