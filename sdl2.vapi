@@ -169,7 +169,7 @@ namespace SDL {
 	namespace CPU{
 		[CCode (cname ="SDL_GetCPUCacheLineSize", cheader_filename="SDL2/SDL_cpuinfo.h")]
 		public static int get_cache_line_size();
-		
+		//Actual function name was misleading, you get logical core count, not physical CPU count		
 		[CCode (cname ="SDL_GetCPUCount", cheader_filename="SDL2/SDL_cpuinfo.h")]
 		public static int get_num_cores();
 		
@@ -2042,24 +2042,24 @@ namespace SDL {
 	[Compact]
 	public class Haptic{
 		[CCode (cname="Uint8", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
-		public enum HapticDirectionType{
+		public enum DirectionType{
 			POLAR, CARTESIAN, SPHERICAL
 		}
 		[Flags, CCode (cname="Uint16", cprefix="SDL_HAPTIC_", cheader_filename="SDL2/SDL_haptic.h")]
-		public enum HapticEffectType{
+		public enum EffectType{
 			SINE, SQUARE, TRIANGLE, SAWTOOTHUP, SAWTOOTHDOWN, CONSTANT, 
 			CUSTOM, LEFTRIGHT, SPRING, DAMPER, INERTIA, FRICTION, RAMP
 		}
 		[CCode (cname="SDL_HapticDirection", cheader_filename="SDL2/SDL_haptic.h")]
 		[SimpleType]
 		public struct HapticDirection{
-			public HapticDirectionType type;
+			public DirectionType type;
 			public int32 dir;
 		}
 		[CCode (cname="SDL_HapticPeriodic", cheader_filename="SDL2/SDL_haptic.h")]
 		public struct HapticPeriodic{
 			//Header
-			public HapticEffectType type;
+			public EffectType type;
 			public HapticDirection direction; 
 			//Replay
 			public uint32 length;
@@ -2082,7 +2082,7 @@ namespace SDL {
 		[CCode (cname="SDL_HapticConstant", cheader_filename="SDL2/SDL_haptic.h")]
 		public struct HapticConstant{
 			//Header
-			public HapticEffectType type;
+			public EffectType type;
 			public HapticDirection direction; 
 			//Replay
 			public uint32 length;
@@ -2102,7 +2102,7 @@ namespace SDL {
 		[CCode (cname="SDL_HapticCondition", cheader_filename="SDL2/SDL_haptic.h")]
 		public struct HapticCondition{
 			//Header
-			public HapticEffectType type;
+			public EffectType type;
 			public HapticDirection direction; 
 			//Replay
 			public uint32 length;
@@ -2126,7 +2126,7 @@ namespace SDL {
 		[CCode (cname="SDL_HapticRamp", cheader_filename="SDL2/SDL_haptic.h")]
 		public struct HapticRamp{
 			//Header
-			public HapticEffectType type;
+			public EffectType type;
 			public HapticDirection direction; 
 			//Replay
 			public uint32 length;
@@ -2146,7 +2146,7 @@ namespace SDL {
 		[CCode (cname="SDL_HapticLeftRight", cheader_filename="SDL2/SDL_haptic.h")]
 		public struct HapticLeftRight{
 			//Header
-			public HapticEffectType type;
+			public EffectType type;
 			//Replay
 			public uint32 length;
 			//Rumble
@@ -2156,7 +2156,7 @@ namespace SDL {
 		[CCode (cname="SDL_HapticCustom", cheader_filename="SDL2/SDL_haptic.h")]
 		public struct HapticCustom{
 			//Header
-			public HapticEffectType type;
+			public EffectType type;
 			public HapticDirection direction; 
 			//Replay
 			public uint32 length;
@@ -2179,7 +2179,7 @@ namespace SDL {
 		[CCode (cname= "SDL_HapticEffect", has_type_id=false, has_target=false, destroy_function="", cheader_filename="SDL2/SDL_haptic.h")]
 		[SimpleType]
 		public struct HapticEffect{
-			public HapticEffectType type;
+			public EffectType type;
 			public HapticConstant constant;
 			public HapticPeriodic periodic;
 			public HapticCondition condition;
@@ -2323,10 +2323,10 @@ namespace SDL {
 			[CCode (cname="SDL_OpenAudioDevice")]
 			public Device(string device_name, bool is_capture, 
 								Audio.Spec desired, Audio.Spec obtained,
-				AllowFlags allowed_changes);
+				int allowed_changes);
 			
 			[CCode (cname="SDL_PauseAudioDevice")]
-			public void pause_device(int pause_on);
+			public void pause(int pause_on);
 			
 			[CCode (cname="SDL_GetAudioDeviceStatus")]
 			public Audio.Status get_status();
@@ -2353,8 +2353,8 @@ namespace SDL {
 		[CCode (cname="SDL_AudioQuit")]
 		public static void quit();
 		
-		[CCode (cname="SDL_GetAudioDriver")]
-		public static unowned string get_currentdriver();
+		[CCode (cname="SDL_GetCurrentAudioDriver")]
+		public static unowned string get_current_driver();
 		
 		[CCode (cname="SDL_OpenAudio")]
 		public static int open(Audio.Spec desired, out Audio.Spec obtained);
@@ -2363,7 +2363,7 @@ namespace SDL {
 		public static int num_devices();
 		
 		[CCode (cname="SDL_GetAudioDeviceName")]
-		public static unowned string get_devicename(int index);
+		public static unowned string get_device_name(int index);
 		
 		[CCode (cname="SDL_GetAudioStatus")]
 		public static Audio.Status status();
@@ -2447,10 +2447,9 @@ namespace SDL {
 	[CCode (cprefix="SDL_", cname = "SDL_RendererInfo", cheader_filename="SDL2/SDL_render.h")]
 	[Compact]
 	public class RendererInfo {
-		[CCode (cname="name")]
+
 		public const string name;
 		
-		[CCode (cname="flags")]
 		public uint32 flags;
 		
 		[CCode (cname="num_texture_formats")]
@@ -2494,13 +2493,10 @@ namespace SDL {
 		public static int create_with_window(int width, int height, SDL.WindowFlags window_flags, out SDL.Window window, out SDL.Renderer renderer);
 		
 		[CCode (cname="SDL_CreateRenderer")]
-		public Renderer(SDL.Window window, int index, uint32 flags);
+		public static Renderer? create(SDL.Window window, int index, uint32 flags);
 		
 		[CCode (cname="SDL_CreateSoftwareRenderer")]
-		public Renderer.from_surface(SDL.Surface surface);
-		
-		[CCode (cname="SDL_CreateSoftwareRenderer")]
-		public static SDL.Renderer get_from_window(SDL.Window window);
+		public static Renderer? create_from_surface(SDL.Surface surface);
 		
 		[CCode (cname="SDL_GetRendererInfo")]
 		public int get_info(out SDL.RendererInfo info);
@@ -2551,13 +2547,13 @@ namespace SDL {
 		public int draw_point(int x, int y);
 		
 		[CCode (cname="SDL_RenderDrawPoints")]
-		public int draw_points(SDL.Point[] points, int count);
+		public int draw_points(SDL.Point[] points);
 		
 		[CCode (cname="SDL_RenderDrawLine")]
 		public int draw_line(int x1, int y1, int x2, int y2);
 		
 		[CCode (cname="SDL_RenderDrawLines")]
-		public int draw_lines(SDL.Point[] points, int count);
+		public int draw_lines(SDL.Point[] points);
 		
 		[CCode (cname="SDL_RenderDrawRect")]
 		public int draw_rect(SDL.Rect? rect);
@@ -2588,10 +2584,10 @@ namespace SDL {
 	[Compact]
 	public class Texture {
 		[CCode (cname="SDL_CreateTexture")]
-		public static Texture create(SDL.Renderer renderer, SDL.PixelRAWFormat format, int access, int w, int h);
+		public static Texture? create(SDL.Renderer renderer, SDL.PixelRAWFormat format, int access, int w, int h);
 		
 		[CCode (cname="SDL_CreateTextureFromSurface")]
-		public static Texture from_surface(SDL.Renderer renderer, SDL.Surface surface);
+		public static Texture? create_from_surface(SDL.Renderer renderer, SDL.Surface surface);
 		
 		[CCode (cname="SDL_QueryTexture")]
 		public int query(out SDL.PixelRAWFormat format, out int access, out int w, out int h); 
