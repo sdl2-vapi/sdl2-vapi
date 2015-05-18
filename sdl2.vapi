@@ -143,11 +143,11 @@ namespace SDL {
 	/**
 	 * Use this function to clean up all initialized subsystems. You should call it upon all exit conditions.
 	 *
-	 * You should call this function even if you have already shutdown each initialized subsystem with {@link SDL.quit_sub_system}.
+	 * You should call this function even if you have already shutdown each initialized subsystem with {@link SDL.quit_subsystem}.
 	 * It is safe to call this function even in the case of errors in initialization.
 	 *
 	 * If you start a subsystem using a call to that subsystem's init function (for example {@link SDL.Video.init})
-	 * instead of {@link SDL.init} or {@link SDL.init_sub_system}, then you must use that subsystem's quit function ({@link SDL.Video.quit})
+	 * instead of {@link SDL.init} or {@link SDL.init_subsystem}, then you must use that subsystem's quit function ({@link SDL.Video.quit})
 	 * to shut it down before calling {@link SDL.quit}.
 	 */
 	[CCode (cname="SDL_Quit")]
