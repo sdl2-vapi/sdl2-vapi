@@ -25,7 +25,7 @@ THE SOFTWARE.
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 // Compilation command:
-// valac -o "basics" --pkg gee-1.0 --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx "basics.vala"
+// valac -o "basics" --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx "basics.vala"
 
 using SDL;
 using SDLImage;
@@ -35,27 +35,27 @@ using SDLMixer;
 
 public class Example 
 	{
-	protected static SDL.Window window;
-	protected static SDL.Renderer? window_renderer;
+	protected static Graphics.Window window;
+	protected static Graphics.Renderer? window_renderer;
 
 	public static void main()	{
 		SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
 		SDLTTF.init();
 		
-		window = new SDL.Window("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Window.POS_CENTERED, Window.POS_CENTERED, 800,600, WindowFlags.RESIZABLE);
+		window = new Graphics.Window("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Graphics.Window.POS_CENTERED, Graphics.Window.POS_CENTERED, 800,600, Graphics.WindowFlags.RESIZABLE);
 		var a= SDLMixer.open(44100,Audio.Format.S16LSB,2,4096); stdout.printf("%d\n",a);
-		window_renderer = Renderer.create(window, -1, SDL.RendererFlags.ACCELERATED | SDL.RendererFlags.PRESENTVSYNC);
+		window_renderer = Graphics.Renderer.create(window, -1, Graphics.RendererFlags.ACCELERATED | Graphics.RendererFlags.PRESENTVSYNC);
 		window.show();
 		assert(window_renderer == null);
 		// Open surface and after transform to texture
-		SDL.Surface img= SDLImage.load("boy.png");
-		var texture_img= Texture.create_from_surface (window_renderer, img);		
+		Graphics.Surface img= SDLImage.load("pic.png");
+		var texture_img= Graphics.Texture.create_from_surface (window_renderer, img);		
 		assert(texture_img ==null);
 		// Load music
-		Music sfx= new Music("yahoo.ogg");
+		Music sfx= new Music("sound.ogg");
 		
 		// Load font as surface and transform to texture.
-		Font font= new Font("KatamotzIkasi.ttf", 30);
+		Font font= new Font("font.ttf", 30);
 		string text;
 		int seconds;
 		int percentage;
@@ -77,8 +77,8 @@ public class Example
 				text = "We don't really know what's going on with your system energy";
 				break;
 		}
-		SDL.Surface info= font.render_blended_wrapped_utf8(text, {10,10,10,255}, 240);
-		var texture_info = Texture.create_from_surface(window_renderer, info);	
+		Graphics.Surface info= font.render_blended_wrapped_utf8(text, {10,10,10,255}, 240);
+		var texture_info = Graphics.Texture.create_from_surface(window_renderer, info);	
 		assert(texture_info ==null);
 		var row =0;
 		var column =0;
@@ -89,25 +89,26 @@ public class Example
 			window_renderer.fill_rect( {0, 0, 800, 600} ) ;
 			
 			if (e.type==EventType.KEYDOWN){
-				if ( e.key.keysym.sym== Keycode.DOWN){
+				if ( e.key.keysym.sym== Input.Keycode.DOWN){
 					row+=10;
 				}
-				if ( e.key.keysym.sym== Keycode.UP){
+				if ( e.key.keysym.sym== Input.Keycode.UP){
 					row-=10;
 				}
 					
-				if ( e.key.keysym.sym== Keycode.LEFT){
+				if ( e.key.keysym.sym== Input.Keycode.LEFT){
 					column-=20;
 				}
-				if ( e.key.keysym.sym== Keycode.RIGHT){
+				if ( e.key.keysym.sym== Input.Keycode.RIGHT){
 					column+=20;
 				}
-				if ( e.key.keysym.sym== Keycode.SPACE){ // When press space sounds.
+				if ( e.key.keysym.sym== Input.Keycode.SPACE){ // When press space sounds.
 					sfx.play(1);
 				}
 			}
 		window_renderer.copy(texture_img, {0, 0, img.w, img.h} , {column, row, img.w*2, img.h*2});
-		window_renderer.copy(texture_info, {0, 0, info.w, info.h} , {500, 400, info.w, info.h});			window_renderer.present();
+		window_renderer.copy(texture_info, {0, 0, info.w, info.h} , {500, 400, info.w, info.h});
+		window_renderer.present();
 		window.update_surface();
 		SDL.Timer.delay(10);
 		}
