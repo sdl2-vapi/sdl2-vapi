@@ -105,40 +105,40 @@ namespace SDLTTF {
 		public int get_size_unicode([CCode (array_length = false)] uint16[] text, ref int w, ref int h);
 
 		[CCode (cname="TTF_RenderText_Solid")]
-		public SDL.Surface? render(string text, SDL.Color fg);
+		public SDL.Graphics.Surface? render(string text, SDL.Graphics.Color fg);
 
 		[CCode (cname="TTF_RenderUTF8_Solid")]
-		public SDL.Surface? render_utf8(string text, SDL.Color fg);
+		public SDL.Graphics.Surface? render_utf8(string text, SDL.Graphics.Color fg);
 
 		[CCode (cname="TTF_RenderUNICODE_Solid")]
-		public SDL.Surface? render_unicode([CCode (array_length = false)] uint16[] text, SDL.Color fg);
+		public SDL.Graphics.Surface? render_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color fg);
 
 		[CCode (cname="TTF_RenderText_Shaded")]
-		public SDL.Surface? render_shaded(string text, SDL.Color fg, SDL.Color bg);
+		public SDL.Graphics.Surface? render_shaded(string text, SDL.Graphics.Color fg, SDL.Graphics.Color bg);
 
 		[CCode (cname="TTF_RenderUTF8_Shaded")]
-		public SDL.Surface? render_shaded_utf8(string text, SDL.Color fg, SDL.Color bg);
+		public SDL.Graphics.Surface? render_shaded_utf8(string text, SDL.Graphics.Color fg, SDL.Graphics.Color bg);
 
 		[CCode (cname="TTF_RenderUNICODE_Shaded")]
-		public SDL.Surface? render_shaded_unicode([CCode (array_length = false)] uint16[] text, SDL.Color? fg, SDL.Color bg);
+		public SDL.Graphics.Surface? render_shaded_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color? fg, SDL.Graphics.Color bg);
 
 		[CCode (cname="TTF_RenderText_Blended")]
-		public SDL.Surface? render_blended(string text, SDL.Color fg);
+		public SDL.Graphics.Surface? render_blended(string text, SDL.Graphics.Color fg);
 
 		[CCode (cname="TTF_RenderUTF8_Blended")]
-		public SDL.Surface? render_blended_utf8(string text, SDL.Color fg);
+		public SDL.Graphics.Surface? render_blended_utf8(string text, SDL.Graphics.Color fg);
 
 		[CCode (cname="TTF_RenderUNICODE_Blended")]
-		public SDL.Surface? render_blended_unicode([CCode (array_length = false)] uint16[] text, SDL.Color fg);
+		public SDL.Graphics.Surface? render_blended_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color fg);
 		
 		[CCode (cname="TTF_RenderText_Blended_Wrapped")]
-		public SDL.Surface? render_blended_wrapped(string text, SDL.Color fg, uint32 wrapLength);
+		public SDL.Graphics.Surface? render_blended_wrapped(string text, SDL.Graphics.Color fg, uint32 wrapLength);
 
 		[CCode (cname="TTF_RenderUTF8_Blended_Wrapped")]
-		public SDL.Surface? render_blended_wrapped_utf8(string text, SDL.Color fg, uint32 wrapLength);
+		public SDL.Graphics.Surface? render_blended_wrapped_utf8(string text, SDL.Graphics.Color fg, uint32 wrapLength);
 
 		[CCode (cname="TTF_RenderUNICODE_Blended_Wrapped")]
-		public SDL.Surface? render_blended__wrapped_unicode([CCode (array_length = false)] uint16[] text, SDL.Color fg, uint32 wrapLength);
+		public SDL.Graphics.Surface? render_blended__wrapped_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color fg, uint32 wrapLength);
 		
 		
 	}// Font
