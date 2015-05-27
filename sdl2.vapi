@@ -787,25 +787,24 @@ namespace SDL {
 	///
 	/// Error
 	///
-	namespace Error{
-		[CCode (cname="SDL_errorcode", cprefix="SDL_")]
-		public enum Code {
+	[CCode (cname="SDL_errorcode", cprefix="SDL_")]
+	public enum ErrorCode {
 			ENOMEM, EFREAD, EFWRITE, EFSEEK, 
 			UNSUPPORTED, LASTERROR
-		}// Error
+	}
 	
-		[CCode (cname="SDL_SetError")]
-		public static int @set(string format, ...);
+	[CCode (cname="SDL_SetError")]
+	public static int set_error(string format, ...);
 	
-		[CCode (cname="SDL_GetError")]
-		public static unowned string @get();
+	[CCode (cname="SDL_GetError")]
+	public static unowned string get_error();
 	
-		[CCode (cname="SDL_ClearError")]
-		public static void clear();
+	[CCode (cname="SDL_ClearError")]
+	public static void clear_error();
 	
-		[CCode (cname="SDL_Error")]
-		public static void emit(Error.Code code);
-	}	
+	[CCode (cname="SDL_Error")]
+	public static void emit_error(ErrorCode code);
+	// Error	
 	
 	///
 	/// RWops
