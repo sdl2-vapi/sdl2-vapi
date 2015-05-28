@@ -670,7 +670,7 @@ namespace SDL {
 		/**
 		 * A callback used to watch hints.
 		 *
-		 * @param name What was passed as name to {@link Hints.add_callback}.
+		 * @param name What was passed as name to {@link Hint.add_callback}.
 		 * @param old_value The old value.
 		 * @param new_value The new value.
 		 */
@@ -701,7 +701,7 @@ namespace SDL {
 		 * Use this function to add a function to watch a particular hint.
 		 *
 		 * @param name The hint to watch.
-		 * @param callback The delegate of {@link Hint.Callback}} type to call when the hint value changes.
+		 * @param callback The delegate of {@link Hint.Callback} type to call when the hint value changes.
 		 *
 		 * @since 2.0.0
 		 */
@@ -712,7 +712,7 @@ namespace SDL {
 		 * Use this function to remove a function watching a particular hint.
 		 *
 		 * @param name The hint being watched.
-		 * @param callback The delegate of {@link Hint.Callback}} type being called when the hint value changes.
+		 * @param callback The delegate of {@link Hint.Callback} type being called when the hint value changes.
 		 */
 		[CCode (cname ="SDL_DelHintCallback", cheader_filename="SDL2/SDL_hints.h")]
 		public static void del_callback (string name, Hint.Callback callback);
@@ -735,7 +735,7 @@ namespace SDL {
 		/**
 		 * Use this function to get the value of a hint.
 		 *
-		 * @param name The hint to query. Use the constans from the {@link Hints} class.
+		 * @param name The hint to query. Use the constans from the {@link Hint} class.
 		 *
 		 * @return Returns the string value of a hint or null if the hint isn't set.
 		 */

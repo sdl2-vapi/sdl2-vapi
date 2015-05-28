@@ -39,7 +39,7 @@ namespace SDL {
 		public static int get_adapter_index(int display_index);
 		
 		[CCode (cname="SDL_RenderGetD3D9Device")]
-		public static IDirect3DDevice9* get_render_device(SDL.Renderer renderer);
+		public static IDirect3DDevice9* get_render_device(Graphics.Renderer renderer);
 		
 		[CCode (cname="SDL_DXGIGetOutputInfo")]
 		public static void dxgi_get_output_info(int display_index, out int adapter_index, out int output_index);
