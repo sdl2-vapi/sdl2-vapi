@@ -1927,11 +1927,11 @@ namespace SDL {
 			public void set_icon(Graphics.Surface icon);
 		
 			//Maybe this can be binded as a Simple Generics?
-			[CCode (cname="SDL_SetWindowData")]
-			public void set_data(string name, void *usrdata);
+			[CCode (cname="SDL_SetWindowData", sinple_generics = true)]
+			public void set_data<T>(string key, owned T data);
 		
-			[CCode (cname="SDL_GetWindowData")]
-			public void get_data(string name);
+			[CCode (cname="SDL_GetWindowData", simple_generics = true)]
+			public void get_data<T>(string key);
 		
 			[CCode (cname="SDL_SetWindowPosition")]
 			public void set_position(int x, int y);
