@@ -1931,7 +1931,7 @@ namespace SDL {
 			public void set_data<T>(string key, owned T data);
 		
 			[CCode (cname="SDL_GetWindowData", simple_generics = true)]
-			public void get_data<T>(string key);
+			public unowned T get_data<T>(string key);
 		
 			[CCode (cname="SDL_SetWindowPosition")]
 			public void set_position(int x, int y);
