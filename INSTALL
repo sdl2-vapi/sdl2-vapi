@@ -1,4 +1,4 @@
 #!/usr/bin/sh
-export VAPI_PATH="/usr/share/vala/vapi/"
+export VAPI_PATH=${VAPI_PATH-"/usr/share/vala/vapi/"}
 mkdir "$VAPI_PATH" -p
-cp ./*.vapi "$VAPI_PATH" -R --force
+cp ./*.{vapi,deps} "$VAPI_PATH" -R --force
