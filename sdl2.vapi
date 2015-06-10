@@ -2021,9 +2021,10 @@ namespace SDL {
 		namespace GL {
 		
 			[CCode (type_id="SDL_GLContext", cname="SDL_GLContext", 	destroy_function="SDL_GL_DeleteContext", cheader_filename="SDL2/SDL_video.h")]
+			[Compact]
 			public class Context{
 				[CCode (cname="SDL_GL_CreateContext")]
-				public Context(Graphics.Window window);
+				public static Context? create(Graphics.Window window);
 			}// GLContext
 			
 			[CCode (cname="SDL_GLattr", cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]
