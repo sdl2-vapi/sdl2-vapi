@@ -2020,7 +2020,7 @@ namespace SDL {
 		[CCode (cprefix="SDL_GL_", cheader_filename="SDL2/SDL_video.h")]	
 		namespace GL {
 		
-			[CCode (type_id="SDL_GLContext", cname="SDL_GLContext", 	destroy_function="SDL_GL_DeleteContext", cheader_filename="SDL2/SDL_video.h")]
+			[CCode (type_id="SDL_GLContext", cname="SDL_GLContext", 	free_function="SDL_GL_DeleteContext", cheader_filename="SDL2/SDL_video.h")]
 			[Compact]
 			public class Context{
 				[CCode (cname="SDL_GL_CreateContext")]
