@@ -2319,7 +2319,7 @@ namespace SDL {
 			public static Graphics.Window get_focus();
 			
 			[CCode (cname="SDL_GetKeyboardState")]
-			public static uint8[] get_state(int[] numkeys);
+			public static uint8[] get_state();
 			
 			[CCode (cname="SDL_GetModState")]
 			public static Input.Keymod get_modifierstate();
