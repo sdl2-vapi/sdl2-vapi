@@ -1455,7 +1455,7 @@ namespace SDL {
 		public delegate int BlitFunc (Graphics.Surface src, Graphics.Rect? srcrect,
 		  Graphics.Surface dst, Graphics.Rect? dstrect);
 	
-		[CCode (type_id="SDL_Surface", cname="SDL_Surface", free_function="SDL_FreeSurface", 	cheader_filename="SDL2/SDL_surface.h")]
+		[CCode (type_id="SDL_Surface", cname="SDL_Surface", ref_function="SDL_Surface_up", unref_function="SDL_FreeSurface", 	cheader_filename="SDL2/SDL_surface.h")]
 		[Compact]
 		public class Surface {
 			public uint32 flags;
