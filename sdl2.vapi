@@ -1455,7 +1455,8 @@ namespace SDL {
 		public delegate int BlitFunc (Graphics.Surface src, Graphics.Rect? srcrect,
 		  Graphics.Surface dst, Graphics.Rect? dstrect);
 	
-		[CCode (type_id="SDL_Surface", cname="SDL_Surface", free_function="SDL_FreeSurface", 	cheader_filename="SDL2/SDL_surface.h", ref_function = "SDL_Surface_up", unref_function = 	"SDL_FreeSurface")]
+		[CCode (type_id="SDL_Surface", cname="SDL_Surface", ref_function="SDL_Surface_up", unref_function="SDL_FreeSurface", 	cheader_filename="SDL2/SDL_surface.h")]
+		[Compact]
 		public class Surface {
 			public uint32 flags;
 			public Graphics.PixelFormat format;
@@ -1616,7 +1617,7 @@ namespace SDL {
 			NONE, HORIZONTAL, VERTICAL
 		}// RendererFlip
 		
-		[CCode (cprefix="SDL_", cname = "SDL_Renderer", destroy_function = "SDL_DestroyTexture", cheader_filename="SDL2/SDL_render.h")]
+		[CCode (cprefix="SDL_", cname = "SDL_Renderer", free_function = "SDL_DestroyRenderer", cheader_filename="SDL2/SDL_render.h")]
 		[Compact]
 		public class Renderer {
 			[CCode (cname="SDL_GetNumRenderDrivers")]
@@ -1716,7 +1717,7 @@ namespace SDL {
 			public void present();
 		}// Renderer
 		
-		[CCode (cprefix="SDL_", cname = "SDL_Texture", destroy_function = "SDL_DestroyTexture", free_function="SDL_DestroyTexture", cheader_filename="SDL2/SDL_render.h")]
+		[CCode (cprefix="SDL_", cname = "SDL_Texture", free_function="SDL_DestroyTexture", cheader_filename="SDL2/SDL_render.h")]
 		[Compact]
 		public class Texture {
 			[CCode (cname="SDL_CreateTexture")]
@@ -1878,7 +1879,7 @@ namespace SDL {
 		public delegate HitTestResult HitTestFunc(Graphics.Window window, Graphics.Point area);
 		
 		
-		[CCode (cprefix="SDL_", cname = "SDL_Window", destroy_function = "SDL_DestroyWindow", cheader_filename="SDL2/SDL_video.h")]
+		[CCode (cprefix="SDL_", cname = "SDL_Window", free_function = "SDL_DestroyWindow", cheader_filename="SDL2/SDL_video.h")]
 		[Compact]
 		public class Window {
 			[CCode (cname="SDL_WINDOWPOS_UNDEFINED_MASK")]
