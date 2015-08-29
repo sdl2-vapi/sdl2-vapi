@@ -31,10 +31,10 @@ namespace SDLGraphics {
 	[Compact]
 	public class Pixel {
 		[CCode (cname="pixelColor")]
-		public static int color(SDL.Graphics.Renderer dst, int16 x, int16 y, uint32 color);
+		public static int color(SDL.Video.Renderer dst, int16 x, int16 y, uint32 color);
 
 		[CCode (cname="pixelRGBA")]
-		public static int rgba(SDL.Graphics.Renderer dst, int16 x, int16 y,
+		public static int rgba(SDL.Video.Renderer dst, int16 x, int16 y,
 			uchar r, uchar g, uchar b, uchar a);
 	}// Pixel
 
@@ -42,35 +42,35 @@ namespace SDLGraphics {
 	[Compact]
 	public class Line {
 		[CCode (cname="hlineColor")]
-		public static int color_h(SDL.Graphics.Renderer dst, int16 x1, int16 x2,
+		public static int color_h(SDL.Video.Renderer dst, int16 x1, int16 x2,
 			int16 y, uint32 color);
 
 		[CCode (cname="hlineRGBA")]
-		public static int rgba_h(SDL.Graphics.Renderer dst, int16 x1, int16 x2,
+		public static int rgba_h(SDL.Video.Renderer dst, int16 x1, int16 x2,
 			int16 y, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="vlineColor")]
-		public static int color_v(SDL.Graphics.Renderer dst, int16 x, int16 y1,
+		public static int color_v(SDL.Video.Renderer dst, int16 x, int16 y1,
 			int16 y2, uint32 color);
 
 		[CCode (cname="vlineRGBA")]
-		public static int rgba_v(SDL.Graphics.Renderer dst, int16 x, int16 y1,
+		public static int rgba_v(SDL.Video.Renderer dst, int16 x, int16 y1,
 			int16 y2, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="lineColor")]
-		public static int color(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int color(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uint32 color);
 
 		[CCode (cname="lineRGBA")]
-		public static int rgba(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int rgba(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="aalineColor")]
-		public static int color_aa(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int color_aa(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uint32 color);
 
 		[CCode (cname="aalineRGBA")]
-		public static int rgba_aa(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int rgba_aa(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uchar r, uchar g, uchar b, uchar a);
 	}// Line
 
@@ -78,35 +78,35 @@ namespace SDLGraphics {
 	[Compact]
 	public class Rectangle {
 		[CCode (cname="rectangleColor")]
-		public static int outline_color(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int outline_color(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uint32 color);
 
 		[CCode (cname="rectangleRGBA")]
-		public static int outline_rgba(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int outline_rgba(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="roundedRectangleColor")]
-		public static int rounded_outline_color(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int rounded_outline_color(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 rad, uint32 color);
 
 		[CCode (cname="roundedRectangleRGBA")]
-		public static int rounded_outline_rgba(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int rounded_outline_rgba(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 rad,uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="boxColor")]
-		public static int fill_color(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int fill_color(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uint32 color);
 
 		[CCode (cname="boxRGBA")]
-		public static int fill_rgba(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int fill_rgba(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="roundedBoxColor")]
-		public static int rounded_fill_color(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int rounded_fill_color(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 rad,uint32 color);
 
 		[CCode (cname="roundedBoxRGBA")]
-		public static int rounded_fill_rgba(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int rounded_fill_rgba(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 rad, uchar r, uchar g, uchar b, uchar a);
 	}// Rectangle
 
@@ -114,27 +114,27 @@ namespace SDLGraphics {
 	[Compact]
 	public class Circle {
 		[CCode (cname="circleColor")]
-		public static int outline_color(SDL.Graphics.Renderer dst, int16 x, int16 y,
+		public static int outline_color(SDL.Video.Renderer dst, int16 x, int16 y,
 			int16 radius, uint32 color);
 
 		[CCode (cname="circleRGBA")]
-		public static int outline_rgba(SDL.Graphics.Renderer dst, int16 x, int16 y, int16 radius,
+		public static int outline_rgba(SDL.Video.Renderer dst, int16 x, int16 y, int16 radius,
 			uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="aacircleColor")]
-		public static int outline_color_aa(SDL.Graphics.Renderer dst, int16 x, int16 y,
+		public static int outline_color_aa(SDL.Video.Renderer dst, int16 x, int16 y,
 			int16 radius, uint32 color);
 
 		[CCode (cname="aacircleRGBA")]
-		public static int outline_rgba_aa(SDL.Graphics.Renderer dst, int16 x, int16 y, int16 radius,
+		public static int outline_rgba_aa(SDL.Video.Renderer dst, int16 x, int16 y, int16 radius,
 			uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="filledCircleColor")]
-		public static int fill_color(SDL.Graphics.Renderer dst, int16 x, int16 y,
+		public static int fill_color(SDL.Video.Renderer dst, int16 x, int16 y,
 			int16 radius, uint32 color);
 
 		[CCode (cname="filledCircleRGBA")]
-		public static int fill_rgba(SDL.Graphics.Renderer dst, int16 x, int16 y, int16 radius,
+		public static int fill_rgba(SDL.Video.Renderer dst, int16 x, int16 y, int16 radius,
 			uchar r, uchar g, uchar b, uchar a);
 	}// Circle
 
@@ -142,27 +142,27 @@ namespace SDLGraphics {
 	[Compact]
 	public class Ellipse {
 		[CCode (cname="ellipseColor")]
-		public static int outline_color(SDL.Graphics.Renderer dst, int16 xc, int16 yc,
+		public static int outline_color(SDL.Video.Renderer dst, int16 xc, int16 yc,
 			int16 rx, int16 ry, uint32 color);
 
 		[CCode (cname="ellipseRGBA")]
-		public static int outline_rgba(SDL.Graphics.Renderer dst, int16 xc, int16 yc,
+		public static int outline_rgba(SDL.Video.Renderer dst, int16 xc, int16 yc,
 			int16 rx, int16 ry, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="aaellipseColor")]
-		public static int outline_color_aa(SDL.Graphics.Renderer dst, int16 xc, int16 yc,
+		public static int outline_color_aa(SDL.Video.Renderer dst, int16 xc, int16 yc,
 			int16 rx, int16 ry, uint32 color);
 
 		[CCode (cname="aaellipseRGBA")]
-		public static int outline_rgba_aa(SDL.Graphics.Renderer dst, int16 xc, int16 yc,
+		public static int outline_rgba_aa(SDL.Video.Renderer dst, int16 xc, int16 yc,
 			int16 rx, int16 ry, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="filledEllipseColor")]
-		public static int fill_color(SDL.Graphics.Renderer dst, int16 xc, int16 yc,
+		public static int fill_color(SDL.Video.Renderer dst, int16 xc, int16 yc,
 			int16 rx, int16 ry, uint32 color);
 
 		[CCode (cname="filledEllipseRGBA")]
-		public static int fill_rgba(SDL.Graphics.Renderer dst, int16 xc, int16 yc,
+		public static int fill_rgba(SDL.Video.Renderer dst, int16 xc, int16 yc,
 			int16 rx, int16 ry, uchar r, uchar g, uchar b, uchar a);
 	}// Ellipse
 
@@ -170,19 +170,19 @@ namespace SDLGraphics {
 	[Compact]
 	public class Arc {
 		[CCode (cname="pieColor")]
-		public static int outline_color(SDL.Graphics.Renderer dst, int16 x, int16 y, int16 radius,
+		public static int outline_color(SDL.Video.Renderer dst, int16 x, int16 y, int16 radius,
 			int16 start, int16 end, uint32 color);
 
 		[CCode (cname="pieRGBA")]
-		public static int outline_rgba(SDL.Graphics.Renderer dst, int16 x, int16 y, int16 radius,
+		public static int outline_rgba(SDL.Video.Renderer dst, int16 x, int16 y, int16 radius,
 			int16 start, int16 end, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="filledPieColor")]
-		public static int fill_color(SDL.Graphics.Renderer dst, int16 x, int16 y, int16 radius,
+		public static int fill_color(SDL.Video.Renderer dst, int16 x, int16 y, int16 radius,
 			int16 start, int16 end, uint32 color);
 
 		[CCode (cname="filledPieRGBA")]
-		public static int fill_rgba(SDL.Graphics.Renderer dst, int16 x, int16 y, int16 radius,
+		public static int fill_rgba(SDL.Video.Renderer dst, int16 x, int16 y, int16 radius,
 			int16 start, int16 end, uchar r, uchar g, uchar b, uchar a);
 	}// Arc
 
@@ -190,29 +190,29 @@ namespace SDLGraphics {
 	[Compact]
 	public class Trigon {
 		[CCode (cname="trigonColor")]
-		public static int outline_color(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int outline_color(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 x3, int16 y3, uint32 color);
 
 		[CCode (cname="trigonRGBA")]
-		public static int outline_rgba(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int outline_rgba(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 x3, int16 y3, 
 			uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="aatrigonColor")]
-		public static int outline_color_aa(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int outline_color_aa(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 x3, int16 y3, uint32 color);
 
 		[CCode (cname="aatrigonRGBA")]
-		public static int outline_rgba_aa(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int outline_rgba_aa(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 x3, int16 y3, 
 			uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="filledTrigonColor")]
-		public static int fill_color(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int fill_color(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 x3, int16 y3, uint32 color);
 
 		[CCode (cname="filledTrigonRGBA")]
-		public static int fill_rgba(SDL.Graphics.Renderer dst, int16 x1, int16 y1,
+		public static int fill_rgba(SDL.Video.Renderer dst, int16 x1, int16 y1,
 			int16 x2, int16 y2, int16 x3, int16 y3, 
 			uchar r, uchar g, uchar b, uchar a);
 	}// Trigon
@@ -221,27 +221,27 @@ namespace SDLGraphics {
 	[Compact]
 	public class Polygon {
 		[CCode (cname="polygonColor")]
-		public static int outline_color(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int outline_color(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int n, uint32 color);
 
 		[CCode (cname="polygonRGBA")]
-		public static int outline_rgba(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int outline_rgba(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int n, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="aapolygonColor")]
-		public static int outline_color_aa(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int outline_color_aa(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int n, uint32 color);
 
 		[CCode (cname="aapolygonRGBA")]
-		public static int outline_rgba_aa(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int outline_rgba_aa(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int n, uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="filledPolygonColor")]
-		public static int fill_color(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int fill_color(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int n, uint32 color);
 
 		[CCode (cname="filledPolygonRGBA")]
-		public static int fill_rgba(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int fill_rgba(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int n, uchar r, uchar g, uchar b, uchar a);
 	}// Polygon
 
@@ -249,11 +249,11 @@ namespace SDLGraphics {
 	[Compact]
 	public class BezierCurve {
 		[CCode (cname="bezierColor")]
-		public static int color(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int color(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int vertices, int steps, uint32 color);
 
 		[CCode (cname="bezierRGBA")]
-		public static int rgba(SDL.Graphics.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
+		public static int rgba(SDL.Video.Renderer dst, [CCode (array_length = false)] int16[] vx, [CCode (array_length = false)] int16[] vy,
 			int vertices, int steps, uchar r, uchar g, uchar b, uchar a);
 	}// BezierCurve
 
@@ -261,10 +261,10 @@ namespace SDLGraphics {
 	[Compact]
 	public class Text {
 		[CCode (cname="stringColor")]
-		public static int color(SDL.Graphics.Renderer dst, int16 x, int16 y, string s, uint32 color);
+		public static int color(SDL.Video.Renderer dst, int16 x, int16 y, string s, uint32 color);
 
 		[CCode (cname="stringRGBA")]
-		public static int rgba(SDL.Graphics.Renderer dst, int16 x, int16 y, string s,
+		public static int rgba(SDL.Video.Renderer dst, int16 x, int16 y, string s,
 			uchar r, uchar g, uchar b, uchar a);
 
 		[CCode (cname="gfxPrimitivesSetFont")]
@@ -275,11 +275,11 @@ namespace SDLGraphics {
 	[Compact]
 	public class RotoZoom {
 		[CCode (cname="rotozoomSurface")]
-		public static SDL.Graphics.Surface rotozoom(SDL.Graphics.Surface src, double degrees,
+		public static SDL.Video.Surface rotozoom(SDL.Video.Surface src, double degrees,
 			double zoom, int smooth);
 
 		[CCode (cname="rotozoomSurfaceXY")]
-		public static SDL.Graphics.Surface rotozoom_xy(SDL.Graphics.Surface src, double degrees,
+		public static SDL.Video.Surface rotozoom_xy(SDL.Video.Surface src, double degrees,
 			double zoomx, double zoomy, int smooth);
 
 		[CCode (cname="rotozoomSurfaceSize")]
@@ -291,7 +291,7 @@ namespace SDLGraphics {
 			double zoomx, double zoomy, ref int dstwidth, ref int dstheight);
 
 		[CCode (cname="zoomSurface")]
-		public static SDL.Graphics.Surface zoom(SDL.Graphics.Surface src, double zoomx,
+		public static SDL.Video.Surface zoom(SDL.Video.Surface src, double zoomx,
 			double zoomy, int smooth);
 
 		[CCode (cname="zoomSurfaceSize")]

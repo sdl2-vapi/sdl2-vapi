@@ -34,7 +34,7 @@ namespace SDL {
 	[Compact]
 	public class iPhone  {
 		[CCode (cname="SDL_iPhoneSetAnimationCallback")]
-		public static int set_animation_callback(Graphics.Window window, int interval, AnimationFunc func);
+		public static int set_animation_callback(Video.Window window, int interval, AnimationFunc func);
 		
 		[CCode (cname="SDL_iPhoneSetEventPump")]
 		public static void set_event_pump(bool enable);
