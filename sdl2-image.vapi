@@ -52,73 +52,73 @@ namespace SDLImage {
 	//! Loading
 
 	[CCode (cname = "IMG_Load")]
-	public static SDL.Graphics.Surface? load(string file);
+	public static SDL.Video.Surface? load(string file);
 
 	[CCode (cname = "IMG_Load_RW")]
-	public static SDL.Graphics.Surface? load_rw(SDL.RWops src, bool freesrc = false);
+	public static SDL.Video.Surface? load_rw(SDL.RWops src, bool freesrc = false);
 
 	[CCode (cname = "IMG_LoadTyped_RW")]
-	public static SDL.Graphics.Surface? load_rw_typed(SDL.RWops src, bool freesrc, string type);
+	public static SDL.Video.Surface? load_rw_typed(SDL.RWops src, bool freesrc, string type);
 
 	[CCode (cname = "IMG_LoadTexture")]
-	public static SDL.Graphics.Texture? load_texture(SDL.Graphics.Renderer renderer, string file);
+	public static SDL.Video.Texture? load_texture(SDL.Video.Renderer renderer, string file);
 
 	[CCode (cname = "IMG_LoadTexture_RW")]
-	public static SDL.Graphics.Texture? load_texture_rw(SDL.Graphics.Renderer renderer, SDL.RWops src, bool freesrc = false);
+	public static SDL.Video.Texture? load_texture_rw(SDL.Video.Renderer renderer, SDL.RWops src, bool freesrc = false);
 
 	[CCode (cname = "IMG_LoadTextureTyped_RW")]
-	public static SDL.Graphics.Texture? load_texture_rw_typed(SDL.Graphics.Renderer renderer, SDL.RWops src, bool freesrc, string type);
+	public static SDL.Video.Texture? load_texture_rw_typed(SDL.Video.Renderer renderer, SDL.RWops src, bool freesrc, string type);
 	
 	[CCode (cname = "IMG_InvertAlpha")]
 	public static int invert_alpha(int on);
 	
 	[CCode (cname = "IMG_LoadCUR_RW")]
-	public static SDL.Graphics.Surface? load_cur(SDL.RWops src);
+	public static SDL.Video.Surface? load_cur(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadICO_RW")]
-	public static SDL.Graphics.Surface? load_ico(SDL.RWops src);
+	public static SDL.Video.Surface? load_ico(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadBMP_RW")]
-	public static SDL.Graphics.Surface? load_bmp(SDL.RWops src);
+	public static SDL.Video.Surface? load_bmp(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadPNM_RW")]
-	public static SDL.Graphics.Surface? load_pnm(SDL.RWops src);
+	public static SDL.Video.Surface? load_pnm(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadXPM_RW")]
-	public static SDL.Graphics.Surface? load_xpm(SDL.RWops src);
+	public static SDL.Video.Surface? load_xpm(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadXCF_RW")]
-	public static SDL.Graphics.Surface? load_xcf(SDL.RWops src);
+	public static SDL.Video.Surface? load_xcf(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadPCX_RW")]
-	public static SDL.Graphics.Surface? load_pcx(SDL.RWops src);
+	public static SDL.Video.Surface? load_pcx(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadGIF_RW")]
-	public static SDL.Graphics.Surface? load_gif(SDL.RWops src);
+	public static SDL.Video.Surface? load_gif(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadJPG_RW")]
-	public static SDL.Graphics.Surface? load_jpg(SDL.RWops src);
+	public static SDL.Video.Surface? load_jpg(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadTIF_RW")]
-	public static SDL.Graphics.Surface? load_tif(SDL.RWops src);
+	public static SDL.Video.Surface? load_tif(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadPNG_RW")]
-	public static SDL.Graphics.Surface? load_png(SDL.RWops src);
+	public static SDL.Video.Surface? load_png(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadTGA_RW")]
-	public static SDL.Graphics.Surface? load_tga(SDL.RWops src);
+	public static SDL.Video.Surface? load_tga(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadLBM_RW")]
-	public static SDL.Graphics.Surface? load_lbm(SDL.RWops src);
+	public static SDL.Video.Surface? load_lbm(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadXV_RW")]
-	public static SDL.Graphics.Surface? load_xv(SDL.RWops src);
+	public static SDL.Video.Surface? load_xv(SDL.RWops src);
 
 	[CCode (cname = "IMG_LoadWEBP_RW")]
-	public static SDL.Graphics.Surface? load_webp(SDL.RWops src);
+	public static SDL.Video.Surface? load_webp(SDL.RWops src);
 
 	[CCode (cname = "IMG_ReadXPMFromArray")]
-	public static SDL.Graphics.Surface? read_xpm(string[] xpmdata);
+	public static SDL.Video.Surface? read_xpm(string[] xpmdata);
 
 	//!Info
 
