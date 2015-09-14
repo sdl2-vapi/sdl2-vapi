@@ -6,7 +6,6 @@ This version is meant to be a continuation and direct replacement for the gitori
 If you spot any bug, any missing functionality, or any regression, you should report it here instead of the Gitorious repo, but please, keep in mind that this is still not stable
 Thanks
 
-
 ###But wait, where's SDL_Log, ..., etc?
 
 The following will not be implemented:
