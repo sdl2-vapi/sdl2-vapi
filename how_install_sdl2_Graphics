@@ -5,4 +5,3 @@ You can optionally run the install script (sh INSTALL) to do the copy for you
 To build your application use this command (Remove packages if unneeded):
 
 valac -o appname --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx appname.vala
-.deps files are missing atm, will be added later
