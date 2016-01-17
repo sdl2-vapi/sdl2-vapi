@@ -249,7 +249,7 @@ namespace SDL {
 		 * By default SDL tries to make a best guess for each platform whether
 		 * to use acceleration or not.
 		 */
-		[CCode (cname="\"SDL_FRAMEBUFFER_ACCELERATION\"")]
+		[CCode (cname="SDL_HINT_FRAMEBUFFER_ACCELERATION")]
 		public const string FRAMEBUFFER_ACCELERATION;
 
 		/**
@@ -270,7 +270,7 @@ namespace SDL {
 		 * The default varies by platform, but it's the first one in the list that
 		 * is available on the current platform.
 		 */
-		[CCode (cname="\"SDL_RENDER_DRIVER\"")]
+		[CCode (cname="SDL_HINT_RENDER_DRIVER")]
 		public const string RENDER_DRIVER;
 
 		/**
@@ -283,7 +283,7 @@ namespace SDL {
 		 *
 		 * By default shaders are used if OpenGL supports them.
 		 */
-		[CCode (cname="\"SDL_RENDER_OPENGL_SHADERS\"")]
+		[CCode (cname="SDL_HINT_RENDER_OPENGL_SHADERS")]
 		public const string RENDER_OPENGL_SHADERS;
 
 		/**
@@ -296,7 +296,7 @@ namespace SDL {
 		 *
 		 * By default the Direct3D device is created with thread-safety disabled.
 		 */
-		[CCode (cname="\"SDL_RENDER_DIRECT3D_THREADSAFE\"")]
+		[CCode (cname="SDL_HINT_RENDER_DIRECT3D_THREADSAFE")]
 		public const string RENDER_DIRECT3D_THREADSAFE;
 
 		/**
@@ -311,7 +311,7 @@ namespace SDL {
 		 *
 		 *  By default, SDL does not use Direct3D Debug Layer.
 		 */
-		[CCode (cname="\"SDL_HINT_RENDER_DIRECT3D11_DEBUG\"")]
+		[CCode (cname="SDL_HINT_RENDER_DIRECT3D11_DEBUG")]
 		public const string RENDER_DIRECT3D11_DEBUG;
 
 		/**
@@ -325,7 +325,7 @@ namespace SDL {
 		 *
 		 * By default nearest pixel sampling is used
 		 */
-		[CCode (cname="\"SDL_RENDER_SCALE_QUALITY\"")]
+		[CCode (cname="SDL_HINT_RENDER_SCALE_QUALITY")]
 		public const string RENDER_SCALE_QUALITY;
 
 		/**
@@ -338,7 +338,7 @@ namespace SDL {
 		 *
 		 * By default SDL does not sync screen surface updates with vertical refresh.
 		 */
-		[CCode (cname="\"SDL_RENDER_VSYNC\"")]
+		[CCode (cname="SDL_HINT_RENDER_VSYNC")]
 		public const string RENDER_VSYNC;
 
 		/**
@@ -351,7 +351,7 @@ namespace SDL {
 		 *
 		 * By default SDL will disable the screensaver.
 		 */
-		[CCode (cname="\"SDL_VIDEO_ALLOW_SCREENSAVER\"")]
+		[CCode (cname="SDL_HINT_VIDEO_ALLOW_SCREENSAVER")]
 		public const string VIDEO_ALLOW_SCREENSAVER;
 
 		/**
@@ -364,7 +364,7 @@ namespace SDL {
 		 *
 		 * By default SDL will use XVidMode if it is available.
 		 */
-		[CCode (cname="\"SDL_VIDEO_X11_XVIDMODE\"")]
+		[CCode (cname="SDL_HINT_VIDEO_X11_XVIDMODE")]
 		public const string VIDEO_X11_XVIDMODE;
 
 		/**
@@ -377,7 +377,7 @@ namespace SDL {
 		 *
 		 * By default SDL will use Xinerama if it is available.
 		 */
-		[CCode (cname="\"SDL_VIDEO_X11_XINERAMA\"")]
+		[CCode (cname="SDL_HINT_VIDEO_X11_XINERAMA")]
 		public const string VIDEO_X11_XINERAMA;
 
 		/**
@@ -390,7 +390,7 @@ namespace SDL {
 		 *
 		 * By default SDL will not use XRandR because of window manager issues.
 		 */
-		[CCode (cname="\"SDL_VIDEO_X11_XRANDR\"")]
+		[CCode (cname="SDL_HINT_VIDEO_X11_XRANDR")]
 		public const string VIDEO_X11_XRANDR;
 
 		/**
@@ -403,7 +403,7 @@ namespace SDL {
 		 *
 		 * By default SDL will not grab the keyboard so system shortcuts still work.
 		 */
-		[CCode (cname="\"SDL_GRAB_KEYBOARD\"")]
+		[CCode (cname="SDL_HINT_GRAB_KEYBOARD")]
 		public const string GRAB_KEYBOARD;
 
 		/**
@@ -416,13 +416,13 @@ namespace SDL {
 		 *
 		 * By default SDL will use raw input for relative mouse mode
 		 */
-		[CCode (cname="\"SDL_MOUSE_RELATIVE_MODE_WARP\"")]
+		[CCode (cname="SDL_HINT_MOUSE_RELATIVE_MODE_WARP")]
 		public const string MOUSE_RELATIVE_MODE_WARP;
 
 		/**
 		 * Minimize your SDL_Window if it loses key focus when in fullscreen mode. Defaults to true.
 		 */
-		[CCode (cname="\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"")]
+		[CCode (cname="SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS")]
 		public const string VIDEO_MINIMIZE_ON_FOCUS_LOSS;
 
 		/**
@@ -438,7 +438,7 @@ namespace SDL {
 		 *  * "0"       - Enable idle timer
 		 *  * "1"       - Disable idle timer
 		 */
-		[CCode (cname="\"SDL_IOS_IDLE_TIMER_DISABLED\"")]
+		[CCode (cname="SDL_HINT_IOS_IDLE_TIMER_DISABLED")]
 		public const string IOS_IDLE_TIMER_DISABLED;
 
 		/**
@@ -451,7 +451,7 @@ namespace SDL {
 		 *
 		 * "LandscapeLeft", "LandscapeRight", "Portrait" "PortraitUpsideDown"
 		 */
-		[CCode (cname="\"SDL_IOS_ORIENTATIONS\"")]
+		[CCode (cname="SDL_HINT_IOS_ORIENTATIONS")]
 		public const string IOS_ORIENTATIONS;
 
 		/**
@@ -463,7 +463,7 @@ namespace SDL {
 		 *  * "0"       - List only real joysticks and accept input from them
 		 *  * "1"       - List real joysticks along with the accelerometer as if it were a 3 axis joystick (the default).
 		 */
-		[CCode (cname="\"SDL_ACCELEROMETER_AS_JOYSTICK\"")]
+		[CCode (cname="SDL_HINT_ACCELEROMETER_AS_JOYSTICK")]
 		public const string ACCELEROMETER_AS_JOYSTICK;
 
 		/**
@@ -474,7 +474,7 @@ namespace SDL {
 		 *  * "0"       - Disable XInput detection (only uses direct input)
 		 *  * "1"       - Enable XInput detection (the default)
 		 */
-		[CCode (cname="\"SDL_XINPUT_ENABLED\"")]
+		[CCode (cname="SDL_HINT_XINPUT_ENABLED")]
 		public const string XINPUT_ENABLED;
 
 		/**
@@ -485,7 +485,7 @@ namespace SDL {
 		 * This hint must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
 		 * You can update mappings after the system is initialized with SDL_GameControllerMappingForGUID() and SDL_GameControllerAddMapping()
 		 */
-		[CCode (cname="\"SDL_GAMECONTROLLERCONFIG\"")]
+		[CCode (cname="SDL_HINT_GAMECONTROLLERCONFIG")]
 		public const string GAMECONTROLLERCONFIG;
 
 		/**
@@ -500,7 +500,7 @@ namespace SDL {
 		 *
 		 * The default value is "0".  This hint may be set at any time.
 		 */
-		[CCode (cname="\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"")]
+		[CCode (cname="SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS")]
 		public const string JOYSTICK_ALLOW_BACKGROUND_EVENTS;
 
 		/**
@@ -512,7 +512,7 @@ namespace SDL {
 		 *  * "0"       - don't allow topmost
 		 *  * "1"       - allow topmost
 		 */
-		[CCode (cname = "\"SDL_ALLOW_TOPMOST\"")]
+		[CCode (cname = "SDL_HINT_ALLOW_TOPMOST")]
 		public const string ALLOW_TOPMOST;
 
 		/**
@@ -529,13 +529,13 @@ namespace SDL {
 		 *
 		 * The default value is "1". This hint may be set at any time.
 		 */
-		[CCode (cname = "\"SDL_TIMER_RESOLUTION\"")]
+		[CCode (cname = "SDL_HINT_TIMER_RESOLUTION")]
 		public const string TIMER_RESOLUTION;
 
 		/**
 		 * If set to 1, then do not allow high-DPI windows. ("Retina" on Mac)
 		 */
-		[CCode (cname = "\"SDL_VIDEO_HIGHDPI_DISABLED\"")]
+		[CCode (cname = "SDL_HINT_VIDEO_HIGHDPI_DISABLED")]
 		public const string VIDEO_HIGHDPI_DISABLED;
 
 		/**
@@ -544,7 +544,7 @@ namespace SDL {
 		 * If present, holding ctrl while left clicking will generate a right click
 		 * event when on Mac.
 		 */
-		[CCode (cname = "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"")]
+		[CCode (cname = "SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK")]
 		public const string MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK;
 
 		/**
@@ -561,7 +561,7 @@ namespace SDL {
 		 *  * "d3dcompiler_43.dll" - for XP support.
 		 *  * "none" - do not load any library, useful if you compiled ANGLE from source and included the compiler in your binaries.
 		 */
-		[CCode (cname = "\"SDL_VIDEO_WIN_D3DCOMPILER\"")]
+		[CCode (cname = "SDL_HINT_VIDEO_WIN_D3DCOMPILER")]
 		public const string VIDEO_WIN_D3DCOMPILER;
 
 		/**
@@ -582,7 +582,7 @@ namespace SDL {
 		 * The address (as a string "%p") of the SDL_Window* that new windows created with SDL_CreateWindowFrom() should
 		 * share a pixel format with.
 		 */
-		[CCode (cname = "\"SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT\"")]
+		[CCode (cname = "SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT")]
 		public const string VIDEO_WINDOW_SHARE_PIXEL_FORMAT;
 
 		/**
@@ -609,7 +609,7 @@ namespace SDL {
 		 * will not get used on that platform.  Network-enabled phone apps should display
 		 * their privacy policy through some other, in-app means.
 		 */
-		[CCode (cname = "\"SDL_HINT_WINRT_PRIVACY_POLICY_URL\"")]
+		[CCode (cname = "SDL_HINT_WINRT_PRIVACY_POLICY_URL")]
 		public const string WINRT_PRIVACY_POLICY_URL;
 
 		/**
@@ -632,7 +632,7 @@ namespace SDL {
 		 * For additional information on linking to a privacy policy, see the documentation for
 		 * SDL_HINT_WINRT_PRIVACY_POLICY_URL.
 		 */
-		[CCode (cname = "\"SDL_HINT_WINRT_PRIVACY_POLICY_LABEL\"")]
+		[CCode (cname = "SDL_HINT_WINRT_PRIVACY_POLICY_LABEL")]
 		public const string WINRT_PRIVACY_POLICY_LABEL;
 
 		/**
@@ -643,7 +643,7 @@ namespace SDL {
 		 * beginning of the following web page:
 		 * [[http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj247550(v=vs.105).aspx]]
 		 */
-		[CCode (cname = "\"SDL_HINT_WINRT_HANDLE_BACK_BUTTON\"")]
+		[CCode (cname = "SDL_HINT_WINRT_HANDLE_BACK_BUTTON")]
 		public const string WINRT_HANDLE_BACK_BUTTON;
 
 		/**
@@ -664,7 +664,7 @@ namespace SDL {
 		 * the OS isn't at least Mac OS X Lion (10.7). This hint must be set before
 		 * any windows are created.
 		 */
-		[CCode (cname = "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"")]
+		[CCode (cname = "SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES")]
 		public const string VIDEO_MAC_FULLSCREEN_SPACES;
 
 		//SDL 2.0.4 Hints
@@ -682,7 +682,7 @@ namespace SDL {
 		 *
 		 * By default mouse events will be handled as touch events and touch will raise fake mouse events.
 		*/
-		[CCode (cname = "\"SDL_HINT_ANDROID_SEPARATE_MOUSE_AND_TOUCH\"")]
+		[CCode (cname = "SDL_HINT_ANDROID_SEPARATE_MOUSE_AND_TOUCH")]
 		public const string ANDROID_SEPARATE_MOUSE_AND_TOUCH;
 
 		/**
@@ -696,7 +696,7 @@ namespace SDL {
 		 *
 		 * By default this hint is not set and the APK expansion files are not searched.
 		*/
-		[CCode (cname = "\"SDL_HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION\"")]
+		[CCode (cname = "SDL_HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION")]
 		public const string ANDROID_APK_EXPANSION_PATCH_FILE_VERSION;
 
 		/**
@@ -710,7 +710,7 @@ namespace SDL {
 		 *
 		 * By default this hint is not set and the APK expansion files are not searched.
 		*/
-		[CCode (cname = "\"SDL_HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION\"")]
+		[CCode (cname = "SDL_HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION")]
 		public const string ANDROID_APK_EXPANSION_MAIN_FILE_VERSION;
 
 		/**
@@ -724,7 +724,7 @@ namespace SDL {
 		 *
 		 * By default SDL installs a SIGINT and SIGTERM handler, and when it catches a signal, converts it into an SDL_QUIT event.
 		*/
-		[CCode (cname="\"SDL_NO_SIGNAL_HANDLERS\"")]
+		[CCode (cname="SDL_HINT_NO_SIGNAL_HANDLERS")]
 		public const string NO_SIGNAL_HANDLERS;
 
 		/**
@@ -741,7 +741,7 @@ namespace SDL {
 		 *
 		 * By default SDL_TEXTEDITING events are sent, and it is the application's responsibility to render the text from these events and differentiate it somehow from committed text.
 		*/
-		[CCode (cname="\"SDL_IME_INTERNAL_EDITING\"")]
+		[CCode (cname="SDL_HINT_IME_INTERNAL_EDITING")]
 		public const string IME_INTERNAL_EDITING;
 
 		/**
@@ -758,7 +758,7 @@ namespace SDL {
 		 *
 		 * By default SDL will use the JavaScript window object.
 		*/
-		[CCode (cname="\"SDL_EMSCRIPTEN_KEYBOARD_ELEMENT\"")]
+		[CCode (cname="SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT")]
 		public const string EMSCRIPTEN_KEYBOARD_ELEMENT;
 		
 		/**
@@ -777,7 +777,7 @@ namespace SDL {
 		 *
 		 * By default the backend's default threads stack size is used.
 		*/
-		[CCode (cname="\"SDL_THREAD_STACK_SIZE\"")]
+		[CCode (cname="SDL_HINT_THREAD_STACK_SIZE")]
 		public const string THREAD_STACK_SIZE;
 		
 		/**
@@ -790,7 +790,7 @@ namespace SDL {
 		 *
 		 * By default SDL will allow interaction with the window frame when the cursor is hidden.
 		*/
-		[CCode (cname="\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"")]
+		[CCode (cname="SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN")]
 		public const string WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN;
 		
 		/**
@@ -803,7 +803,7 @@ namespace SDL {
 		 *
 		 * By default SDL will process the windows message loop.
 		*/
-		[CCode (cname="\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"")]
+		[CCode (cname="SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP")]
 		public const string WINDOWS_ENABLE_MESSAGELOOP;
 		
 		/**
@@ -816,7 +816,7 @@ namespace SDL {
 		 *
 		 * By default SDL will process the windows message loop.
 		*/
-		[CCode (cname="\"SDL_WINDOWS_NO_CLOSE_ON_ALT_F4\"")]
+		[CCode (cname="SDL_HINT_WINDOWS_NO_CLOSE_ON_ALT_F4")]
 		public const string WINDOWS_NO_CLOSE_ON_ALT_F4;
 		
 		/**
@@ -833,7 +833,7 @@ namespace SDL {
 		 *
 		 * By default SDL does not use the old axis and button mapping for XInput devices.
 		*/
-		[CCode (cname="\"SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING\"")]
+		[CCode (cname="SDL_HINT_XINPUT_USE_OLD_JOYSTICK_MAPPING")]
 		public const string XINPUT_USE_OLD_JOYSTICK_MAPPING;
 		
 		/**
@@ -846,7 +846,7 @@ namespace SDL {
 		 *
 		 * By default the SDL app will be forced to become a foreground process on Mac OS X.
 		*/
-		[CCode (cname="\"SDL_MAC_BACKGROUND_APP\"")]
+		[CCode (cname="SDL_HINT_MAC_BACKGROUND_APP")]
 		public const string MAC_BACKGROUND_APP;
 		
 		/**
@@ -863,7 +863,7 @@ namespace SDL {
 		 * respond to ping requests in a timely manner they can turn it off to avoid the window manager thinking 
 		 * the app is hung.
 		*/
-		[CCode (cname="\"SDL_VIDEO_X11_NET_WM_PING\"")]
+		[CCode (cname="SDL_HINT_VIDEO_X11_NET_WM_PING")]
 		public const string VIDEO_X11_NET_WM_PING;
 
 		/**
