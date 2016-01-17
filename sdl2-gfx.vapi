@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) <2013> <SDL2.0 vapi>
+Copyright (c) <2016> <SDL2.0 vapi>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

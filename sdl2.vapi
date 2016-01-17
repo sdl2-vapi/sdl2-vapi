@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) <2013> <SDL2.0 vapi>
+Copyright (c) <2016> <SDL2.0 vapi>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -115,8 +115,8 @@ namespace SDL {
 	 * Examples:
 	 * {{{
 	 * // Get init data on all the subsystems
-	 * uint32 subsystemInit = SDL.get_initialized(SDL.InitFlag.EVERYTHING);
-	 * if (subsystemInit & SDL.InitFlag.VIDEO)
+	 * uint32 subsystem_init = SDL.get_initialized(SDL.InitFlag.EVERYTHING);
+	 * if (subsystem_init & SDL.InitFlag.VIDEO)
 	 *   //Video is initalized
 	 * }}}
 	 * {{{
@@ -667,6 +667,205 @@ namespace SDL {
 		[CCode (cname = "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"")]
 		public const string VIDEO_MAC_FULLSCREEN_SPACES;
 
+		//SDL 2.0.4 Hints
+
+		/**
+		 * A hint that specifies a variable to control whether mouse and touch events are to be treated together or separately.
+		 *
+		 * The value of this hint is used at runtime, so it can be changed at any time.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *  * "0"       - mouse events will be handled as touch events and touch will 
+		 *                raise fake mouse events
+		 *  * "1"       - mouse events will be handled separately from pure touch events
+		 *
+		 * By default mouse events will be handled as touch events and touch will raise fake mouse events.
+		*/
+		[CCode (cname = "\"SDL_HINT_ANDROID_SEPARATE_MOUSE_AND_TOUCH\"")]
+		public const string ANDROID_SEPARATE_MOUSE_AND_TOUCH;
+
+		/**
+		 * A hint that specifies the Android APK expansion patch file version.
+		 *
+		 * This hint must be set together with the hint {@link Hint.ANDROID_APK_EXPANSION_MAIN_FILE_VERSION}.
+		 *
+		 * If both hints were set then {@link RWops.from_file} will look into expansion files after a given relative path was not found in the internal storage and assets.
+		 *
+		 * This hint should be set with the Android APK expansion patch file version (should be a string number like "1", "2" etc.)
+		 *
+		 * By default this hint is not set and the APK expansion files are not searched.
+		*/
+		[CCode (cname = "\"SDL_HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION\"")]
+		public const string ANDROID_APK_EXPANSION_PATCH_FILE_VERSION;
+
+		/**
+		 * A hint that specifies the Android APK expansion main file version.
+		 *
+		 * This hint must be set together with the hint {@link Hint.ANDROID_APK_EXPANSION_PATCH_FILE_VERSION}.
+		 *
+		 * If both hints were set then {@link RWops.from_file} will look into expansion files after a given relative path was not found in the internal storage and assets.
+		 *
+		 * This hint should be set with the Android APK expansion patch file version (should be a string number like "1", "2" etc.)
+		 *
+		 * By default this hint is not set and the APK expansion files are not searched.
+		*/
+		[CCode (cname = "\"SDL_HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION\"")]
+		public const string ANDROID_APK_EXPANSION_MAIN_FILE_VERSION;
+
+		/**
+		 * A hint that specifies not to catch the SIGINT or SIGTERM signals.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *  * "0"       - SDL will install a SIGINT and SIGTERM handler, and when it 
+		 *                catches a signal, convert it into an SDL_QUIT event
+		 *  * "1"       - SDL will not install a signal handler at all
+		 *
+		 * By default SDL installs a SIGINT and SIGTERM handler, and when it catches a signal, converts it into an SDL_QUIT event.
+		*/
+		[CCode (cname="\"SDL_NO_SIGNAL_HANDLERS\"")]
+		public const string NO_SIGNAL_HANDLERS;
+
+		/**
+		 * A hint that specifies whether certain IMEs should handle text editing internally instead of sending SDL_TEXTEDITING events.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *  * "0"       - SDL_TEXTEDITING events are sent, and it is the application's 
+		 *                responsibility to render the text from these events and 
+		 *                differentiate it somehow from committed text. (default)
+		 *  * "1"       - If supported by the IME then SDL_TEXTEDITING events are 
+		 *                not sent, and text that is being composed will be rendered 
+		 *                in its own UI.
+		 *
+		 * By default SDL_TEXTEDITING events are sent, and it is the application's responsibility to render the text from these events and differentiate it somehow from committed text.
+		*/
+		[CCode (cname="\"SDL_IME_INTERNAL_EDITING\"")]
+		public const string IME_INTERNAL_EDITING;
+
+		/**
+		 * A hint that specifies a value to override the binding element for keyboard inputs for Emscripten builds.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *  * "#window"       - the JavaScript window object (this is the default)
+		 *  * "#document"     - the JavaScript document object
+		 *  * "#screen"       - the JavaScript window.screen object
+		 *  * "#canvas"       - the default WebGL canvas element
+		 *
+		 * Any other string without a leading # sign applies to the element on the page with that ID.
+		 *
+		 * By default SDL will use the JavaScript window object.
+		*/
+		[CCode (cname="\"SDL_EMSCRIPTEN_KEYBOARD_ELEMENT\"")]
+		public const string EMSCRIPTEN_KEYBOARD_ELEMENT;
+		
+		/**
+		 * A hint that specifies a variable specifying SDL's threads stack size in bytes or "0" for the backend's default size.
+		 *
+		 * Use this hint in case you need to set SDL's threads stack size to other than the default. This is specially 
+		 * useful if you build SDL against a non glibc libc library (such as musl) which provides a relatively small default 
+		 * thread stack size (a few kilobytes versus the default 8 MB glibc uses).
+		 *
+		 * Support for this hint is currently available only in the pthread backend.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *  * "0"       - SDL will use the backend's default threads stack size
+		 *  * "X"       - SDL will use the provided the X positive you provided as the threads stack size
+		 *
+		 * By default the backend's default threads stack size is used.
+		*/
+		[CCode (cname="\"SDL_THREAD_STACK_SIZE\"")]
+		public const string THREAD_STACK_SIZE;
+		
+		/**
+		 * A hint that specifies whether the window frame and title bar are interactive when the cursor is hidden.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *  * "0"       - The window frame is not interactive when the cursor is hidden (no move, resize, etc)
+		 *  * "1"       - The window frame is interactive when the cursor is hidden
+		 *
+		 * By default SDL will allow interaction with the window frame when the cursor is hidden.
+		*/
+		[CCode (cname="\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"")]
+		public const string WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN;
+		
+		/**
+		 * A hint that specifies whether the windows message loop is processed by SDL.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *  * "0"       - The window message loop is not run
+		 *  * "1"       - The window message loop is processed in {@link SDL.Event.pump}
+		 *
+		 * By default SDL will process the windows message loop.
+		*/
+		[CCode (cname="\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"")]
+		public const string WINDOWS_ENABLE_MESSAGELOOP;
+		
+		/**
+		 * A hint that specifies that SDL should not to generate an {@link SDL.WindowEvent} of type {@link SDL.WindowEventType.CLOSE} for Alt+F4 on Microsoft Windows.
+		 *
+		 * The variable can be set to the following values:
+		 * 
+		 *  * "0"       - generate an {@link SDL.WindowEvent} of type {@link SDL.WindowEventType.CLOSE} for Alt+F4 (default)
+		 *  * "1"       - Do not generate event and only do normal key handling for Alt+F4
+		 *
+		 * By default SDL will process the windows message loop.
+		*/
+		[CCode (cname="\"SDL_WINDOWS_NO_CLOSE_ON_ALT_F4\"")]
+		public const string WINDOWS_NO_CLOSE_ON_ALT_F4;
+		
+		/**
+		 * A hint that specifies that SDL should use the old axis and button mapping for XInput devices.
+		 *
+		 * This hint is for backwards compatibility only and will be removed in SDL 2.1
+		 *
+		 * The default value is "0". This hint must be set before {@link SDL.init}.
+		 *
+		 * The variable can be set to the following values:
+		 * 
+		 *  * "0"       - SDL will use the old axis and button mapping for XInput devices
+		 *  * "1"       - SDL won't use old axis and button mapping for XInput devices
+		 *
+		 * By default SDL does not use the old axis and button mapping for XInput devices.
+		*/
+		[CCode (cname="\"SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING\"")]
+		public const string XINPUT_USE_OLD_JOYSTICK_MAPPING;
+		
+		/**
+		 * A hint that specifies if the SDL app should not be forced to become a foreground process on Mac OS X. 
+		 *
+		 * The variable can be set to the following values:
+		 * 
+		 *  * "0"       - SDL will force the app to become a foreground process (default)
+		 *  * "1"       - SDL won't not force the SDL app to become a foreground process
+		 *
+		 * By default the SDL app will be forced to become a foreground process on Mac OS X.
+		*/
+		[CCode (cname="\"SDL_MAC_BACKGROUND_APP\"")]
+		public const string MAC_BACKGROUND_APP;
+		
+		/**
+		 * A hint that specifies whether the X11 _NET_WM_PING protocol should be supported.
+		 *
+		 * The hint is checked in the {@link Video.Window} constructor
+		 *
+		 * The variable can be set to the following values:
+		 * 
+		 *  * "0"       - disable _NET_WM_PING
+		 *  * "1"       - enable _NET_WM_PING
+		 *
+		 * By default SDL will use _NET_WM_PING, but for applications that know they will not always be able to 
+		 * respond to ping requests in a timely manner they can turn it off to avoid the window manager thinking 
+		 * the app is hung.
+		*/
+		[CCode (cname="\"SDL_VIDEO_X11_NET_WM_PING\"")]
+		public const string VIDEO_X11_NET_WM_PING;
+
 		/**
 		 * A callback used to watch hints.
 		 *
@@ -675,7 +874,7 @@ namespace SDL {
 		 * @param new_value The new value.
 		 */
 		[CCode (cname ="SDL_HintCallback", has_target=true)]
-		public delegate void Callback(string name, string old_value, string? new_value);
+		public delegate void HintFunc(string name, string old_value, string? new_value);
 	
 		/**
 		 * An enumeration of hint priorities
@@ -701,21 +900,21 @@ namespace SDL {
 		 * Use this function to add a function to watch a particular hint.
 		 *
 		 * @param name The hint to watch.
-		 * @param callback The delegate of {@link Hint.Callback} type to call when the hint value changes.
+		 * @param callback The delegate of {@link Hint.HintFunc} type to call when the hint value changes.
 		 *
 		 * @since 2.0.0
 		 */
 		[CCode (cname ="SDL_AddHintCallback", cheader_filename="SDL2/SDL_hints.h")]
-		public static void add_callback(string name, Hint.Callback callback);
+		public static void add_callback(string name, HintFunc callback);
 		
 		/**
 		 * Use this function to remove a function watching a particular hint.
 		 *
 		 * @param name The hint being watched.
-		 * @param callback The delegate of {@link Hint.Callback} type being called when the hint value changes.
+		 * @param callback The delegate of {@link Hint.HintFunc} type being called when the hint value changes.
 		 */
 		[CCode (cname ="SDL_DelHintCallback", cheader_filename="SDL2/SDL_hints.h")]
-		public static void del_callback (string name, Hint.Callback callback);
+		public static void del_callback (string name, HintFunc callback);
 		
 		/**
 		 * Use this function to set a hint with normal priority.
@@ -861,6 +1060,12 @@ namespace SDL {
 		CLIPBOARDUPDATE,DROPFILE,AUDIODEVICEADDED,AUDIODEVICEREMOVED,RENDER_TARGETS_RESET,RENDER_DEVICE_RESET,
 		USEREVENT,LASTEVENT;
 	}// EventType
+
+	[CCode (cname="SDL_WindowEventID", cprefix="SDL_WINDOWEVENT_", cheader_filename="SDL2/SDL_events.h")]
+	public enum WindowEventType{
+		NONE, SHOWN, HIDDEN, EXPOSED, MOVED, RESIZED, SIZE_CHANGED, MINIMIZED, MAXIMIZED, RESTORED, 
+		ENTER, LEAVE, FOCUS_GAINED, FOCUS_LOST, CLOSE;
+	}
 	
 	[CCode (cname="SDL_CommonEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
@@ -874,7 +1079,7 @@ namespace SDL {
 	public struct WindowEvent : CommonEvent {
 		[CCode (cname="windowID")] 
 		uint32 window_id;
-		uint8 event;
+		WindowEventType event;
 		int32 data1;
 		int32 data2;
 	}// WindowEvent
@@ -944,6 +1149,12 @@ namespace SDL {
 		int32 x;
 		int32 y;
 	}// MouseButtonEvent
+
+	[CCode (cname="Uint32" cprefix="SDL_MOUSEWHEEL_", has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
+	public enum MouseWheelDirection{
+		NORMAL,
+		FLIPPED
+	}
 	
 	[CCode (cname="SDL_MouseWheelEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
 	[Compact]
@@ -953,6 +1164,8 @@ namespace SDL {
 		uint32 which;
 		int32 x;
 		int32 y;
+		MouseWheelDirection direction;
+
 	}// MouseWheelEvent
 	
 	[CCode (cname="SDL_JoyAxisEvent",  has_type_id=false, cheader_filename="SDL2/SDL_events.h")]
@@ -1345,10 +1558,8 @@ namespace SDL {
 			[CCode (cname="SDL_RectEquals")]
 			public bool is_equal(Video.Rect other_rect);
 			
-			public bool contains (Video.Point p) {
-				return p.x >= this.x && p.y >= this.y &&
-					p.x < this.x + this.w && p.y < this.y + this.h;
-			}
+			[CCode (cname="SDL_PointInRect", instance_pos=1)]
+			public bool contains_point (Video.Point p);
 			[CCode (cname="SDL_HasIntersection")]
 			public bool is_intersecting(Video.Rect other_rect);
 	
@@ -1647,6 +1858,9 @@ namespace SDL {
 		
 			[CCode (cname="SDL_GetRenderTarget")]
 			public Video.Texture get_render_target(out Video.Texture? texture);
+
+			[Ccode (cname="SDL_RenderIsClipEnabled")]
+			public bool is_clip_enabled();
 		
 			[CCode (cname="SDL_RenderSetLogicalSize")]
 			public int set_logical_size(int w, int h);
@@ -1822,34 +2036,38 @@ namespace SDL {
 		public static void disable_screensaver();
 		
 		
-		[CCode (cprefix="SDL_", cheader_filename="SDL2/SDL_video.h")]
-		[Compact]
-		public class Display { //Considering to put it out class Video
+		[CCode (cprefix="SDL_", has_type_id=false, cheader_filename="SDL2/SDL_video.h")]
+		[SimpleType]
+		[IntegerType (rank=6)]
+		public struct Display  : int {
 			[CCode (cname="SDL_GetDisplayName")]
-			public static unowned string? get_name(int index);
+			public unowned string? get_name();
 			
 			[CCode (cname="SDL_GetDisplayBounds")]
-			public static int get_bounds(int index, out Video.Rect rect);
+			public int get_bounds(out Video.Rect rect);
 			
 			[CCode (cname="SDL_GetNumDisplayModes")]
-			public static int num_modes(int index);
+			public int num_modes();
 			
 			[CCode (cname="SDL_GetDisplayMode")]
-			public static int get_mode(int display_index, int mode_index, out Video.DisplayMode mode);
+			public int get_mode(int mode_index, out Video.DisplayMode mode);
+
+			[CCode (cname="SDL_GetDisplayDPI")]
+			public int get_dpi(out float ddpi, out float hdpi, out float vdpi);
 			
 			[CCode (cname="SDL_GetDesktopDisplayMode")]
-			public static int get_desktop_mode(int index, out Video.DisplayMode mode);
+			public int get_desktop_mode(out Video.DisplayMode mode);
 		
 			[CCode (cname="SDL_GetCurrentDisplayMode")]
-			public static int get_current_mode(int index, out Video.DisplayMode mode);
+			public int get_current_mode(out Video.DisplayMode mode);
 		
 			[CCode (cname="SDL_GetClosestDisplayMode")]
-			public static Video.DisplayMode? get_closest_mode(int index, Video.DisplayMode mode, out Video.DisplayMode closest);
+			public Video.DisplayMode? get_closest_mode(Video.DisplayMode mode, out Video.DisplayMode closest);
 		}// Display
 		
 		[CCode (cname=" SDL_SYSWM_TYPE", cprefix="SDL_SYSWM_", cheader_filename="SDL2/	SDL_syswm.h")]
 		public enum SysWMType{
-			UNKNOWN,WINDOWS,X11,DIRECTFB,COCOA,UIKIT;
+			UNKNOWN, WINDOWS, X11, DIRECTFB, COCOA, UIKIT, WAYLAND, MIR, WINRT, ANDROID;
 		}
 		[CCode (cname="SDL_SysWMmsg", cheader_filename="SDL2/SDL_syswm.h")]
 		public struct SysWMmsg {
@@ -1859,12 +2077,112 @@ namespace SDL {
 			SDL.Version version;		
 		}// SysWMmsg
 	
+		/**
+		 * Remember to always check the {@link SysWMType} before accesing any field
+		*/
 		[CCode (cname="SDL_SysWMinfo", cheader_filename="SDL2/SDL_syswm.h")]
 		public struct SysWMInfo {
 			[CCode (cname="info.dummy")]
 			int info;
 			SysWMType type;
-			SDL.Version version;		
+			SDL.Version version;
+			//if SDL_SYSWM_WINDOWS
+
+			/*the window handle*/
+			[CCode (cname = "win.window")]
+			void* win_window;
+			/*the window device context (>= SDL 2.0.4)*/
+			[CCode (cname = "win.hdc")]
+			void* wind_hdc;
+
+			//if SDL_SYSWM_WINRT (>= SDL 2.0.3)
+			
+			/*the WinRT CoreWindow*/
+			[CCode (cname= "win.window")]
+			void* winrt_window;
+
+			//if SDL_SYSWM_X11
+
+			/*the X11 display*/
+			[CCode (cname ="x11.display")]
+			void* x11_display;
+
+			/*the X11 window*/
+			[CCode (cname="x11.window")]
+			void* x11_window;
+
+			//if SDL_SYSWM_DIRECTFB
+
+			/*the DirectFB main interface*/
+			[CCode (cname="dfb.dfb")]
+			void* dfb_dfb;
+
+			/*the DirectFB window handle*/
+			[CCode (cname="dfb.window")]
+			void* dfb_window;
+
+			/*the DirectFB client surface*/
+			[CCode (cname ="dfb.surface")]
+			void* dfb_surface;
+
+			//if SDL_SYSWM_COCOA
+
+			/*the Cocoa window*/
+			[CCode (cname="cocoa.window")]
+			void* cocoa_window;
+
+			//if SDL_SYSWM_UIKIT
+
+			/*the UIKit window*/
+			[CCode (cname="uikit.window")]
+			void* uikit_window;
+
+			/*the GL view's Framebuffer Object; it must be bound when rendering to the screen using GL (>= SDL 2.0.4)*/
+			[CCode (cname="uikit.framebuffer")]
+			uint uikit_framebuffer;
+
+			/**
+			 *the GL view's color Renderbuffer Object; it must be bound when {@link SDL.GL.swap_window} is called (>= SDL 2.0.4)*/
+			[CCode (cname="uikit.colorbuffer")]
+			uint uikit_colorbuffer;
+
+			/*the Framebuffer Object which holds the resolve color Renderbuffer, when MSAA is used (>= SDL 2.0.4)*/
+			[CCode (cname="uikit.resolveFramebuffer")]
+			uint uikit_resolve_framebuffer;
+
+			//if SDL_SYSWM_WAYLAND (>= SDL 2.0.2)
+
+			/*the Wayland display*/
+			[CCode (cname="wl.display")]
+			void* wl_display;
+
+			/*the Wayland surface*/
+			[CCode (cname="wl.surface")]
+			void* wl_surface;
+
+			/*the Wayland shell_surface (window manager handle)*/
+			[CCode (cname="wl.shell_surface")]
+			void* wl_shell_surface;
+
+			//if SDL_SYSWM_MIR (>= SDL 2.0.2)
+
+			/*the Mir display server connection*/
+			[CCode (cname="mir.connection")]
+			void* mir_connection;
+
+			/*the Mir surface*/
+			[CCode (cname="mir.surface")]
+			void* mir_surface;
+
+			//if SDL_SYSWM_ANDROID (>= SDL 2.0.4)
+
+			/*the Android native window*/
+			[CCode (cname="android.window")]
+			void* android_window;
+
+			/*the Android EGL surface*/
+			[CCode (cname="android.surface")]
+			void* android_surface;
 		}// SysWMmsg
 	
 		[CCode (cname=" SDL_HitTestResult", cprefix="SDL_HITTEST_", cheader_filename="SDL2/SDL_video.h")]
@@ -1887,6 +2205,9 @@ namespace SDL {
 			[CCode (cname="SDL_WINDOWPOS_CENTERED_MASK")]
 			public static const uint8 POS_CENTERED;
 			
+			[CCode (cname="SDL_GetGrabbedWindow")]
+			public static Window? get_grabbed();
+
 			[CCode (cname="SDL_CreateWindow")]
 			public Window(string title, int x, int y, int w, int h, uint32 flags);
 		
@@ -1908,6 +2229,7 @@ namespace SDL {
 		
 			[CCode (cname="SDL_SetWindowHitTest")]
 			public int set_hit_test(HitTestFunc callback);
+
 		
 			[CCode (cname="SDL_GetWindowPixelFormat")]
 			public Video.PixelRAWFormat get_pixelformat();
@@ -2407,14 +2729,20 @@ namespace SDL {
 			[CCode (cname="SDL_CaptureMouse")]
 			public static int toggle_capture (bool active);
 
-			[CCode (cname="SDL_WarpMouse")]
+			[CCode (cname="SDL_WarpMouseInWindow")]
 			public static void warp_inwindow(Video.Window window, int x, int y);
+
+			[CCode (cname="SDL_WarpMouseGlobal")]
+			public static int warp_global(int x, int y);
 
 			[CCode (cname="SDL_SetRelativeMouseMode")]
 			public static int set_relative_mode(bool enabled);
 	
 			[CCode (cname="SDL_GetRelativeMouseMode")]
 			public static bool get_relative_mode();
+
+			[CCode (cname="SDL_CaptureMouse")]
+			public static void capture(bool enabled);
 	
 			[CCode (cname="SDL_CreateCursor")]
 			public Cursor(uint8* data, uint8* mask, int w, int h, int hot_x, int hot_y);
@@ -2446,6 +2774,10 @@ namespace SDL {
 		[CCode (cname="SDL_JoystickID", cheader_filename="SDL2/SDL_joystick.h")]
 		public struct JoystickID : int {}// JoystickID
 
+		[CCode (cname="SDL_JoystickPowerLevel", cprefix="SDL_JOYSTICK_POWER_", cheader_filename="SDL2/SDL_joystick.h")]
+		public enum JoystickPowerLevel{
+			UNKNOWN, EMPTY, LOW, MEDIUM, FULL, WIRED, MAX;
+		}
 	
 		[CCode (cname="SDL_Joystick", free_function="SDL_JoystickClose", cheader_filename="SDL2/SDL_joystick.h")]
 		[Compact]
@@ -2458,9 +2790,15 @@ namespace SDL {
 	
 			[CCode (cname="SDL_JoystickOpen")]
 			public Joystick(int device_index);
+
+			[CCode (cname="SDL_JoystickFromInstanceID")]
+			public static Joystick? create_from_instance_id(Input.JoystickID id);
 	
 			[CCode (cname="SDL_JoystickName")]
 			public unowned string get_name();
+
+			[CCode (cname="SDL_JoystickCurrentPowerLevel")]
+			public Input.JoystickPowerLevel get_current_powerlevel();
 			
 			[CCode (cname="SDL_JoystickGetDeviceGUID")]
 			public static Input.JoystickGUID get_guid_from_device(int device_index);
@@ -2561,7 +2899,9 @@ namespace SDL {
 			[CCode (cname = "SDL_GameControllerOpen")]
 			public GameController(int device_index);
 			
-			
+			[CCode (cname="SDL_GameControllerFromInstanceID")]
+			public static GameController? create_from_instance_id(Input.JoystickID id)
+
 			public string? name{
 				[CCode (cname= "SDL_GameControllerName")] get;
 			}
@@ -2586,7 +2926,6 @@ namespace SDL {
 			
 			[CCode (cname="SDL_GameControllerGetBindForButton")]
 			public Input.GameController.ButtonBind get_button_bind(GameController.Button button);
-		
 		
 			
 			[CCode (cname= "SDL_GameControllerEventState")]
@@ -2914,7 +3253,7 @@ namespace SDL {
 		}// AudioAllowFlags
 
 		[CCode (cname="SDL_AudioCallback", instance_pos = 0.1, has_target = true, delegate_target_pos=0,   cheader_filename="SDL2/SDL_audio.h")]
-		public delegate void Callback(uint8[] stream, int len);
+		public delegate void AudioFunc(uint8[] stream, int len);
 
 		[CCode (cname="SDL_AudioSpec", cheader_filename="SDL2/SDL_audio.h")]
 		public struct Spec {
@@ -2926,7 +3265,7 @@ namespace SDL {
 			public uint16 padding;
 			public uint32 size;
 			[CCode (delegate_target_cname = "userdata")]
-			public unowned SDL.Audio.Callback callback;
+			public unowned SDL.Audio.AudioFunc callback;
 		}// AudioSpec
 		
 		[CCode (cname="SDL_AudioFilter", instance_pos = 0.1, cheader_filename="SDL2/SDL_audio.h")]
@@ -2973,8 +3312,20 @@ namespace SDL {
 			[CCode (cname="SDL_LockAudioDevice")]
 			public void do_lock();
 
-			[CCode (cname="SDL_LockAudioDevice")]
+			[CCode (cname="SDL_UnlockAudioDevice")]
 			public void unlock();
+
+			[CCode (cname="SDL_GetAudioDeviceName")]
+			public unowned string get_name();
+
+			[CCode (cname="SDL_QueueAudio")]
+			public int enqueue( void* data, uint32 length);
+
+			[CCode (cname="SDL_GetQueuedAudioSize")]
+			public uint32 get_queued_size();
+
+			[CCode (cname="SDL_ClearQueuedAudio")]
+			public void clear_queue();
 
 		
 		}// AudioDeviceID
@@ -3001,8 +3352,6 @@ namespace SDL {
 		[CCode (cname="SDL_GetNumAudioDevices")]
 		public static int num_devices();
 		
-		[CCode (cname="SDL_GetAudioDeviceName")]
-		public static unowned string get_device_name(int index);
 		
 		[CCode (cname="SDL_GetAudioStatus")]
 		public static Audio.Status status();
@@ -3048,7 +3397,7 @@ namespace SDL {
 	/// Timers
 	///
 	[CCode (cname="SDL_TimerCallback", cheader_filename="SDL2/SDL_timer.h", has_target = true,  delegate_target_pos = 0.1)]
-	public delegate uint32 TimerCallback(uint32 interval);
+	public delegate uint32 TimerFunc(uint32 interval);
 
 	[CCode (cname="SDL_TimerID", ref_function="", unref_function="", cheader_filename="SDL2/SDL_timer.h")]
 	[Compact]
@@ -3066,7 +3415,7 @@ namespace SDL {
 		public static void delay(uint32 ms);
 
 		[CCode (cname="SDL_AddTimer", delegate_target_pos= 1.1)]
-		public Timer (uint32 interval, SDL.TimerCallback callback);
+		public Timer (uint32 interval, SDL.TimerFunc callback);
 		
 		[CCode (cname="SDL_RemoveTimer")]
 		[DestroysInstance]
@@ -3155,7 +3504,7 @@ namespace SDL {
 		public Condition();
 		 
 		[CCode (cname="SDL_CondSignal")]
-		public int signalize();
+		public int emit_signal();
 		 
 		[CCode (cname="SDL_CondBroadcast")]
 		public int broadcast();

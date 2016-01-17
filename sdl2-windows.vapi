@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) <2013> <SDL2.0 vapi>
+Copyright (c) <2016> <SDL2.0 vapi>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,11 @@ namespace SDL {
 		[CCode (cname="SDL_DXGIGetOutputInfo")]
 		public static void dxgi_get_output_info(int display_index, out int adapter_index, out int output_index);
 	}// Direct3D9
+
+	[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader="SDL2/SDL_system.h")]
+	public delegate void WindowsMessageHook(void *hWnd, uint message, uint64 w_param, int64 l_param);
 	
+	[CCode (cname="SDL_SetWindowsMessageHook", cheader="SDL2/SDL_system.h") ]
+	public static void set_windows_message_hook (WindowsMessageHook hook);
 	
 }
