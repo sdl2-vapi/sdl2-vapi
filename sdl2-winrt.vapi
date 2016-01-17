@@ -21,37 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-//FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
+//FOR: SDL2.0.4 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
+namespace SDL{
 
-namespace SDL {
-	///
-	/// Android
-	///
-	[CCode (cheader="SDL2/SDL_system.h")]
-	[Compact]
-	public class Android  {
-		[CCode (cname="SDL_AndroidGetJNIEnv")]
-		public static void* get_jnienv();
-		
-		[CCode (cname="SDL_AndroidGetActivity")]
-		public static void* get_activity();
-		
-		[CCode (cname="SDL_AndroidGetInternalStoragePath")]
-		public static string get_internal_storage_path();
-		
-		[CCode (cname="SDL_AndroidGetExternalStoragePath")]
-		public static string get_external_storage_path();
-		
-		[CCode (cname="SDL_AndroidGetExternalStorageState")]
-		public static int get_external_storage_state();
-		
-		[CCode (cname="SDL_ANDROID_EXTERNAL_STORAGE_READ")]
-		public static const int EXTERNAL_STORAGE_READ;
-		
-		[CCode (cname="SDL_ANDROID_EXTERNAL_STORAGE_WRITE")]
-		public static const int EXTERNAL_STORAGE_WRITE;
-	}// Android
-	
-	
+	[CCode (cname="SDL_WinRT_Path", cprefix="SDL_WINRT_PATH_", cheader="SDL2/SDL_system.h")]
+	public enum WinRTPath{
+		/** \brief The installed app's root directory.
+		 * Files here are likely to be read-only. 
+		 */
+		INSTALLED_LOCATION,
+		/** \brief The app's local data store.  Files may be written here 
+		*/
+		SDL_WINRT_PATH_LOCAL_FOLDER,
+		/** \brief The app's roaming data store.  Unsupported on Windows Phone.
+		 * Files written here may be copied to other machines via a network
+		 * connection.
+		*/
+		SDL_WINRT_PATH_ROAMING_FOLDER,
+		/** \brief The app's temporary data store.  Unsupported on Windows Phone.
+		 * Files written here may be deleted at any time. 
+		 */
+		SDL_WINRT_PATH_TEMP_FOLDER
+	}
+
+	[CCode (cname="SDL_WinRTGetFSPathUTF8", cheader="SDL2/SDL_system.h")]
+	public static unowned string get_fs_path(WinRTPath path_type);
+ 
 }
