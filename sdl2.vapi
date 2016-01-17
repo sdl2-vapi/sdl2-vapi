@@ -2065,7 +2065,7 @@ namespace SDL {
 			public Video.DisplayMode? get_closest_mode(Video.DisplayMode mode, out Video.DisplayMode closest);
 		}// Display
 		
-		[CCode (cname=" SDL_SYSWM_TYPE", cprefix="SDL_SYSWM_", cheader_filename="SDL2/	SDL_syswm.h")]
+		[CCode (cname=" SDL_SYSWM_TYPE", cprefix="SDL_SYSWM_", cheader_filename="SDL2/SDL_syswm.h")]
 		public enum SysWMType{
 			UNKNOWN, WINDOWS, X11, DIRECTFB, COCOA, UIKIT, WAYLAND, MIR, WINRT, ANDROID;
 		}
