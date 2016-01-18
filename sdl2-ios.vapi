@@ -28,17 +28,17 @@ namespace SDL {
 	///
 	/// iOS
 	///
-	
+
 	public delegate void AnimationFunc ();
-	[CCode (cheader="SDL2/SDL_system.h")]
+	[CCode (cheader = "SDL2/SDL_system.h")]
 	[Compact]
 	public class iPhone  {
-		[CCode (cname="SDL_iPhoneSetAnimationCallback")]
-		public static int set_animation_callback(Video.Window window, int interval, AnimationFunc func);
-		
-		[CCode (cname="SDL_iPhoneSetEventPump")]
-		public static void set_event_pump(bool enable);
+		[CCode (cname = "SDL_iPhoneSetAnimationCallback")]
+		public static int set_animation_callback (Video.Window window, int interval, AnimationFunc func);
+
+		[CCode (cname = "SDL_iPhoneSetEventPump")]
+		public static void set_event_pump (bool enable);
 	}// iPhone
-	
-	
+
+
 }
