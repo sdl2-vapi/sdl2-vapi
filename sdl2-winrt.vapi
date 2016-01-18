@@ -23,15 +23,15 @@ THE SOFTWARE.
 */
 //FOR: SDL2.0.4 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
-namespace SDL{
+namespace SDL {
 
-	[CCode (cname="SDL_WinRT_Path", cprefix="SDL_WINRT_PATH_", cheader="SDL2/SDL_system.h")]
-	public enum WinRTPath{
+	[CCode (cname = "SDL_WinRT_Path", cprefix = "SDL_WINRT_PATH_", cheader = "SDL2/SDL_system.h")]
+	public enum WinRTPath {
 		/** \brief The installed app's root directory.
-		 * Files here are likely to be read-only. 
+		 * Files here are likely to be read-only.
 		 */
 		INSTALLED_LOCATION,
-		/** \brief The app's local data store.  Files may be written here 
+		/** \brief The app's local data store.  Files may be written here
 		*/
 		SDL_WINRT_PATH_LOCAL_FOLDER,
 		/** \brief The app's roaming data store.  Unsupported on Windows Phone.
@@ -40,12 +40,12 @@ namespace SDL{
 		*/
 		SDL_WINRT_PATH_ROAMING_FOLDER,
 		/** \brief The app's temporary data store.  Unsupported on Windows Phone.
-		 * Files written here may be deleted at any time. 
+		 * Files written here may be deleted at any time.
 		 */
 		SDL_WINRT_PATH_TEMP_FOLDER
 	}
 
-	[CCode (cname="SDL_WinRTGetFSPathUTF8", cheader="SDL2/SDL_system.h")]
-	public static unowned string get_fs_path(WinRTPath path_type);
- 
+	[CCode (cname = "SDL_WinRTGetFSPathUTF8", cheader = "SDL2/SDL_system.h")]
+	public static unowned string get_fs_path (WinRTPath path_type);
+
 }

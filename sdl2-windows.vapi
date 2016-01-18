@@ -28,27 +28,27 @@ namespace SDL {
 	///
 	/// Windows
 	///
-	[CCode (cname="IDirect3DDevice9", cheader="d3d9.h")]
+	[CCode (cname = "IDirect3DDevice9", cheader = "d3d9.h")]
 	[Compact]
 	public struct IDirect3DDevice9 {}
-	
-	[CCode (cheader="SDL2/SDL_system.h")]
+
+	[CCode (cheader = "SDL2/SDL_system.h")]
 	[Compact]
 	public class Direct3D9  {
-		[CCode (cname="SDL_Direct3D9GetAdapterIndex")]
-		public static int get_adapter_index(int display_index);
-		
-		[CCode (cname="SDL_RenderGetD3D9Device")]
-		public static IDirect3DDevice9* get_render_device(Video.Renderer renderer);
-		
-		[CCode (cname="SDL_DXGIGetOutputInfo")]
-		public static void dxgi_get_output_info(int display_index, out int adapter_index, out int output_index);
+		[CCode (cname = "SDL_Direct3D9GetAdapterIndex")]
+		public static int get_adapter_index (int display_index);
+
+		[CCode (cname = "SDL_RenderGetD3D9Device")]
+		public static IDirect3DDevice9* get_render_device (Video.Renderer renderer);
+
+		[CCode (cname = "SDL_DXGIGetOutputInfo")]
+		public static void dxgi_get_output_info (int display_index, out int adapter_index, out int output_index);
 	}// Direct3D9
 
-	[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader="SDL2/SDL_system.h")]
-	public delegate void WindowsMessageHook(void *hWnd, uint message, uint64 w_param, int64 l_param);
-	
-	[CCode (cname="SDL_SetWindowsMessageHook", cheader="SDL2/SDL_system.h") ]
+	[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader = "SDL2/SDL_system.h")]
+	public delegate void WindowsMessageHook (void* hWnd, uint message, uint64 w_param, int64 l_param);
+
+	[CCode (cname = "SDL_SetWindowsMessageHook", cheader = "SDL2/SDL_system.h") ]
 	public static void set_windows_message_hook (WindowsMessageHook hook);
-	
+
 }
