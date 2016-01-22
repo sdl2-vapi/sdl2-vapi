@@ -33,38 +33,37 @@ using SDLTTF;
 using SDLMixer;
 
 
-public class Example 
-	{
+public class Example {
 	protected static Video.Window window;
 	protected static Video.Renderer? window_renderer;
 
-	public static void main()	{
+	public static void main() {
 		SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
 		SDLTTF.init();
 		
-		window = new Video.Window("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, 800,600, Video.WindowFlags.RESIZABLE);
-		var a= SDLMixer.open(44100,Audio.Format.S16LSB,2,4096); stdout.printf("%d\n",a);
-		window_renderer = Video.Renderer.create(window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
-		window.show();
-		assert(window_renderer == null);
+		window = new Video.Window ("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, 800,600, Video.WindowFlags.RESIZABLE);
+		var a= SDLMixer.open (44100,Audio.Format.S16LSB,2,4096); stdout.printf("%d\n",a);
+		window_renderer = Video.Renderer.create (window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
+		window.show ();
+		assert (window_renderer == null);
 		// Open surface and after transform to texture
-		Video.Surface img= SDLImage.load("pic.png");
+		Video.Surface img= SDLImage.load ("pic.png");
 		var texture_img= Video.Texture.create_from_surface (window_renderer, img);		
-		assert(texture_img ==null);
+		assert (texture_img ==null);
 		// Load music
-		Music sfx= new Music("sound.ogg");
+		Music sfx= new Music ("sound.ogg");
 		
 		// Load font as surface and transform to texture.
-		Font font= new Font("font.ttf", 30);
+		Font font= new Font ("font.ttf", 30);
 		string text;
 		int seconds;
 		int percentage;
-		switch (SDL.get_power_info( out seconds, out percentage)){
+		switch ( SDL.get_power_info( out seconds, out percentage ) ) {
 			case SDL.PowerState.ON_BATTERY :
-				text = "Your battery has %d %% charge, approximately %d minutes".printf(percentage, seconds/60);
+				text = "Your battery has %d %% charge, approximately %d minutes".printf (percentage, seconds/60);
 				break;
 			case SDL.PowerState.CHARGING:
-				text = "You battery is charging and it's at %d %% of its capacity".printf(percentage);
+				text = "You battery is charging and it's at %d %% of its capacity".printf (percentage);
 				break;
 			case SDL.PowerState.CHARGED:
 				text = "Your battery is fully charged. Hooray!";
@@ -77,41 +76,41 @@ public class Example
 				text = "We don't really know what's going on with your system energy";
 				break;
 		}
-		Video.Surface info= font.render_blended_wrapped_utf8(text, {10,10,10,255}, 240);
-		var texture_info = Video.Texture.create_from_surface(window_renderer, info);	
-		assert(texture_info ==null);
+		Video.Surface info = font.render_blended_wrapped_utf8 (text, {10,10,10,255}, 240);
+		var texture_info = Video.Texture.create_from_surface (window_renderer, info);	
+		assert (texture_info ==null);
 		var row =0;
 		var column =0;
 		//Main loop
-		for (Event e = {0}; e.type != EventType.QUIT; Event.poll(out e)){
-			window_renderer.clear();
-			window_renderer.set_draw_color(100, 200, 200, 250);
-			window_renderer.fill_rect( {0, 0, 800, 600} ) ;
+		for (Event e = {0}; e.type != EventType.QUIT; Event.poll (out e)) {
+			window_renderer.clear ();
+			window_renderer.set_draw_color (100, 200, 200, 250);
+			window_renderer.fill_rect ( {0, 0, 800, 600} ) ;
 			
-			if (e.type==EventType.KEYDOWN){
-				if ( e.key.keysym.sym== Input.Keycode.DOWN){
+			if (e.type == EventType.KEYDOWN) {
+				if (e.key.keysym.sym == Input.Keycode.DOWN) {
 					row+=10;
 				}
-				if ( e.key.keysym.sym== Input.Keycode.UP){
+				if (e.key.keysym.sym == Input.Keycode.UP) {
 					row-=10;
 				}
 					
-				if ( e.key.keysym.sym== Input.Keycode.LEFT){
+				if (e.key.keysym.sym == Input.Keycode.LEFT) {
 					column-=20;
 				}
-				if ( e.key.keysym.sym== Input.Keycode.RIGHT){
+				if (e.key.keysym.sym == Input.Keycode.RIGHT) {
 					column+=20;
 				}
-				if ( e.key.keysym.sym== Input.Keycode.SPACE){ // When press space sounds.
-					sfx.play(1);
+				if (e.key.keysym.sym== Input.Keycode.SPACE) { // When press space sounds.
+					sfx.play (1);
 				}
 			}
-		window_renderer.copy(texture_img, {0, 0, img.w, img.h} , {column, row, img.w*2, img.h*2});
-		window_renderer.copy(texture_info, {0, 0, info.w, info.h} , {500, 400, info.w, info.h});
-		window_renderer.present();
-		window.update_surface();
-		SDL.Timer.delay(10);
+		window_renderer.copy (texture_img, {0, 0, img.w, img.h} , {column, row, img.w*2, img.h*2});
+		window_renderer.copy (texture_info, {0, 0, info.w, info.h} , {500, 400, info.w, info.h});
+		window_renderer.present ();
+		window.update_surface ();
+		SDL.Timer.delay (10);
 		}
-	SDL.quit();
+	SDL.quit ();
 	}
 }
