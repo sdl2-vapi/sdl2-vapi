@@ -1150,7 +1150,7 @@ namespace SDL {
 		int32 y;
 	}// MouseButtonEvent
 
-	[CCode (cname = "Uint32" cprefix = "SDL_MOUSEWHEEL_", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
+	[CCode (cname = "Uint32", cprefix = "SDL_MOUSEWHEEL_", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	public enum MouseWheelDirection {
 		NORMAL,
 		FLIPPED
@@ -2900,7 +2900,7 @@ namespace SDL {
 			public GameController (int device_index);
 
 			[CCode (cname = "SDL_GameControllerFromInstanceID")]
-			public static GameController? create_from_instance_id (Input.JoystickID id)
+			public static GameController? create_from_instance_id (Input.JoystickID id);
 
 			public string? name {
 				[CCode (cname= "SDL_GameControllerName")] get;
