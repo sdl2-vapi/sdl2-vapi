@@ -42,7 +42,8 @@ public class Example {
 		SDLTTF.init();
 		
 		window = new Video.Window ("Testing SDL 2.0 in Vala: Keyboard, Textures and Sound", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, 800,600, Video.WindowFlags.RESIZABLE);
-		var a= SDLMixer.open (44100,Audio.Format.S16LSB,2,4096); stdout.printf("%d\n",a);
+		var a= SDLMixer.open (44100,Audio.AudioFormat.S16LSB,2,4096);
+		stdout.printf("%d\n",a);
 		window_renderer = Video.Renderer.create (window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
 		window.show ();
 		assert (window_renderer == null);
