@@ -565,21 +565,21 @@ namespace SDL {
 		public const string VIDEO_WIN_D3DCOMPILER;
 
 		/**
-		 * A variable that is the address of another SDL_Window* (as a hex string formatted with "%p").
+		 * A variable that is the address of another {@link SDL.Video.Window} (as a hex string formatted with "%p"
 		 *
 		 * If this hint is set before SDL_CreateWindowFrom () and the SDL_Window* it is set to has
-		 * SDL_WINDOW_OPENGL set (and running on WGL only, currently), then two things will occur on the newly
+		 * WINDOW_OPENGL set (and running on WGL only, currently), then two things will occur on the newly
 		 * created SDL_Window:
 		 *
 		 * 1. Its pixel format will be set to the same pixel format as this SDL_Window.  This is
 		 * needed for example when sharing an OpenGL context across multiple windows.
 		 *
-		 * 2. The flag SDL_WINDOW_OPENGL will be set on the new window so it can be used for
+		 * 2. The flag WINDOW_OPENGL will be set on the new window so it can be used for
 		 * OpenGL rendering.
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * The address (as a string "%p") of the SDL_Window* that new windows created with SDL_CreateWindowFrom () should
+		 * The address (as a string "%p") of the SDL_Window that new windows created with SDL_CreateWindowFrom () should
 		 * share a pixel format with.
 		 */
 		[CCode (cname = "SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT")]
@@ -618,10 +618,10 @@ namespace SDL {
 		 * Network-enabled WinRT apps must include a privacy policy.  On Windows 8, 8.1, and RT,
 		 * Microsoft mandates that this policy be available via the Windows Settings charm.
 		 * SDL provides code to add a link there, with it's label text being set via the
-		 * optional hint, SDL_HINT_WINRT_PRIVACY_POLICY_LABEL.
+		 * optional hint, WINRT_PRIVACY_POLICY_LABEL.
 		 *
 		 * Please note that a privacy policy's contents are not set via this hint.  A separate
-		 * hint, SDL_HINT_WINRT_PRIVACY_POLICY_URL, is used to link to the actual text of the
+		 * hint, WINRT_PRIVACY_POLICY_URL, is used to link to the actual text of the
 		 * policy.
 		 *
 		 * The contents of this hint should be encoded as a UTF8 string.
@@ -630,7 +630,7 @@ namespace SDL {
 		 * initialization, preferably before any calls to SDL_Init.
 		 *
 		 * For additional information on linking to a privacy policy, see the documentation for
-		 * SDL_HINT_WINRT_PRIVACY_POLICY_URL.
+		 * {@link SDL.Hint.WINRT_PRIVACY_POLICY_URL}.
 		 */
 		[CCode (cname = "SDL_HINT_WINRT_PRIVACY_POLICY_LABEL")]
 		public const string WINRT_PRIVACY_POLICY_LABEL;
@@ -2745,7 +2745,7 @@ namespace SDL {
 			public static void capture (bool enabled);
 
 			[CCode (cname = "SDL_CreateCursor")]
-			public Cursor (uint8* data, uint8* mask, int w, int h, int hot_x, int hot_y);
+			public Cursor ([CCode (array_length = false)]uint8[] data, [CCode (array_length = false)]uint8[] mask, int w, int h, int hot_x, int hot_y);
 
 			[CCode (cname = "SDL_CreateColorCursor")]
 			public Cursor.from_color (Video.Surface surface, int hot_x, int hot_y);
@@ -3233,14 +3233,14 @@ namespace SDL {
 	[CCode (cheader_filename = "SDL2/SDL_audio.h")]
 	namespace Audio {
 		[CCode (cname = "Uint16", cprefix = "AUDIO_", cheader_filename = "SDL2/SDL_audio.h")]
-		public enum Format {
+		public enum AudioFormat {
 		U8, S8, U16LSB, S16LSB, U16MSB, S16MSB, U16, S16,
 		S32LSB, S32MSB, S32, F32LSB, F32MSB, F32,
 		U16SYS, S16SYS, U32SYS, S32SYS,
 		}// AudioFormat
 
 		[CCode (cname = "int", cprefix = "SDL_AUDIO_")]
-		public enum Status {
+		public enum AudioStatus {
 			STOPPED, PLAYING, PAUSED
 		}// AudioStatus
 
@@ -3256,38 +3256,38 @@ namespace SDL {
 		public delegate void AudioFunc (uint8[] stream, int len);
 
 		[CCode (cname = "SDL_AudioSpec", cheader_filename = "SDL2/SDL_audio.h")]
-		public struct Spec {
+		public struct AudioSpec {
 			public int freq;
-			public SDL.Audio.Format format;
+			public AudioFormat format;
 			public uint8 channels;
 			public uint8 silence;
 			public uint16 samples;
 			public uint16 padding;
 			public uint32 size;
 			[CCode (delegate_target_cname = "userdata")]
-			public unowned SDL.Audio.AudioFunc callback;
+			public unowned AudioFunc callback;
 		}// AudioSpec
 
 		[CCode (cname = "SDL_AudioFilter", instance_pos = 0.1, cheader_filename = "SDL2/SDL_audio.h")]
-		public delegate void Filter (Audio.Converter cvt, Audio.Format format);
+		public delegate void AudioFilter (AudioConverter cvt, AudioFormat format);
 
 		[CCode (cname = "SDL_AudioCVT", cheader_filename = "SDL2/SDL_audio.h")]
-		public struct Converter {
+		public struct AudioConverter {
 			public int needed;
-			public SDL.Audio.Format src_format;
-			public SDL.Audio.Format dst_format;
+			public AudioFormat src_format;
+			public AudioFormat dst_format;
 			public double rate_incr;
 			public uint8* buf;
 			public int len;
 			public int len_cvt;
 			public int len_mult;
 			public double len_ratio;
-			public Audio.Filter filters[10];
+			public AudioFilter filters[10];
 			public int filter_index;
 
 			[CCode (cname = "SDL_BuildAudioCVT")]
-			public static int build (Audio.Converter cvt, Audio.Format src_format,
-			uchar src_channels, int src_rate, Audio.Format dst_format,
+			public static int build (AudioConverter cvt, AudioFormat src_format,
+			uchar src_channels, int src_rate, AudioFormat dst_format,
 			uchar dst_channels, int dst_rate);
 
 			[CCode (cname = "SDL_ConvertAudio")]
@@ -3297,17 +3297,17 @@ namespace SDL {
 		[CCode (cname = "SDL_AudioDeviceID", has_type_id = false, cheader_filename = "SDL2/SDL_audio.h")]
 		[SimpleType]
 		[IntegerType (rank = 7)]
-		public struct Device : uint32 {
+		public struct AudioDevice : uint32 {
 			[CCode (cname = "SDL_OpenAudioDevice")]
-			public Device (string device_name, bool is_capture,
-								Audio.Spec desired, Audio.Spec obtained,
+			public AudioDevice (string device_name, bool is_capture,
+								AudioSpec desired, AudioSpec obtained,
 				int allowed_changes);
 
 			[CCode (cname = "SDL_PauseAudioDevice")]
 			public void pause (int pause_on);
 
 			[CCode (cname = "SDL_GetAudioDeviceStatus")]
-			public Audio.Status get_status ();
+			public AudioStatus get_status ();
 
 			[CCode (cname = "SDL_LockAudioDevice")]
 			public void do_lock ();
@@ -3319,7 +3319,10 @@ namespace SDL {
 			public unowned string get_name ();
 
 			[CCode (cname = "SDL_QueueAudio")]
-			public int enqueue (void* data, uint32 length);
+			public int raw_enqueue (void* data, uint32 length);
+
+			[CCode (cname = "SDL_QueueAudio")]
+			public int enqueue (uint8[] data);
 
 			[CCode (cname = "SDL_GetQueuedAudioSize")]
 			public uint32 get_queued_size ();
@@ -3347,22 +3350,22 @@ namespace SDL {
 		public static unowned string get_current_driver ();
 
 		[CCode (cname = "SDL_OpenAudio")]
-		public static int open (Audio.Spec desired, out Audio.Spec obtained);
+		public static int open (AudioSpec desired, out AudioSpec obtained);
 
 		[CCode (cname = "SDL_GetNumAudioDevices")]
 		public static int num_devices ();
 
 
 		[CCode (cname = "SDL_GetAudioStatus")]
-		public static Audio.Status status ();
+		public static AudioStatus status ();
 
 		[CCode (cname = "SDL_PauseAudio")]
 		public static void pause (int pause_on);
 
 		[CCode (cname = "SDL_LoadWAV_RW")]
-		public static unowned Audio.Spec? load_rw (RWops src, int freesrc, ref Audio.Spec spec, out uint8[] audio_buf, out uint32 audio_len);
+		public static unowned AudioSpec? load_rw (RWops src, int freesrc, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len);
 
-		public static unowned Audio.Spec? load (string file, ref Audio.Spec spec, out uint8[] audio_buf, out uint32 audio_len) {
+		public static unowned AudioSpec? load (string file, ref AudioSpec spec, out uint8[] audio_buf, out uint32 audio_len) {
 			return load_rw (new SDL.RWops.from_file (file, "rb"), 1,
 			ref spec, out audio_buf, out audio_len);
 		}
@@ -3374,7 +3377,7 @@ namespace SDL {
 		public static void mix (out uint8[] dst, uint8[] src, uint32 len, int volume);
 
 		[CCode (cname = "SDL_MixAudioFormat")]
-		public static void mix_device (out uint8[] dst, uint8[] src, SDL.Audio.Format format, uint32 len, int volume);
+		public static void mix_device (out uint8[] dst, uint8[] src, AudioFormat format, uint32 len, int volume);
 
 		[CCode (cname = "SDL_LockAudio")]
 		public static void do_lock ();
@@ -3386,10 +3389,10 @@ namespace SDL {
 		public static void close ();
 
 		[CCode (cname = "SDL_CloseAudioDevice")]
-		public static void close_device (SDL.Audio.Device dev);
+		public static void close_device (AudioDevice dev);
 
 		[CCode (cname = "SDL_AudioDeviceConnected")]
-		public static int is_device_connected (SDL.Audio.Device dev);
+		public static int is_device_connected (AudioDevice dev);
 	}// Audio
 
 
