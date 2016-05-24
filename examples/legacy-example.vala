@@ -34,7 +34,7 @@ public class SDLSample : Object {
 		window = new Video.Window ("Vala SDL Demo", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT, Video.WindowFlags.RESIZABLE);
 		renderer = Video.Renderer.create (window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
 		window.show ();
-		assert (renderer == null);
+		assert (renderer != null);
     }
 
     private void draw () {
