@@ -2641,7 +2641,16 @@ namespace SDL {
 			public static Video.Window get_focus ();
 
 			[CCode (cname = "SDL_GetKeyboardState")]
-			public static uint8[] get_state ();
+			public static unowned uint8* get_raw_state (out size_t length = null);
+
+			[CCode (cname = "vala_get_keyboard_state")]
+			public static unowned bool[] get_state(){
+				size_t len;
+				uint8* raw = get_raw_state(out len);
+				unowned bool[] retval = (bool[])raw;
+				retval.length = len;
+				return retval;
+			}
 
 			[CCode (cname = "SDL_GetModState")]
 			public static Input.Keymod get_modifierstate ();
@@ -2807,11 +2816,11 @@ namespace SDL {
 			public Input.JoystickGUID get_guid ();
 
 			[CCode (cname = "SDL_JoystickGetGUIDString")]
-			public static void guid_buffer (Input.JoystickGUID  guid, out uint8[] ps);
+			public static void get_guid_buffer (Input.JoystickGUID  guid, out uint8[] ps);
 
 			//Convenience method, use guid_buffer if the GUID is truncated here
-			public static string guid_string (Input.JoystickGUID guid) {
-				uint8[16] buf;
+			public static string get_guid_string (Input.JoystickGUID guid) {
+				uint8[1024] buf;
 				guid_buffer (guid, out buf);
 				return (string)buf;
 			}
