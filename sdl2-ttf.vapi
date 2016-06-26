@@ -130,7 +130,7 @@ namespace SDLTTF {
 		public int get_size_utf16 ([CCode (array_length = false)] uint16[] text, ref int w, ref int h);
 
 		[CCode (cname = "TTF_RenderText_Solid")]
-		public SDL.Video.Surface? render_latin1 ([CCode (array_length = false)]uint8[], SDL.Video.Color fg);
+		public SDL.Video.Surface? render_latin1 ([CCode (array_length = false)]uint8[] text, SDL.Video.Color fg);
 
 		[CCode (cname = "TTF_RenderUTF8_Solid")]
 		public SDL.Video.Surface? render (string text, SDL.Video.Color fg);
