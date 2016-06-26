@@ -2648,7 +2648,7 @@ namespace SDL {
 				size_t len;
 				uint8* raw = get_raw_state(out len);
 				unowned bool[] retval = (bool[])raw;
-				retval.length = len;
+				retval.length = (int)len;
 				return retval;
 			}
 
@@ -2821,7 +2821,7 @@ namespace SDL {
 			//Convenience method, use guid_buffer if the GUID is truncated here
 			public static string get_guid_string (Input.JoystickGUID guid) {
 				uint8[1024] buf;
-				guid_buffer (guid, out buf);
+				get_guid_buffer (guid, out buf);
 				return (string)buf;
 			}
 
