@@ -46,16 +46,21 @@ public class Example {
 		stdout.printf("%d\n",a);
 		window_renderer = Video.Renderer.create (window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
 		window.show ();
-		assert (window_renderer == null);
+		assert (window_renderer != null);
+
 		// Open surface and after transform to texture
 		Video.Surface img= SDLImage.load ("pic.png");
 		var texture_img= Video.Texture.create_from_surface (window_renderer, img);		
-		assert (texture_img ==null);
+		assert (texture_img != null);
+
 		// Load music
 		Music sfx= new Music ("sound.ogg");
+		assert (sfx != null);
 		
 		// Load font as surface and transform to texture.
 		Font font= new Font ("font.ttf", 30);
+		assert (font != null);
+
 		string text;
 		int seconds;
 		int percentage;
@@ -77,9 +82,9 @@ public class Example {
 				text = "We don't really know what's going on with your system energy";
 				break;
 		}
-		Video.Surface info = font.render_blended_wrapped_utf8 (text, {10,10,10,255}, 240);
+		Video.Surface info = font.render_blended_wrapped (text, {10,10,10,255}, 240);
 		var texture_info = Video.Texture.create_from_surface (window_renderer, info);	
-		assert (texture_info ==null);
+		assert (texture_info != null);
 		var row =0;
 		var column =0;
 		//Main loop
