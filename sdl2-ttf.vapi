@@ -163,7 +163,7 @@ namespace SDLTTF {
 		public SDL.Video.Surface? render_blended_wrapped (string text, SDL.Video.Color fg, uint32 wrap_length);
 
 		[CCode (cname = "TTF_RenderUNICODE_Blended_Wrapped")]
-		public SDL.Video.Surface? render_blended__wrapped_utf16 ([CCode (array_length = false)] uint16[] text, SDL.Video.Color fg, uint32 wrap_length);
+		public SDL.Video.Surface? render_blended_wrapped_utf16 ([CCode (array_length = false)] uint16[] text, SDL.Video.Color fg, uint32 wrap_length);
 
 
 	}// Font
