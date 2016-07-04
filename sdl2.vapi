@@ -1852,12 +1852,11 @@ namespace SDL {
 
 			[CCode (cname = "SDL_RenderTargetSupported")]
 			public bool is_supported ();
-
-			[CCode (cname = "SDL_SetRenderTarget")]
-			public int set_render_target (Video.Texture? texture);
-
-			[CCode (cname = "SDL_GetRenderTarget")]
-			public Video.Texture? get_render_target ();
+			
+			public Video.Texture? render_target{
+				[CCode (cname = "SDL_GetRenderTarget")]get;
+				[CCode (cname = "SDL_SetRenderTarget")]set;
+			}
 
 			[Ccode (cname = "SDL_RenderIsClipEnabled")]
 			public bool is_clip_enabled ();
