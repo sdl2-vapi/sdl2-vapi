@@ -1854,10 +1854,10 @@ namespace SDL {
 			public bool is_supported ();
 
 			[CCode (cname = "SDL_SetRenderTarget")]
-			public int set_render_target (Video.Texture texture);
+			public int set_render_target (Video.Texture? texture);
 
 			[CCode (cname = "SDL_GetRenderTarget")]
-			public Video.Texture get_render_target (out Video.Texture? texture);
+			public Video.Texture? get_render_target ();
 
 			[Ccode (cname = "SDL_RenderIsClipEnabled")]
 			public bool is_clip_enabled ();
@@ -1869,7 +1869,7 @@ namespace SDL {
 			public void get_logical_size (out int w, out int h);
 
 			[CCode (cname = "SDL_RenderSetViewport")]
-			public int set_viewport (Video.Rect rect);
+			public int set_viewport (Video.Rect? rect);
 
 			[CCode (cname = "SDL_RenderGetViewport")]
 			public void get_viewport (out Video.Rect rect);
@@ -1930,6 +1930,9 @@ namespace SDL {
 
 			[CCode (cname = "SDL_RenderPresent")]
 			public void present ();
+			
+			[CCode (cname = "SDL_GetRendererOutputSize")]
+			public void get_output_size (out int w, out int h);
 		}// Renderer
 
 		[CCode (cprefix = "SDL_", cname = "SDL_Texture", free_function = "SDL_DestroyTexture", cheader_filename = "SDL2/SDL_render.h")]
