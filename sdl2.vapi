@@ -2038,7 +2038,7 @@ namespace SDL {
 		public static void disable_screensaver ();
 
 
-		[CCode (cprefix = "SDL_", has_type_id = false, cheader_filename = "SDL2/SDL_video.h")]
+		[CCode (cname = "gint", has_type_id = false, cheader_filename = "SDL2/SDL_video.h")]
 		[SimpleType]
 		[IntegerType (rank = 6)]
 		public struct Display  : int {
