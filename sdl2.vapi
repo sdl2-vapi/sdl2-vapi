@@ -1327,8 +1327,8 @@ namespace SDL {
 		public Video.SysWMmsg msg;
 	}// SysWMEvent
 
-	[CCode (has_target = true)]
-	public delegate int EventFilter (SDL.Event ev);
+	[CCode (has_target = true, instance_pos = 0)]
+	public delegate int EventFilter (ref SDL.Event ev);
 
 	[CCode (cname = "SDL_Event", has_type_id = false, has_target = false, destroy_function = "", cheader_filename = "SDL2/SDL_events.h")]
 	[SimpleType]
