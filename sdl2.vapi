@@ -1743,10 +1743,10 @@ namespace SDL {
 			public int get_alphamod (out uint8 alpha);
 
 			[CCode (cname = "SDL_SetSurfaceBlendMode")]
-			public int set_blendmode (Video.BlendMode blend_mode);
+			public int set_blend_mode (Video.BlendMode blend_mode);
 
 			[CCode (cname = "SDL_GetSurfaceBlendMode")]
-			public int get_blendmode (out Video.BlendMode blend_mode);
+			public int get_blend_mode (out Video.BlendMode blend_mode);
 
 			[CCode (cname = "SDL_SetClipRect")]
 			public bool set_cliprect (Video.Rect? rect);
@@ -1842,10 +1842,10 @@ namespace SDL {
 			public static int create_with_window (int width, int height, Video.WindowFlags window_flags, out Video.Window window, out Video.Renderer renderer);
 
 			[CCode (cname = "SDL_CreateRenderer")]
-			public static Renderer? create (Video.Window window, int index, uint32 flags);
+			public Renderer (Video.Window window, int index, uint32 flags);
 
 			[CCode (cname = "SDL_CreateSoftwareRenderer")]
-			public static Renderer? create_from_surface (Video.Surface surface);
+			public Renderer.from_surface (Video.Surface surface);
 
 			[CCode (cname = "SDL_GetRendererInfo")]
 			public int get_info (out Video.RendererInfo info);
@@ -1886,10 +1886,10 @@ namespace SDL {
 			public int get_draw_color (out uint8 r, out uint8 g, out uint8 b, out uint8 a);
 
 			[CCode (cname = "SDL_SetRenderDrawBlendMode")]
-			public int set_draw_blend_mod (Video.BlendMode blend_mode);
+			public int set_draw_blend_mode (Video.BlendMode blend_mode);
 
 			[CCode (cname = "SDL_GetRenderDrawBlendMode")]
-			public int get_draw_blend_mod (out Video.BlendMode blend_mode);
+			public int get_draw_blend_mode (out Video.BlendMode blend_mode);
 
 			[CCode (cname = "SDL_RenderClear")]
 			public int clear ();
@@ -1938,10 +1938,10 @@ namespace SDL {
 		[Compact]
 		public class Texture {
 			[CCode (cname = "SDL_CreateTexture")]
-			public static Texture? create (Video.Renderer renderer, Video.PixelRAWFormat format, int access, int w, int h);
+			public Texture (Video.Renderer renderer, Video.PixelRAWFormat format, int access, int w, int h);
 
 			[CCode (cname = "SDL_CreateTextureFromSurface")]
-			public static Texture? create_from_surface (Video.Renderer renderer, Video.Surface surface);
+			public Texture.from_surface (Video.Renderer renderer, Video.Surface surface);
 
 			[CCode (cname = "SDL_QueryTexture")]
 			public int query (out Video.PixelRAWFormat format, out int access, out int w, out int h);
@@ -1959,16 +1959,16 @@ namespace SDL {
 			public int get_alpha_mod (out uint8 alpha);
 
 			[CCode (cname = "SDL_SetTextureBlendMode")]
-			public int set_blend_mod (Video.BlendMode blend_mode);
+			public int set_blend_mode (Video.BlendMode blend_mode);
 
 			[CCode (cname = "SDL_GetTextureBlendMode")]
-			public int get_blend_mod (out Video.BlendMode blend_mode);
+			public int get_blend_mode (out Video.BlendMode blend_mode);
 
 			[CCode (cname = "SDL_UpdateTexture")]
-			public int update (Video.Rect? rect, void* pixels, int pitch);
+			public int update (Video.Rect? rect, out void* pixels, out int pitch);
 
 			[CCode (cname = "SDL_LockTexture")]
-			public int do_lock (Video.Rect? rect, void* pixels, int pitch);
+			public int do_lock (Video.Rect? rect, out void* pixels, out int pitch);
 
 			[CCode (cname = "SDL_UnlockTexture")]
 			public void unlock ();
