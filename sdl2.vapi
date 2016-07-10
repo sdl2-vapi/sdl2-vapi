@@ -1842,10 +1842,10 @@ namespace SDL {
 			public static int create_with_window (int width, int height, Video.WindowFlags window_flags, out Video.Window window, out Video.Renderer renderer);
 
 			[CCode (cname = "SDL_CreateRenderer")]
-			public Renderer (Video.Window window, int index, uint32 flags);
+			public static Renderer? create (Video.Window window, int index, uint32 flags);
 
 			[CCode (cname = "SDL_CreateSoftwareRenderer")]
-			public Renderer.from_surface (Video.Surface surface);
+			public static Renderer? create_from_surface (Video.Surface surface);
 
 			[CCode (cname = "SDL_GetRendererInfo")]
 			public int get_info (out Video.RendererInfo info);
@@ -1938,10 +1938,10 @@ namespace SDL {
 		[Compact]
 		public class Texture {
 			[CCode (cname = "SDL_CreateTexture")]
-			public Texture (Video.Renderer renderer, Video.PixelRAWFormat format, int access, int w, int h);
+			public static Texture? create (Video.Renderer renderer, Video.PixelRAWFormat format, int access, int w, int h);
 
 			[CCode (cname = "SDL_CreateTextureFromSurface")]
-			public Texture.from_surface (Video.Renderer renderer, Video.Surface surface);
+			public static Texture? create_from_surface (Video.Renderer renderer, Video.Surface surface);
 
 			[CCode (cname = "SDL_QueryTexture")]
 			public int query (out Video.PixelRAWFormat format, out int access, out int w, out int h);
