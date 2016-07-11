@@ -1965,7 +1965,7 @@ namespace SDL {
 			public int get_blend_mode (out Video.BlendMode blend_mode);
 
 			[CCode (cname = "SDL_UpdateTexture")]
-			public int update (Video.Rect? rect, out void* pixels, out int pitch);
+			public int update (Video.Rect? rect, void* pixels, int pitch);
 
 			[CCode (cname = "SDL_LockTexture")]
 			public int do_lock (Video.Rect? rect, out void* pixels, out int pitch);
