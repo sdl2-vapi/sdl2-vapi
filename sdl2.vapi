@@ -165,53 +165,53 @@ namespace SDL {
 	// CPU Info
 	//
 
-	[CCode (cheader_filename = "SDL2/SDL_version.h")]
+	[CCode (cheader_filename = "SDL2/SDL_cpuinfo.h")]
 	[Compact]
 	public class CPU {
-		[CCode (cname ="SDL_GetCPUCacheLineSize", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_GetCPUCacheLineSize")]
 		public static int get_cache_line_size ();
 		//Actual function name was misleading, you get logical core count, not physical CPU count
 		[Version (since = "2.0.0")]
-		[CCode (cname ="SDL_GetCPUCount", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_GetCPUCount")]
 		public static int get_num_cores ();
 
 		[Version (since = "2.0.1")]
-		[CCode (cname ="SDL_GetSystemRAM", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_GetSystemRAM")]
 		public static int get_system_ram ();
 
-		[CCode (cname ="SDL_Has3DNow", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_Has3DNow")]
 		public static bool has_3dnow ();
 
 		[Version (since = "2.0.2")]
-		[CCode (cname ="SDL_HasAVX", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasAVX")]
 		public static bool has_avx ();
 
 		[Version (since = "2.0.4")]
-		[CCode (cname ="SDL_HasAVX2", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasAVX2")]
 		public static bool has_avx2 ();
 
-		[CCode (cname ="SDL_HasAltiVec", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasAltiVec")]
 		public static bool has_altivec ();
 
-		[CCode (cname ="SDL_HasMMX", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasMMX")]
 		public static bool has_mmx ();
 
-		[CCode (cname ="SDL_HasRDTSC", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasRDTSC")]
 		public static bool has_rdtsc ();
 
-		[CCode (cname ="SDL_HasSSE", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasSSE")]
 		public static bool has_sse ();
 
-		[CCode (cname ="SDL_HasSSE2", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasSSE2")]
 		public static bool has_sse2 ();
 
-		[CCode (cname ="SDL_HasSSE3", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasSSE3")]
 		public static bool has_sse3 ();
 
-		[CCode (cname ="SDL_HasSSE41", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasSSE41")]
 		public static bool has_sse41 ();
 
-		[CCode (cname ="SDL_HasSSE42", cheader_filename = "SDL2/SDL_cpuinfo.h")]
+		[CCode (cname ="SDL_HasSSE42")]
 		public static bool has_sse42 ();
 	}
 
@@ -1041,6 +1041,7 @@ namespace SDL {
 	}
 
 	[CCode (cname = "SDL_SetError")]
+	[PrintfFunction]
 	public static int set_error (string format, ...);
 
 	[CCode (cname = "SDL_GetError")]
@@ -2767,6 +2768,23 @@ namespace SDL {
 			}
 		}
 
+		[CCode (cheader_filename="SDL2/SDL_clipboard.h")]
+		[Compact]
+		public class Clipboard {
+
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_GetClipboardText")]
+			public static string? get_text();
+			
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_SetClipboardText")]
+			public static int set_text(string text);
+			
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_HasClipboardText")]
+			public static bool has_text();
+		}
+
 
 		[CCode (cname = "int", cprefix = "SDL_")]
 		public enum ButtonState {
@@ -2992,9 +3010,6 @@ namespace SDL {
 
 			[CCode (cname = "SDL_GetRelativeMouseMode")]
 			public static bool get_relative_mode ();
-
-			[CCode (cname = "SDL_CaptureMouse")]
-			public static void capture (bool enabled);
 
 			[CCode (cname = "SDL_CreateCursor")]
 			public Cursor ([CCode (array_length = false)]uint8[] data, [CCode (array_length = false)]uint8[] mask, int w, int h, int hot_x, int hot_y);
