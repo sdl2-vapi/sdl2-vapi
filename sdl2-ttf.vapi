@@ -105,40 +105,40 @@ namespace SDLTTF {
 		public int get_size_unicode([CCode (array_length = false)] uint16[] text, ref int w, ref int h);
 
 		[CCode (cname="TTF_RenderText_Solid")]
-		public SDL.Graphics.Surface? render(string text, SDL.Graphics.Color fg);
+		public SDL.Video.Surface? render(string text, SDL.Video.Color fg);
 
 		[CCode (cname="TTF_RenderUTF8_Solid")]
-		public SDL.Graphics.Surface? render_utf8(string text, SDL.Graphics.Color fg);
+		public SDL.Video.Surface? render_utf8(string text, SDL.Video.Color fg);
 
 		[CCode (cname="TTF_RenderUNICODE_Solid")]
-		public SDL.Graphics.Surface? render_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color fg);
+		public SDL.Video.Surface? render_unicode([CCode (array_length = false)] uint16[] text, SDL.Video.Color fg);
 
 		[CCode (cname="TTF_RenderText_Shaded")]
-		public SDL.Graphics.Surface? render_shaded(string text, SDL.Graphics.Color fg, SDL.Graphics.Color bg);
+		public SDL.Video.Surface? render_shaded(string text, SDL.Video.Color fg, SDL.Video.Color bg);
 
 		[CCode (cname="TTF_RenderUTF8_Shaded")]
-		public SDL.Graphics.Surface? render_shaded_utf8(string text, SDL.Graphics.Color fg, SDL.Graphics.Color bg);
+		public SDL.Video.Surface? render_shaded_utf8(string text, SDL.Video.Color fg, SDL.Video.Color bg);
 
 		[CCode (cname="TTF_RenderUNICODE_Shaded")]
-		public SDL.Graphics.Surface? render_shaded_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color? fg, SDL.Graphics.Color bg);
+		public SDL.Video.Surface? render_shaded_unicode([CCode (array_length = false)] uint16[] text, SDL.Video.Color? fg, SDL.Video.Color bg);
 
 		[CCode (cname="TTF_RenderText_Blended")]
-		public SDL.Graphics.Surface? render_blended(string text, SDL.Graphics.Color fg);
+		public SDL.Video.Surface? render_blended(string text, SDL.Video.Color fg);
 
 		[CCode (cname="TTF_RenderUTF8_Blended")]
-		public SDL.Graphics.Surface? render_blended_utf8(string text, SDL.Graphics.Color fg);
+		public SDL.Video.Surface? render_blended_utf8(string text, SDL.Video.Color fg);
 
 		[CCode (cname="TTF_RenderUNICODE_Blended")]
-		public SDL.Graphics.Surface? render_blended_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color fg);
+		public SDL.Video.Surface? render_blended_unicode([CCode (array_length = false)] uint16[] text, SDL.Video.Color fg);
 		
 		[CCode (cname="TTF_RenderText_Blended_Wrapped")]
-		public SDL.Graphics.Surface? render_blended_wrapped(string text, SDL.Graphics.Color fg, uint32 wrapLength);
+		public SDL.Video.Surface? render_blended_wrapped(string text, SDL.Video.Color fg, uint32 wrapLength);
 
 		[CCode (cname="TTF_RenderUTF8_Blended_Wrapped")]
-		public SDL.Graphics.Surface? render_blended_wrapped_utf8(string text, SDL.Graphics.Color fg, uint32 wrapLength);
+		public SDL.Video.Surface? render_blended_wrapped_utf8(string text, SDL.Video.Color fg, uint32 wrapLength);
 
 		[CCode (cname="TTF_RenderUNICODE_Blended_Wrapped")]
-		public SDL.Graphics.Surface? render_blended__wrapped_unicode([CCode (array_length = false)] uint16[] text, SDL.Graphics.Color fg, uint32 wrapLength);
+		public SDL.Video.Surface? render_blended__wrapped_unicode([CCode (array_length = false)] uint16[] text, SDL.Video.Color fg, uint32 wrapLength);
 		
 		
 	}// Font
