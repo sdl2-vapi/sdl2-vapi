@@ -1234,7 +1234,7 @@ namespace SDL {
 	[CCode (cname = "SDL_WindowEventID", cprefix = "SDL_WINDOWEVENT_", cheader_filename = "SDL2/SDL_events.h")]
 	public enum WindowEventType {
 		NONE, SHOWN, HIDDEN, EXPOSED, MOVED, RESIZED, SIZE_CHANGED, MINIMIZED, MAXIMIZED, RESTORED,
-		ENTER, LEAVE, FOCUS_GAINED, FOCUS_LOST, CLOSE [Version (since = "2.0.5")] TAKE_FOCUS, [Version (since = "2.0.5")] HIT_TEST;
+		ENTER, LEAVE, FOCUS_GAINED, FOCUS_LOST, CLOSE, [Version (since = "2.0.5")] TAKE_FOCUS, [Version (since = "2.0.5")] HIT_TEST;
 	}
 
 	[CCode (cname = "SDL_CommonEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
@@ -1880,7 +1880,7 @@ namespace SDL {
 			public Surface.legacy_rgb_with_format (uint32 flags, int width, int height, int depth, PixelRAWFormat format);
 
 			public Surface rgb_with_format (int width, int height, int depth, PixelRAWFormat format) {
-				this.legacy_rgb_with_format (0, width, height, depth, format);
+				new this.legacy_rgb_with_format (0, width, height, depth, format);
 			}
 
 			[CCode (cname = "SDL_CreateRGBSurfaceWithFormatFrom")]
@@ -2073,9 +2073,9 @@ namespace SDL {
 			[CCode (cname = "SDL_RenderSetScale")]
 			public int set_scale (float scale_x, float scale_y);
 
-			[Version (since = "2.0.0")]
-			[CCode (cname = "SDL_RenderSetScale")]
-			public int set_scale (float scale_x, float scale_y);
+			//[Version (since = "2.0.0")]
+			//[CCode (cname = "SDL_RenderSetScale")]
+			//public int set_scale (float scale_x, float scale_y);
 
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_RenderGetScale")]
@@ -2284,7 +2284,7 @@ namespace SDL {
 			[CCode (cname = "SDL_GetClosestDisplayMode")]
 			public Video.DisplayMode? get_closest_mode (Video.DisplayMode mode, out Video.DisplayMode closest);
 
-			[Version (since = "2.0.5"]
+			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_GetDisplayUsableBounds")]
 			public int get_usable_bounds (out Video.Rect? rect);
 		}// Display
