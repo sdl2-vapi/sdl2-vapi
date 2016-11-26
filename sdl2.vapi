@@ -2073,10 +2073,6 @@ namespace SDL {
 			[CCode (cname = "SDL_RenderSetScale")]
 			public int set_scale (float scale_x, float scale_y);
 
-			//[Version (since = "2.0.0")]
-			//[CCode (cname = "SDL_RenderSetScale")]
-			//public int set_scale (float scale_x, float scale_y);
-
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_RenderGetScale")]
 			public void get_scale (out float scale_x, out float scale_y);
