@@ -1,4 +1,7 @@
-#!/bin/bash
-export VAPI_PATH=${VAPI_PATH-"/usr/share/vala-0.34/vapi/"}
+#!/usr/bin/env bash
+if [ -z "$VAPI_PATH" ] ; then
+	export VAPI_PATH=${VAPI_PATH-"/usr/share/vala/vapi/"}
+fi
+echo $VAPI_PATH
 mkdir "$VAPI_PATH" -p
 cp ./*.{vapi,deps} "$VAPI_PATH" -R --force
