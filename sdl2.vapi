@@ -79,7 +79,7 @@ namespace SDL {
 	 *
 	 * If you want to initialize subsystems separately you would call:
 	 *
-	 * { {{
+	 * {{{
 	 * SDL.init (0);
 	 * }}}
 	 *
@@ -113,18 +113,18 @@ namespace SDL {
 	 * Use this function to return a mask of the specified subsystems which have previously been initialized.
 	 *
 	 * Examples:
-	 * { {{
+	 * {{{
 	 * // Get init data on all the subsystems
 	 * uint32 subsystem_init = SDL.get_initialized (SDL.InitFlag.EVERYTHING);
 	 * if (subsystem_init & SDL.InitFlag.VIDEO)
 	 *  //Video is initalized
 	 * }}}
-	 * { {{
+	 * {{{
 	 * // Just check for one specific subsystem
 	 * if (SDL.get_initialized (SDL.InitFlag.VIDEO) != 0)
 	 *  //Video is initialized
 	 * }}}
-	 * { {{
+	 * {{{
 	 * // Check for two subsystems
 	 * uint32 mask = SDL.InitFlag.VIDEO | SDL.InitFlag.AUDIO;
 	 * if (SDL.get_initialized (mask) == mask)
@@ -246,9 +246,9 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable 3D acceleration
-		 * * "1"    - Enable 3D acceleration, using the default renderer.
-		 * * "X"    - Enable 3D acceleration, using X where X is one of the valid rendering drivers. (e.g. "direct3d", "opengl", etc.)
+		 *  * "0"    - Disable 3D acceleration
+		 *  * "1"    - Enable 3D acceleration, using the default renderer.
+		 *  * "X"    - Enable 3D acceleration, using X where X is one of the valid rendering drivers. (e.g. "direct3d", "opengl", etc.)
 		 *
 		 * By default SDL tries to make a best guess for each platform whether
 		 * to use acceleration or not.
@@ -265,11 +265,11 @@ namespace SDL {
 		 *
 		 * This variable is case insensitive and can be set to the following values:
 		 *
-		 * * "direct3d"
-		 * * "opengl"
-		 * * "opengles2"
-		 * * "opengles"
-		 * * "software"
+		 *  * "direct3d"
+		 *  * "opengl"
+		 *  * "opengles2"
+		 *  * "opengles"
+		 *  * "software"
 		 *
 		 * The default varies by platform, but it's the first one in the list that
 		 * is available on the current platform.
@@ -282,8 +282,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable shaders
-		 * * "1"    - Enable shaders
+		 *  * "0"    - Disable shaders
+		 *  * "1"    - Enable shaders
 		 *
 		 * By default shaders are used if OpenGL supports them.
 		 */
@@ -295,8 +295,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Thread-safety is not enabled (faster)
-		 * * "1"    - Thread-safety is enabled
+		 *  * "0"    - Thread-safety is not enabled (faster)
+		 *  * "1"    - Thread-safety is enabled
 		 *
 		 * By default the Direct3D device is created with thread-safety disabled.
 		 */
@@ -311,8 +311,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable Debug Layer use
-		 * * "1"    - Enable Debug Layer use
+		 *  * "0"    - Disable Debug Layer use
+		 *  * "1"    - Enable Debug Layer use
 		 *
 		 * By default, SDL does not use Direct3D Debug Layer.
 		 */
@@ -325,9 +325,9 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0" or "nearest" - Nearest pixel sampling
-		 * * "1" or "linear" - Linear filtering (supported by OpenGL and Direct3D)
-		 * * "2" or "best"  - Currently this is the same as "linear"
+		 *  * "0" or "nearest" - Nearest pixel sampling
+		 *  * "1" or "linear" - Linear filtering (supported by OpenGL and Direct3D)
+		 *  * "2" or "best"  - Currently this is the same as "linear"
 		 *
 		 * By default nearest pixel sampling is used
 		 */
@@ -339,8 +339,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable vsync
-		 * * "1"    - Enable vsync
+		 *  * "0"    - Disable vsync
+		 *  * "1"    - Enable vsync
 		 *
 		 * By default SDL does not sync screen surface updates with vertical refresh.
 		 */
@@ -352,8 +352,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable screensaver
-		 * * "1"    - Enable screensaver
+		 *  * "0"    - Disable screensaver
+		 *  * "1"    - Enable screensaver
 		 *
 		 * By default SDL will disable the screensaver.
 		 */
@@ -366,8 +366,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable XVidMode
-		 * * "1"    - Enable XVidMode
+		 *  * "0"    - Disable XVidMode
+		 *  * "1"    - Enable XVidMode
 		 *
 		 * By default SDL will use XVidMode if it is available.
 		 */
@@ -379,8 +379,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable Xinerama
-		 * * "1"    - Enable Xinerama
+		 *  * "0"    - Disable Xinerama
+		 *  * "1"    - Enable Xinerama
 		 *
 		 * By default SDL will use Xinerama if it is available.
 		 */
@@ -392,8 +392,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Disable XRandR
-		 * * "1"    - Enable XRandR
+		 *  * "0"    - Disable XRandR
+		 *  * "1"    - Enable XRandR
 		 *
 		 * By default SDL will not use XRandR because of window manager issues.
 		 */
@@ -405,8 +405,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Grab will affect only the mouse
-		 * * "1"    - Grab will affect mouse and keyboard
+		 *  * "0"    - Grab will affect only the mouse
+		 *  * "1"    - Grab will affect mouse and keyboard
 		 *
 		 * By default SDL will not grab the keyboard so system shortcuts still work.
 		 */
@@ -418,8 +418,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Relative mouse mode uses raw input
-		 * * "1"    - Relative mouse mode uses mouse warping
+		 *  * "0"    - Relative mouse mode uses raw input
+		 *  * "1"    - Relative mouse mode uses mouse warping
 		 *
 		 * By default SDL will use raw input for relative mouse mode
 		 */
@@ -443,8 +443,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - Enable idle timer
-		 * * "1"    - Disable idle timer
+		 *  * "0"    - Enable idle timer
+		 *  * "1"    - Disable idle timer
 		 */
 		[CCode (cname = "SDL_HINT_IOS_IDLE_TIMER_DISABLED")]
 		public const string IOS_IDLE_TIMER_DISABLED;
@@ -468,8 +468,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - List only real joysticks and accept input from them
-		 * * "1"    - List real joysticks along with the accelerometer as if it were a 3 axis joystick (the default).
+		 *  * "0"    - List only real joysticks and accept input from them
+		 *  * "1"    - List real joysticks along with the accelerometer as if it were a 3 axis joystick (the default).
 		 */
 		[Version (since = "2.0.2")]
 		[CCode (cname = "SDL_HINT_ACCELEROMETER_AS_JOYSTICK")]
@@ -480,8 +480,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - Disable XInput detection (only uses direct input)
-		 * * "1"    - Enable XInput detection (the default)
+		 *  * "0"    - Disable XInput detection (only uses direct input)
+		 *  * "1"    - Enable XInput detection (the default)
 		 */
 		[CCode (cname = "SDL_HINT_XINPUT_ENABLED")]
 		public const string XINPUT_ENABLED;
@@ -502,9 +502,9 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - Disable joystick & gamecontroller input events when the
+		 *  * "0"    - Disable joystick & gamecontroller input events when the
 		 *        application is in the background.
-		 * * "1"    - Enable joystick & gamecontroller input events when the
+		 *  * "1"    - Enable joystick & gamecontroller input events when the
 		 *        application is in the background.
 		 *
 		 * The default value is "0". This hint may be set at any time.
@@ -518,8 +518,8 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "0"    - don't allow topmost
-		 * * "1"    - allow topmost
+		 *  * "0"    - don't allow topmost
+		 *  * "1"    - allow topmost
 		 */
 		[CCode (cname = "SDL_HINT_ALLOW_TOPMOST")]
 		public const string ALLOW_TOPMOST;
@@ -567,8 +567,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - No mouse click events are sent when clicking to focus
-		 * * "1"    - Mouse click events are sent when clicking to focus
+		 *  * "0"    - No mouse click events are sent when clicking to focus
+		 *  * "1"    - Mouse click events are sent when clicking to focus
 		 */
 		[Version (experimental = true)]
 		[CCode (cname = "SDL_HINT_MAC_MOUSE_FOCUS_CLICKTHROUGH")]
@@ -584,9 +584,9 @@ namespace SDL {
 		 *
 		 * This variable can be set to the following values:
 		 *
-		 * * "d3dcompiler_46.dll" - default, best for Vista or later.
-		 * * "d3dcompiler_43.dll" - for XP support.
-		 * * "none" - do not load any library, useful if you compiled ANGLE from source and included the compiler in your binaries.
+		 *  * "d3dcompiler_46.dll" - default, best for Vista or later.
+		 *  * "d3dcompiler_43.dll" - for XP support.
+		 *  * "none" - do not load any library, useful if you compiled ANGLE from source and included the compiler in your binaries.
 		 */
 		[Version (since = "2.0.2")]
 		[CCode (cname = "SDL_HINT_VIDEO_WIN_D3DCOMPILER")]
@@ -595,7 +595,7 @@ namespace SDL {
 		/**
 		 * A variable that is the address of another {@link SDL.Video.Window} (as a hex string formatted with "%p"
 		 *
-		 * If this hint is set before {@link SDL.Video.CreateWindowFrom()} and the Window it is set to has
+		 * If this hint is set before {@link SDL.Video.Window.Window.from_native} and the Window it is set to has
 		 * WINDOW_OPENGL set (and running on WGL only, currently), then two things will occur on the newly
 		 * created Window:
 		 *
@@ -670,9 +670,7 @@ namespace SDL {
 		 * If set to 1, back button press events on Windows Phone 8+ will be marked as handled.
 		 *
 		 * TODO, WinRT: document SDL_HINT_WINRT_HANDLE_BACK_BUTTON need and use
-		 * For now, more details on why this is needed can be found at the
-		 * beginning of the following web page:
-		 * [[http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj247550 (v = vs.105).aspx]]
+		 * For now, more details on why this is needed can be found at [[https://msdn.microsoft.com/library/windows/apps/jj247550%20(v%20=%20vs.105).aspx|MSDN]]
 		 */
 		[Version (since = "2.0.3")]
 		[CCode (cname = "SDL_HINT_WINRT_HANDLE_BACK_BUTTON")]
@@ -685,10 +683,10 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - Disable Spaces support (FULLSCREEN_DESKTOP won't use them and
+		 *  * "0"    - Disable Spaces support (FULLSCREEN_DESKTOP won't use them and
 		 *        SDL_WINDOW_RESIZABLE windows won't offer the "fullscreen"
 		 *        button on their titlebars).
-		 * * "1"    - Enable Spaces support (FULLSCREEN_DESKTOP will use them and
+		 *  * "1"    - Enable Spaces support (FULLSCREEN_DESKTOP will use them and
 		 *        SDL_WINDOW_RESIZABLE windows will offer the "fullscreen"
 		 *        button on their titlebars.
 		 *
@@ -709,9 +707,9 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - mouse events will be handled as touch events and touch will
+		 *  * "0"    - mouse events will be handled as touch events and touch will
 		 *        raise fake mouse events
-		 * * "1"    - mouse events will be handled separately from pure touch events
+		 *  * "1"    - mouse events will be handled separately from pure touch events
 		 *
 		 * By default mouse events will be handled as touch events and touch will raise fake mouse events.
 		*/
@@ -724,7 +722,7 @@ namespace SDL {
 		 *
 		 * This hint must be set together with the hint {@link Hint.ANDROID_APK_EXPANSION_MAIN_FILE_VERSION}.
 		 *
-		 * If both hints were set then {@link RWops.from_file} will look into expansion files after a given relative path was not found in the internal storage and assets.
+		 * If both hints were set then {@link RWops.RWops.from_file} will look into expansion files after a given relative path was not found in the internal storage and assets.
 		 *
 		 * This hint should be set with the Android APK expansion patch file version (should be a string number like "1", "2" etc.)
 		 *
@@ -739,7 +737,7 @@ namespace SDL {
 		 *
 		 * This hint must be set together with the hint {@link Hint.ANDROID_APK_EXPANSION_PATCH_FILE_VERSION}.
 		 *
-		 * If both hints were set then {@link RWops.from_file} will look into expansion files after a given relative path was not found in the internal storage and assets.
+		 * If both hints were set then {@link RWops.RWops.from_file} will look into expansion files after a given relative path was not found in the internal storage and assets.
 		 *
 		 * This hint should be set with the Android APK expansion patch file version (should be a string number like "1", "2" etc.)
 		 *
@@ -754,9 +752,9 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - SDL will install a SIGINT and SIGTERM handler, and when it
+		 *  * "0"    - SDL will install a SIGINT and SIGTERM handler, and when it
 		 *        catches a signal, convert it into an SDL_QUIT event
-		 * * "1"    - SDL will not install a signal handler at all
+		 *  * "1"    - SDL will not install a signal handler at all
 		 *
 		 * By default SDL installs a SIGINT and SIGTERM handler, and when it catches a signal, converts it into an SDL_QUIT event.
 		*/
@@ -769,10 +767,10 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - SDL_TEXTEDITING events are sent, and it is the application's
+		 *  * "0"    - SDL_TEXTEDITING events are sent, and it is the application's
 		 *        responsibility to render the text from these events and
 		 *        differentiate it somehow from committed text. (default)
-		 * * "1"    - If supported by the IME then SDL_TEXTEDITING events are
+		 *  * "1"    - If supported by the IME then SDL_TEXTEDITING events are
 		 *        not sent, and text that is being composed will be rendered
 		 *        in its own UI.
 		 *
@@ -787,10 +785,10 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "#window"    - the JavaScript window object (this is the default)
-		 * * "#document"   - the JavaScript document object
-		 * * "#screen"    - the JavaScript window.screen object
-		 * * "#canvas"    - the default WebGL canvas element
+		 *  * "#window"    - the JavaScript window object (this is the default)
+		 *  * "#document"   - the JavaScript document object
+		 *  * "#screen"    - the JavaScript window.screen object
+		 *  * "#canvas"    - the default WebGL canvas element
 		 *
 		 * Any other string without a leading # sign applies to the element on the page with that ID.
 		 *
@@ -811,8 +809,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - SDL will use the backend's default threads stack size
-		 * * "X"    - SDL will use the provided the X positive you provided as the threads stack size
+		 *  * "0"    - SDL will use the backend's default threads stack size
+		 *  * "X"    - SDL will use the provided the X positive you provided as the threads stack size
 		 *
 		 * By default the backend's default threads stack size is used.
 		*/
@@ -825,8 +823,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - The window frame is not interactive when the cursor is hidden (no move, resize, etc)
-		 * * "1"    - The window frame is interactive when the cursor is hidden
+		 *  * "0"    - The window frame is not interactive when the cursor is hidden (no move, resize, etc)
+		 *  * "1"    - The window frame is interactive when the cursor is hidden
 		 *
 		 * By default SDL will allow interaction with the window frame when the cursor is hidden.
 		*/
@@ -839,8 +837,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - The window message loop is not run
-		 * * "1"    - The window message loop is processed in {@link SDL.Event.pump}
+		 *  * "0"    - The window message loop is not run
+		 *  * "1"    - The window message loop is processed in {@link SDL.Event.pump}
 		 *
 		 * By default SDL will process the windows message loop.
 		*/
@@ -853,8 +851,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - generate an {@link SDL.WindowEvent} of type {@link SDL.WindowEventType.CLOSE} for Alt+F4 (default)
-		 * * "1"    - Do not generate event and only do normal key handling for Alt+F4
+		 *  * "0"    - generate an {@link SDL.WindowEvent} of type {@link SDL.WindowEventType.CLOSE} for Alt+F4 (default)
+		 *  * "1"    - Do not generate event and only do normal key handling for Alt+F4
 		 *
 		 * By default SDL will process the windows message loop.
 		*/
@@ -871,8 +869,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - SDL will use the old axis and button mapping for XInput devices
-		 * * "1"    - SDL won't use old axis and button mapping for XInput devices
+		 *  * "0"    - SDL will use the old axis and button mapping for XInput devices
+		 *  * "1"    - SDL won't use old axis and button mapping for XInput devices
 		 *
 		 * By default SDL does not use the old axis and button mapping for XInput devices.
 		*/
@@ -885,8 +883,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - SDL will force the app to become a foreground process (default)
-		 * * "1"    - SDL won't not force the SDL app to become a foreground process
+		 *  * "0"    - SDL will force the app to become a foreground process (default)
+		 *  * "1"    - SDL won't not force the SDL app to become a foreground process
 		 *
 		 * By default the SDL app will be forced to become a foreground process on Mac OS X.
 		*/
@@ -901,8 +899,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - disable _NET_WM_PING
-		 * * "1"    - enable _NET_WM_PING
+		 *  * "0"    - disable _NET_WM_PING
+		 *  * "1"    - enable _NET_WM_PING
 		 *
 		 * By default SDL will use _NET_WM_PING, but for applications that know they will not always be able to
 		 * respond to ping requests in a timely manner they can turn it off to avoid the window manager thinking
@@ -917,8 +915,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - no mouse click events are sent when clicking to focus
-		 * * "1"    - mouse click events are sent when clicking to focus
+		 *  * "0"    - no mouse click events are sent when clicking to focus
+		 *  * "1"    - mouse click events are sent when clicking to focus
 		 *
 		 * By default no mouse click events are sent when clicking to focus.
 		 *
@@ -933,8 +931,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - version 4 of the bitmap header will be used when saving BMPs
-		 * * "1"    - version 4 of the bitmap header will not be used when saving BMPs
+		 *  * "0"    - version 4 of the bitmap header will be used when saving BMPs
+		 *  * "1"    - version 4 of the bitmap header will not be used when saving BMPs
 		 *
 		 * By default SDL will use version 4 of the bitmap header when saving BMPs.
 		 *
@@ -949,8 +947,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - threads will be named
-		 * * "1"    - threads will not be named
+		 *  * "0"    - threads will be named
+		 *  * "1"    - threads will not be named
 		 *
 		 * By default SDL will name threads on Microsoft Windows. 
 		 *
@@ -965,8 +963,8 @@ namespace SDL {
 		 *
 		 * The variable can be set to the following values:
 		 *
-		 * * "0"    - remote orientation does not affect joystick axes
-		 * * "1"    - joystick axes are based on the orientation of the remote
+		 *  * "0"    - remote orientation does not affect joystick axes
+		 *  * "1"    - joystick axes are based on the orientation of the remote
 		 *
 		 * By default remote orientation does not affect joystick axes. 
 		 *
@@ -2030,7 +2028,7 @@ namespace SDL {
 			public static int get_driver_info (int index, Video.RendererInfo info);
 
 			[CCode (cname = "SDL_CreateWindowAndRenderer")]
-			public static int create_with_window (int width, int height, Video.WindowFlags window_flags, out Video.Window window, out Video.Renderer renderer);
+			public static int create_with_window (int width, int height, uint32 window_flags, out Video.Window window, out Video.Renderer renderer);
 
 			[CCode (cname = "SDL_CreateRenderer")]
 			public static Renderer? create (Video.Window window, int index, uint32 flags);
@@ -2389,18 +2387,23 @@ namespace SDL {
 			[CCode (cname = "uikit.window")]
 			void* uikit_window;
 
-			/*the GL view's Framebuffer Object; it must be bound when rendering to the screen using GL (>= SDL 2.0.4)*/
+			/** 
+			 * the GL view's Framebuffer Object; it must be bound when rendering to the screen using GL (>= SDL 2.0.4)
+			 */
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.framebuffer")]
 			uint uikit_framebuffer;
 
 			/**
-			 *the GL view's color Renderbuffer Object; it must be bound when {@link SDL.GL.swap_window} is called (>= SDL 2.0.4)*/
+			 * the GL view's color Renderbuffer Object; it must be bound when {@link GL.swap_window} is called (>= SDL 2.0.4)
+			 */
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.colorbuffer")]
 			uint uikit_colorbuffer;
 
-			/*the Framebuffer Object which holds the resolve color Renderbuffer, when MSAA is used (>= SDL 2.0.4)*/
+			/**
+			 * the Framebuffer Object which holds the resolve color Renderbuffer, when MSAA is used (>= SDL 2.0.4)
+			 */
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.resolveFramebuffer")]
 			uint uikit_resolve_framebuffer;
@@ -2468,6 +2471,13 @@ namespace SDL {
 			[CCode (cname = "SDL_WINDOWPOS_CENTERED_MASK")]
 			public static const uint8 POS_CENTERED;
 
+			[CCode (cname = "SDL_NONSHAPEABLE_WINDOW")]
+			private static const int8 SDL_NONSHAPEABLE_WINDOW;
+			[CCode (cname = "SDL_INVALID_SHAPE_ARGUMENT")]
+			private static const int8 SDL_INVALID_SHAPE_ARGUMENT;
+			[CCode (cname = "SDL_WINDOW_LACKS_SHAPE")]
+			private static const int8 SDL_WINDOW_LACKS_SHAPE;
+
 			[Version (since = "2.0.4")]
 			[CCode (cname = "SDL_GetGrabbedWindow")]
 			public static Window? get_grabbed ();
@@ -2475,6 +2485,31 @@ namespace SDL {
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_CreateWindow")]
 			public Window (string title, int x, int y, int w, int h, uint32 flags);
+
+			/**
+			 * Create a window that can be shaped with the specified position, dimensions, and flags.
+			 *
+			 * @param title The title of the window, in UTF-8 encoding.
+			 * @param x     The x position of the window, {@link POS_CENTERED}, or
+			 *               {@link POS_UNDEFINED}.
+			 * @param y     The y position of the window, {@link POS_CENTERED}, or
+			 *               {@link POS_UNDEFINED}.
+			 * @param w     The width of the window.
+			 * @param h     The height of the window.
+			 * @param flags The flags for the window, a mask of {@link WindowFlags.BORDERLESS} with any of the following:<<BR>>
+			 *     {@link WindowFlags.OPENGL},  {@link WindowFlags.INPUT_GRABBED},<<BR>>
+			 *     {@link WindowFlags.HIDDEN},  {@link WindowFlags.RESIZABLE} <<BR>>
+			 *     {@link WindowFlags.MAXIMIZED},  {@link WindowFlags.MINIMIZED} <<BR>><<BR>>
+			 * {@link WindowFlags.BORDERLESS} is always set, and {@link WindowFlags.FULLSCREEN} is always unset.
+			 *
+			 * @return The window created, or null if window creation failed.
+			 *
+			 * @see destroy
+			 */
+
+			[Version (since = "2.0.5")]
+			[CCode (cname = "SDL_CreateShapedWindow", cheader_filename = "SDL2/SDL_shape.h")]
+			public Window.shaped (string title, int x, int y, int w, int h, uint32 flags);
 
 			// Param data is a "pointer to driver-dependent window creation data"
 			[CCode (cname = "SDL_CreateWindowFrom")]
@@ -2635,8 +2670,139 @@ namespace SDL {
 			public int set_modal_for (Video.Window parent);
 
 			[CCode (cname = "SDL_DestroyWindow")]
+			[DestroysInstance]
 			public void destroy ();
+
+			[Version (since = "2.0.5")]
+			[CCode (cname = "SDL_IsShapedWindow", cheader_filename = "SDL2/SDL_shape.h")]
+			public bool is_shaped();
+
+
+			/**
+			 * Set the shape and parameters of a shaped window.
+			 *
+			 * @param shape A {@link Surface} encoding the desired shape for the window.
+			 * @param mode The {@link ShapeMode} with the parameters to set for the shaped window.
+			 * 
+			 * @throws ShapeError if there's any error
+			 * @see ShapeMode
+			 * @see get_shape_mode
+			 */
+			[Version (since = "2.0.5")]
+			[CCode (cname = "vala_set_shape_mode")]
+			public void set_window_shape (Surface shape, ShapeMode mode) throws ShapeError {
+				int retval = orig_set_window_shape(shape, mode);
+				
+				if (retval < 0) {
+					switch (retval) {
+						case SDL_NONSHAPEABLE_WINDOW:
+							throw new ShapeError.NONSHAPEABLE_WINDOW("Window %p is not shaped".printf((void*)this));
+						case SDL_INVALID_SHAPE_ARGUMENT:
+							throw new ShapeError.INVALID_SHAPE_ARGUMENT("Surface %p and/or mode %p are invalid".printf((void*)shape,(void*)mode));
+						case SDL_WINDOW_LACKS_SHAPE:
+							throw new ShapeError.WINDOW_LACKS_SHAPE("Window %p lacks shape".printf((void*)this));
+						default:
+							throw new ShapeError.UNKNOWN("Unknown Error");
+					}
+				}
+			}
+
+			[Version (since = "2.0.5")]
+			[CCode (cname = "SDL_SetWindowShape", cheader_filename = "SDL2/SDL_shape.h")]
+			private int orig_set_window_shape (Surface shape, ShapeMode? shape_mode);
+			 
+			/**
+			 * Get the shape parameters of a shaped window.
+			 *
+			 * @return The current {@link ShapeMode}
+			 *
+			 * @throws ShapeError if there's any error
+			 * @see ShapeMode
+			 * @see set_window_shape
+			 */
+			[Version (since = "2.0.5")]
+			[CCode (cname = "vala_get_shape_mode")]
+			public ShapeMode get_shape_mode () throws ShapeError {
+				ShapeMode mode;
+				int retval = orig_get_shaped_mode(mode);
+				
+				if (retval < 0) {
+					switch (retval) {
+						case SDL_NONSHAPEABLE_WINDOW:
+							throw new ShapeError.NONSHAPEABLE_WINDOW("Window %p is not shaped".printf((void*)this));
+						case SDL_INVALID_SHAPE_ARGUMENT:
+							throw new ShapeError.INVALID_SHAPE_ARGUMENT("Mode %p is invalid".printf((void*)mode));
+						case SDL_WINDOW_LACKS_SHAPE:
+							throw new ShapeError.WINDOW_LACKS_SHAPE("Window %p lacks shape".printf((void*)this));
+						default:
+							throw new ShapeError.UNKNOWN("Unknown Error");
+					}
+				}
+
+				return mode;
+			}
+
+			[Version (since = "2.0.5")]
+			[CCode (cname = "SDL_GetShapedWindowMode", cheader_filename = "SDL2/SDL_shape.h")]
+			private int orig_get_shaped_mode (ShapeMode? shape_mode);
+
+			/** 
+			 * A convenience method to check wether the window has a shape or not.
+			 */
+			public bool has_shape(){
+				return orig_get_shaped_mode(null) == SDL_WINDOW_LACKS_SHAPE;
+			}
+
+			[Version (since = "2.0.5")]
+			[CCode (cname = "WindowShapeMode", cheader_filename = "SDL2/SDL_shape.h")]
+			public enum ShapeModeType {
+				/**
+				 * The default mode, a binarized alpha cutoff of 1.
+				 */
+				[CCode (cname = "ShapeModeDefault")] DEFAULT,
+				/** 
+				 * A binarized alpha cutoff with a given integer value.
+				 */
+				[CCode (cname = "ShapeModeBinarizeAlpha")] BINARIZE_ALPHA,
+				/**
+				 * A binarized alpha cutoff with a given integer value, but with the opposite comparison.
+				 */
+				[CCode (cname = "ShapeModeReverseBinarizeAlpha")] REVERSE_BINARIZE_APHA,
+				/**
+				 * A color key is applied.
+				 */
+				[CCode (cname = "ShapeModeColorKey")] COLOR_KEY;
+
+				[CCode (cname = "SDL_SHAPEMODEALPHA")]
+				public bool is_alpha();
+			}
+
+			[Version (since = "2.0.5")]
+			[CCode (cname = "SDL_WindowShapeMode", type_id = "SDL_WindowShapeMode" , cheader_filename = "SDL2/SDL_shape.h")]
+			public struct ShapeMode {
+				/** 
+				 * The mode of these window-shape parameters.
+				 */
+				ShapeModeType mode;
+				/** 
+				 * a cutoff alpha value for binarization of the window shape's alpha channel. 
+				 */
+			 	[CCode (cname = "parameters.binarizationCutoff")]
+				uint8 binarization_cutoff;
+
+				[CCode (cname = "parameters.colorKey")]
+				Color color_key;
+			}
+
 		}//Window
+
+		public errordomain ShapeError {
+			NONSHAPEABLE_WINDOW,
+			INVALID_SHAPE_ARGUMENT,
+			WINDOW_LACKS_SHAPE,
+			UNKNOWN
+		}
+
 
 		///
 		/// OpenGL
@@ -2765,11 +2931,11 @@ namespace SDL {
 			} //MessageBoxColorType;
 			[CCode (cname = "SDL_MessageBoxButtonData", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
 			public struct ButtonData {
-				/**
-				 * ::SDL_MessageBoxButtonFlags
-				 */
+
 				MessageBox.ButtonFlags flags;
-				/** User defined button id (value returned via SDL_ShowMessageBox) */
+				/** 
+				 * User defined button id (value returned via SDL_ShowMessageBox) 
+				 */
 				int buttonid;
 				/**
 				 * The UTF-8 button text
@@ -3190,9 +3356,11 @@ namespace SDL {
 
 		[CCode (cheader_filename = "SDL2/SDL_touch.h")]
 		namespace Touch {
-			
+
+			[SimpleType]
+    		[IntegerType (rank = 10)]
 			[CCode (cname = "SDL_GestureID", cheader_filename = "SDL2/SDL_gesture.h")]
-			public struct GestureID : int {}// GestureID
+			public struct GestureID {}// GestureID
 
 			[SimpleType]
     		[IntegerType (rank = 10)]
@@ -3247,16 +3415,18 @@ namespace SDL {
 			[CCode (cname = "SDL_GetNumTouchFingers", cheader_filename = "SDL2/SDL_touch.h")]
 			public static int num_fingers (TouchID touch_id);
 
-			[CCode (cname = "SDL_GetTouchFinger", cheader_filename = "SDL2/SDL_touch.h")]
-			public Finger (TouchID touch_id, int index);
+			
 
 			[CCode (cname = "SDL_Finger", type_id = "SDL_Finger", cheader_filename = "SDL2/SDL_touch.h")]
 			[Compact]
-			public struct Finger {
+			public class Finger {
 				FingerID id;
 				float x;
 				float y;
 				float pressure;
+
+				[CCode (cname = "SDL_GetTouchFinger", cheader_filename = "SDL2/SDL_touch.h")]
+				public Finger (TouchID touch_id, int index);
 			}// Finger
 		}
 		///
