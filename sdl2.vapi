@@ -1238,35 +1238,36 @@ namespace SDL {
 	[CCode (cname = "SDL_CommonEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct CommonEvent {
-		SDL.EventType type;
-		uint32 timestamp;
+		public SDL.EventType type;
+		public uint32 timestamp;
 	}// CommonEvent
 
 	[CCode (cname = "SDL_WindowEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct WindowEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		WindowEventType event;
-		int32 data1;
-		int32 data2;
+		public uint32 window_id;
+		public WindowEventType event;
+		public int32 data1;
+		public int32 data2;
 	}// WindowEvent
 
 	[Version (since = "2.0.4")]
 	[CCode (cname = "SDL_AudioDeviceEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct AudioDeviceEvent : CommonEvent {
-		uint32 which;
-		bool iscapture;
+		public uint32 which;
+		public bool iscapture;
 	}
 
 	[CCode (cname = "SDL_KeyboardEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct KeyboardEvent : CommonEvent {
-		[CCode (cname = "windowID")] uint32 window_id;
-		uint8 state;
-		uint8 repeat;
-		Input.Key keysym;
+		[CCode (cname = "windowID")]
+		public uint32 window_id;
+		public uint8 state;
+		public uint8 repeat;
+		public Input.Key keysym;
 	}// KeyboardEvent
 
 	[CCode (cname = "SDL_TextEditingEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
@@ -1276,10 +1277,10 @@ namespace SDL {
 		public static const uint8 TEXT_SIZE;
 
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		string? text;
-		int32 start;
-		int32 length;
+		public uint32 window_id;
+		public string? text;
+		public int32 start;
+		public int32 length;
 	}// TextEditingEvent
 
 	[CCode (cname = "SDL_TextInputEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
@@ -1289,35 +1290,35 @@ namespace SDL {
 		public static const uint8 TEXT_SIZE;
 
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		string? text;
+		public uint32 window_id;
+		public string? text;
 	}// TextInputEvent
 
 	[CCode (cname = "SDL_MouseMotionEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct MouseMotionEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		uint32 which;
-		uint8 state;
-		int32 x;
-		int32 y;
-		int32 xrel;
-		int32 yrel;
+		public uint32 window_id;
+		public uint32 which;
+		public uint8 state;
+		public int32 x;
+		public int32 y;
+		public int32 xrel;
+		public int32 yrel;
 	}// MouseMotionEvent
 
 	[CCode (cname = "SDL_MouseButtonEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct MouseButtonEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		uint32 which;
-		uint8 button;
-		uint8 state;
+		public uint32 window_id;
+		public uint32 which;
+		public uint8 button;
+		public uint8 state;
 		[Version (since = "2.0.2")]
-		uint8 clicks;
-		int32 x;
-		int32 y;
+		public uint8 clicks;
+		public int32 x;
+		public int32 y;
 	}// MouseButtonEvent
 
 	[CCode (cname = "Uint32", cprefix = "SDL_MOUSEWHEEL_", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
@@ -1330,12 +1331,12 @@ namespace SDL {
 	[Compact]
 	public struct MouseWheelEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		uint32 which;
-		int32 x;
-		int32 y;
+		public uint32 window_id;
+		public uint32 which;
+		public int32 x;
+		public int32 y;
 		[Version (since = "2.0.4")]
-		MouseWheelDirection direction;
+		public MouseWheelDirection direction;
 
 	}// MouseWheelEvent
 
@@ -1343,21 +1344,21 @@ namespace SDL {
 	[Compact]
 	public struct JoyAxisEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
-		uint8 axis;
-		int16 @value;
+		public uint32 window_id;
+		public Input.JoystickID which;
+		public uint8 axis;
+		public int16 @value;
 	}// JoyAxisEvent
 
 	[CCode (cname = "SDL_JoyBallEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyBallEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
-		uint8 ball;
-		int16 xrel;
-		int16 yrel;
+		public uint32 window_id;
+		public Input.JoystickID which;
+		public uint8 ball;
+		public int16 xrel;
+		public int16 yrel;
 	}// JoyBallEvent
 
 	[CCode (cname = "Uint8", cprefix = "SDL_HAT_", cheader_filename = "SDL2/SDL_events.h")]
@@ -1371,38 +1372,38 @@ namespace SDL {
 	[Compact]
 	public struct JoyHatEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
-		uint8 hat;
-		SDL.HatValue hat_value;
+		public uint32 window_id;
+		public Input.JoystickID which;
+		public uint8 hat;
+		public HatValue hat_value;
 	}// JoyHatEvent
 
 	[CCode (cname = "SDL_JoyButtonEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyButtonEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
-		uint8 button;
-		uint8 state;
+		public uint32 window_id;
+		public Input.JoystickID which;
+		public uint8 button;
+		public uint8 state;
 	}// JoyButtonEvent
 
 	[CCode (cname = "SDL_JoyDeviceEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct JoyDeviceEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
+		public uint32 window_id;
+		public Input.JoystickID which;
 	}// JoyDeviceEvent
 
 	[CCode (cname = "SDL_ControllerAxisEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct ControllerAxisEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
-		uint8 axis;
-		int16 @value;
+		public uint32 window_id;
+		public Input.JoystickID which;
+		public uint8 axis;
+		public int16 @value;
 
 	}// ControllerAxisEvent
 
@@ -1410,78 +1411,78 @@ namespace SDL {
 	[Compact]
 	public struct ControllerButtonEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
-		uint8 button;
-		uint8 state;
+		public uint32 window_id;
+		public Input.JoystickID which;
+		public uint8 button;
+		public uint8 state;
 	}// ControllerButtonEvent
 
 	[CCode (cname = "SDL_ControllerDeviceEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct ControllerDeviceEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		Input.JoystickID which;
+		public uint32 window_id;
+		public Input.JoystickID which;
 	}// ControllerDeviceEvent
 
 	[CCode (cname = "SDL_TouchFingerEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct TouchFingerEvent : CommonEvent {
 		[CCode (cname = "touchID")]
-		Input.Touch.TouchID touch_id;
+		public Input.Touch.TouchID touch_id;
 		[CCode (cname = "fingerID")]
-		Input.Touch.FingerID finger_id;
-		float x;
-		float y;
-		float dx;
-		float dy;
-		float pressure;
+		public Input.Touch.FingerID finger_id;
+		public float x;
+		public float y;
+		public float dx;
+		public float dy;
+		public float pressure;
 	}// TouchFingerEvent
 
 	[CCode (cname = "SDL_MultiGestureEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct MultiGestureEvent : CommonEvent {
 		[CCode (cname = "touchID")]
-		Input.Touch.TouchID touch_id;
+		public Input.Touch.TouchID touch_id;
 		[CCode (cname = "dTheta")]
-		float d_theta;
+		public float d_theta;
 		[CCode (cname = "dDist")]
-		float d_dist;
-		float x;
-		float y;
-		float pressure;
+		public float d_dist;
+		public float x;
+		public float y;
+		public float pressure;
 		[CCode (cname = "numFingers")]
-		uint16 num_fingers;
+		public uint16 num_fingers;
 	}// MultiGestureEvent
 
 	[CCode (cname = "SDL_DollarGestureEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct DollarGestureEvent : CommonEvent {
 		[CCode (cname = "touchID")]
-		Input.Touch.TouchID touch_id;
+		public Input.Touch.TouchID touch_id;
 		[CCode (cname = "gestureID")]
-		Input.Touch.GestureID gesture_id;
+		public Input.Touch.GestureID gesture_id;
 		[CCode (cname = "numFingers")]
-		uint32 num_fingers;
-		float error;
-		float x;
-		float y;
+		public uint32 num_fingers;
+		public float error;
+		public float x;
+		public float y;
 	}// DollarGestureEvent
 
 	[CCode (cname = "SDL_DropEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct DropEvent : CommonEvent {
-		string file;
+		public string file;
 	}// DropEvent
 
 	[CCode (cname = "SDL_UserEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
 	[Compact]
 	public struct UserEvent : CommonEvent {
 		[CCode (cname = "windowID")]
-		uint32 window_id;
-		int32 code;
-		void* data1;
-		void* data2;
+		public uint32 window_id;
+		public int32 code;
+		public void* data1;
+		public void* data2;
 	}// UserEvent
 
 	[CCode (cname = "SDL_QuitEvent", has_type_id = false, cheader_filename = "SDL2/SDL_events.h")]
@@ -2293,37 +2294,37 @@ namespace SDL {
 		}
 		[CCode (cname = "SDL_SysWMmsg", cheader_filename = "SDL2/SDL_syswm.h")]
 		public struct SysWMmsg {
-			SDL.Version version;
-			SysWMType subsystem;
-			int dummy;
+			public SDL.Version version;
+			public SysWMType subsystem;
+			public int dummy;
 			
 			//if SDL_SYSWM_WINDOWS
 			[CCode (cname = "win.hwnd")]
-			void* win_hwnd;
+			public void* win_hwnd;
 			[CCode (cname = "win.msg")]
-			uint win_msg;
+			public uint win_msg;
 			[CCode (cname = "win.wParam")]
-			void* win_wparam;
+			public void* win_wparam;
 			[CCode (cname = "win.lParam")]
-			void* win_lparam;
+			public void* win_lparam;
 			
 			//if SDL_SYSWM_X11
 			[CCode (cname = "x11.event")]
-			void* x11_event;
+			public void* x11_event;
 			
 			//if SDL_SYSWM_DIRECTFB
 			[CCode (cname = "dfb.event")]
-			void* dfb_event;
+			public void* dfb_event;
 			
 			//if SDL_SYSWM_COCOA
 			[Version (since = "2.0.4")]
 			[CCode (cname = "cocoa.dummy")]
-			int cocoa_dummy;
+			public int cocoa_dummy;
 			
 			//if SDL_SYSWM_UIKIT
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.dummy")]
-			int uikit_dummy;
+			public int uikit_dummy;
 		}// SysWMmsg
 
 		/**
@@ -2331,123 +2332,123 @@ namespace SDL {
 		*/
 		[CCode (cname = "SDL_SysWMinfo", cheader_filename = "SDL2/SDL_syswm.h")]
 		public struct SysWMInfo {
-			SDL.Version version;
-			SysWMType subsystem;
-			int dummy;
+			public SDL.Version version;
+			public SysWMType subsystem;
+			public int dummy;
 			
 			//if SDL_SYSWM_WINDOWS
 
 			/*the window handle*/
 			[CCode (cname = "win.window")]
-			void* win_window;
+			public void* win_window;
 			[Version (since = "2.0.4")]
 			[CCode (cname = "win.hdc")]
-			void* win_hdc;
+			public void* win_hdc;
 
 			//if SDL_SYSWM_WINRT (>= SDL 2.0.3)
 
 			/*the WinRT CoreWindow*/
 			[Version (since = "2.0.3")]
 			[CCode (cname = "win.window")]
-			void* winrt_window;
+			public void* winrt_window;
 
 			//if SDL_SYSWM_X11
 
 			/*the X11 display*/
 			[CCode (cname = "x11.display")]
-			void* x11_display;
+			public void* x11_display;
 
 			/*the X11 window*/
 			[CCode (cname = "x11.window")]
-			void* x11_window;
+			public void* x11_window;
 
 			//if SDL_SYSWM_DIRECTFB
 
 			/*the DirectFB main interface*/
 			[CCode (cname = "dfb.dfb")]
-			void* dfb_dfb;
+			public void* dfb_dfb;
 
 			/*the DirectFB window handle*/
 			[CCode (cname = "dfb.window")]
-			void* dfb_window;
+			public void* dfb_window;
 
 			/*the DirectFB client surface*/
 			[CCode (cname = "dfb.surface")]
-			void* dfb_surface;
+			public void* dfb_surface;
 
 			//if SDL_SYSWM_COCOA
 
 			/*the Cocoa window*/
 			[CCode (cname = "cocoa.window")]
-			void* cocoa_window;
+			public void* cocoa_window;
 
 			//if SDL_SYSWM_UIKIT
 
 			/*the UIKit window*/
 			[CCode (cname = "uikit.window")]
-			void* uikit_window;
+			public void* uikit_window;
 
 			/** 
 			 * the GL view's Framebuffer Object; it must be bound when rendering to the screen using GL (>= SDL 2.0.4)
 			 */
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.framebuffer")]
-			uint uikit_framebuffer;
+			public uint uikit_framebuffer;
 
 			/**
 			 * the GL view's color Renderbuffer Object; it must be bound when {@link GL.swap_window} is called (>= SDL 2.0.4)
 			 */
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.colorbuffer")]
-			uint uikit_colorbuffer;
+			public uint uikit_colorbuffer;
 
 			/**
 			 * the Framebuffer Object which holds the resolve color Renderbuffer, when MSAA is used (>= SDL 2.0.4)
 			 */
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.resolveFramebuffer")]
-			uint uikit_resolve_framebuffer;
+			public uint uikit_resolve_framebuffer;
 
 			//if SDL_SYSWM_WAYLAND (>= SDL 2.0.2)
 
 			/*the Wayland display*/
 			[Version (since = "2.0.2")]
 			[CCode (cname = "wl.display")]
-			void* wl_display;
+			public void* wl_display;
 
 			/*the Wayland surface*/
 			[Version (since = "2.0.2")]
 			[CCode (cname = "wl.surface")]
-			void* wl_surface;
+			public void* wl_surface;
 
 			/*the Wayland shell_surface (window manager handle)*/
 			[Version (since = "2.0.2")]
 			[CCode (cname = "wl.shell_surface")]
-			void* wl_shell_surface;
+			public void* wl_shell_surface;
 
 			//if SDL_SYSWM_MIR (>= SDL 2.0.2)
 
 			/*the Mir display server connection*/
 			[Version (since = "2.0.2")]
 			[CCode (cname = "mir.connection")]
-			void* mir_connection;
+			public void* mir_connection;
 
 			/*the Mir surface*/
 			[Version (since = "2.0.2")]
 			[CCode (cname = "mir.surface")]
-			void* mir_surface;
+			public void* mir_surface;
 
 			//if SDL_SYSWM_ANDROID (>= SDL 2.0.4)
 
 			/*the Android native window*/
 			[Version (since = "2.0.4")]
 			[CCode (cname = "android.window")]
-			void* android_window;
+			public void* android_window;
 
 			/*the Android EGL surface*/
 			[Version (since = "2.0.4")]
 			[CCode (cname = "android.surface")]
-			void* android_surface;
+			public void* android_surface;
 		}// SysWMmsg
 
 		[Version (since = "2.0.4")]
@@ -2471,11 +2472,11 @@ namespace SDL {
 			[CCode (cname = "SDL_WINDOWPOS_CENTERED_MASK")]
 			public static const uint8 POS_CENTERED;
 
-			[CCode (cname = "SDL_NONSHAPEABLE_WINDOW")]
+			[CCode (cname = "SDL_NONSHAPEABLE_WINDOW", cheader_filename = "SDL2/SDL_shape.h")]
 			private static const int8 SDL_NONSHAPEABLE_WINDOW;
-			[CCode (cname = "SDL_INVALID_SHAPE_ARGUMENT")]
+			[CCode (cname = "SDL_INVALID_SHAPE_ARGUMENT", cheader_filename = "SDL2/SDL_shape.h")]
 			private static const int8 SDL_INVALID_SHAPE_ARGUMENT;
-			[CCode (cname = "SDL_WINDOW_LACKS_SHAPE")]
+			[CCode (cname = "SDL_WINDOW_LACKS_SHAPE", cheader_filename = "SDL2/SDL_shape.h")]
 			private static const int8 SDL_WINDOW_LACKS_SHAPE;
 
 			[Version (since = "2.0.4")]
@@ -2783,15 +2784,15 @@ namespace SDL {
 				/** 
 				 * The mode of these window-shape parameters.
 				 */
-				ShapeModeType mode;
+				public ShapeModeType mode;
 				/** 
 				 * a cutoff alpha value for binarization of the window shape's alpha channel. 
 				 */
 			 	[CCode (cname = "parameters.binarizationCutoff")]
-				uint8 binarization_cutoff;
+				public uint8 binarization_cutoff;
 
 				[CCode (cname = "parameters.colorKey")]
-				Color color_key;
+				public Color color_key;
 			}
 
 		}//Window
@@ -2932,48 +2933,48 @@ namespace SDL {
 			[CCode (cname = "SDL_MessageBoxButtonData", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
 			public struct ButtonData {
 
-				MessageBox.ButtonFlags flags;
+				/**
+				 * A field composed of {@link MessageBox.ButtonFlags}
+				 */
+				public uint32 flags;
 				/** 
 				 * User defined button id (value returned via SDL_ShowMessageBox) 
 				 */
-				int buttonid;
-				/**
-				 * The UTF-8 button text
-				 */
-				string text;
+				public int buttonid;
+
+				public string text;
 			} //MessageBoxButtonData;
 			[CCode (cname = "SDL_MessageBoxColor", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
 			public struct Color {
-				uint8 r;
-				uint8 g;
-				uint8 b;
+				public uint8 r;
+				public uint8 g;
+				public uint8 b;
 			} // MessageBoxColor;
 			[CCode (cname = "SDL_MessageBoxColorScheme", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
 			public struct ColorScheme {
 				[CCode (array_length_cexpr = "SDL_MessageBoxColorType.MAX", array_length_type = "int")]
-				Video.MessageBox.Color colors[];
+				public Video.MessageBox.Color colors[];
 			} // MessageBoxColorScheme;
 
 			[CCode (cname = "SDL_MessageBoxData", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
 			public struct Data {
-				MessageBox.Flags flags;  /**< ::SDL_MessageBoxFlags */
+				
 				/**
-				 * Parent window, can be null
+				 * A field composed of {@link MessageBox.Flags}
 				 */
+				public uint32 flags;
+				
 				[CCode (cname = "window")]
-				Video.Window? parent_window;
-				string title; /**< UTF-8 title */
-				/**
-				 * UTF-8 message text
-				 */
-				string message;
+				public Video.Window? parent_window;
+				public string title;
+				public string message;
 				[CCode (array_length_cexpr = "SDL.MessageBox.numbuttons", array_length_type = "int")]
-				Video.MessageBox.ButtonData[] buttons;
-			/**
-			 * ::SDL_MessageBoxColorScheme, can be NULL to use system settings
-			 */
+				public Video.MessageBox.ButtonData[] buttons;
+				/**
+			 	* Can be null to use system settings
+			 	*/
 				[CCode (cname = "colorScheme")]
-				Video.MessageBox.ColorScheme? color_scheme;
+				public Video.MessageBox.ColorScheme? color_scheme;
 			} //MessageBoxData;
 
 			[CCode (cname = "SDL_ShowSimpleMessageBox")]
@@ -3107,10 +3108,10 @@ namespace SDL {
 		[CCode (cname = "SDL_Keysym", cheader_filename = "SDL2/SDL_keyboard.h")]
 		[SimpleType]
 		public struct Key {
-			Input.Scancode scancode;
-			Input.Keycode sym;
-			uint16 mod;
-			uint32 unicode;
+			public Input.Scancode scancode;
+			public Input.Keycode sym;
+			public uint16 mod;
+			public uint32 unicode;
 		}// Key
 
 		[CCode (cheader_filename = "SDL2/SDL_keyboard.h")]
@@ -3261,11 +3262,13 @@ namespace SDL {
 
 		[CCode (cname = "SDL_JoystickGUID", cheader_filename = "SDL2/SDL_joystick.h")]
 		public struct JoystickGUID {
-			uint8 data[16];
+			public uint8 data[16];
 		}
 
+		[SimpleType]
+		[IntegerType (rank = 6)]
 		[CCode (cname = "SDL_JoystickID", cheader_filename = "SDL2/SDL_joystick.h")]
-		public struct JoystickID : int {}// JoystickID
+		public struct JoystickID {}// JoystickID
 
 		[Version (since = "2.0.4")]
 		[CCode (cname = "SDL_JoystickPowerLevel", cprefix = "SDL_JOYSTICK_POWER_", cheader_filename = "SDL2/SDL_joystick.h")]
@@ -3420,10 +3423,10 @@ namespace SDL {
 			[CCode (cname = "SDL_Finger", type_id = "SDL_Finger", cheader_filename = "SDL2/SDL_touch.h")]
 			[Compact]
 			public class Finger {
-				FingerID id;
-				float x;
-				float y;
-				float pressure;
+				public FingerID id;
+				public float x;
+				public float y;
+				public float pressure;
 
 				[CCode (cname = "SDL_GetTouchFinger", cheader_filename = "SDL2/SDL_touch.h")]
 				public Finger (TouchID touch_id, int index);
@@ -3552,16 +3555,16 @@ namespace SDL {
 			[CCode (cname = "SDL_GameControllerButtonBind")]
 			public struct ButtonBind {
 				[CCode (cname = "bindType")]
-				BindType bind_type;
+				public BindType bind_type;
 
 				[CCode (cname = "value.button")]
-				int button;
+				public int button;
 				[CCode (cname = "value.axis")]
-				int axis;
+				public int axis;
 				[CCode (cname = "value.hat.hat")]
-				int hat;
+				public int hat;
 				[CCode (cname = "value.hat.hat_mask")]
-				int hat_mask;
+				public int hat_mask;
 			}
 		}
 	}

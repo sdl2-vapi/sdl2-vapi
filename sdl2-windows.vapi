@@ -34,7 +34,7 @@ namespace SDL {
 
 	[CCode (cheader = "SDL2/SDL_system.h")]
 	[Compact]
-	public class Direct3D9  {
+	public class Windows {
 		[CCode (cname = "SDL_Direct3D9GetAdapterIndex")]
 		public static int get_adapter_index (int display_index);
 
@@ -43,12 +43,14 @@ namespace SDL {
 
 		[CCode (cname = "SDL_DXGIGetOutputInfo")]
 		public static void dxgi_get_output_info (int display_index, out int adapter_index, out int output_index);
+
+
+		[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader = "SDL2/SDL_system.h")]
+		public delegate void WindowsMessageHook (void* hWnd, uint message, uint64 w_param, int64 l_param);
+
+		[CCode (cname = "SDL_SetWindowsMessageHook", cheader = "SDL2/SDL_system.h")]
+		public static void set_windows_message_hook (WindowsMessageHook hook);
+
 	}// Direct3D9
-
-	[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader = "SDL2/SDL_system.h")]
-	public delegate void WindowsMessageHook (void* hWnd, uint message, uint64 w_param, int64 l_param);
-
-	[CCode (cname = "SDL_SetWindowsMessageHook", cheader = "SDL2/SDL_system.h") ]
-	public static void set_windows_message_hook (WindowsMessageHook hook);
 
 }
