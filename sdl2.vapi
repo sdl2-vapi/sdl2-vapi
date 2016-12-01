@@ -1462,7 +1462,7 @@ namespace SDL {
 		[CCode (cname = "touchID")]
 		Input.Touch.TouchID touch_id;
 		[CCode (cname = "gestureID")]
-		Input.Gesture.GestureID gesture_id;
+		Input.Touch.GestureID gesture_id;
 		[CCode (cname = "numFingers")]
 		uint32 num_fingers;
 		float error;
@@ -2621,7 +2621,7 @@ namespace SDL {
 			[CCode (cname = "SDL_GetWindowOpacity")]
 			public int get_opacity (out float? opacity);
 			
-			[Version (experimental = true)]
+			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_SetWindowInputFocus")]
 			public int set_input_focus ();
 
@@ -2824,40 +2824,6 @@ namespace SDL {
 	/// Input
 	///
 	namespace Input {
-
-		[CCode (cheader_filename = "SDL2/SDL_gesture.h")]
-		namespace Gesture {
-			[CCode (cname = "SDL_GestureID", cheader_filename = "SDL2/SDL_gesture.h")]
-			public struct GestureID : int {}// GestureID
-
-			[CCode (cname = "SDL_RecordGesture")]
-			public static int record_gesture (Touch.TouchID touch_id);
-
-			[Version (since = "2.0.0")]
-			[CCode (cname = "SDL_LoadDollarTemplates")]
-			public static int load_dollar_templates_rw (Touch.TouchID touch_id, SDL.RWops src);
-
-			[Version (since = "2.0.0")]
-			public static int load_dollar_templates (Touch.TouchID touch_id, string file) {
-				return load_dollar_templates_rw (touch_id, new SDL.RWops.from_file (file, "rb"));
-			}
-
-			[Version (since = "2.0.0")]
-			[CCode (cname = "SDL_SaveDollarTemplate")]
-			public static int save_dollar_template_rw (GestureID gesture_id, SDL.RWops dst);
-
-			public static int save_dollar_template (GestureID gesture_id, string file) {
-				return save_dollar_template_rw (gesture_id, new SDL.RWops.from_file (file, "wb"));
-			}
-
-			[Version (since = "2.0.0")]
-			[CCode (cname = "SDL_SaveAllDollarTemplates")]
-			public static int save_all_dollar_templates_rw (SDL.RWops dst);
-
-			public static int save_all_dollar_templates (string file) {
-				return save_all_dollar_templates_rw (new SDL.RWops.from_file (file, "wb"));
-			}
-		}
 
 		[CCode (cheader_filename = "SDL2/SDL_clipboard.h")]
 		[Compact]
@@ -3224,44 +3190,79 @@ namespace SDL {
 
 		[CCode (cheader_filename = "SDL2/SDL_touch.h")]
 		namespace Touch {
-			[CCode (cname = "SDL_TouchID")]
-			public struct TouchID : int {}// TouchID
+			
+			[CCode (cname = "SDL_GestureID", cheader_filename = "SDL2/SDL_gesture.h")]
+			public struct GestureID : int {}// GestureID
 
+			[SimpleType]
+    		[IntegerType (rank = 10)]
+			[CCode (cname = "SDL_TouchID", cheader_filename = "SDL2/SDL_touch.h")]
+			public struct TouchID {}// TouchID
+
+			[SimpleType]
+    		[IntegerType (rank = 10)]
 			[CCode (cname = "SDL_FingerID", cheader_filename = "SDL2/SDL_touch.h")]
-			public struct FingerID : int {}// FingerID
+			public struct FingerID {}// FingerID
 
-			[CCode (cname = "SDL_TOUCH_MOUSEID")]
+			[CCode (cname = "SDL_TOUCH_MOUSEID", cheader_filename = "SDL2/SDL_touch.h")]
 			public struct TouchMouseID : uint32 {}
 
+			[CCode (cname = "SDL_RecordGesture", cheader_filename = "SDL2/SDL_gesture.h")]
+			public static int record_gesture (Touch.TouchID touch_id);
+
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_LoadDollarTemplates", cheader_filename = "SDL2/SDL_gesture.h")]
+			public static int load_dollar_templates_rw (Touch.TouchID touch_id, SDL.RWops src);
+
+			[Version (since = "2.0.0")]
+			public static int load_dollar_templates (Touch.TouchID touch_id, string file) {
+				return load_dollar_templates_rw (touch_id, new SDL.RWops.from_file (file, "rb"));
+			}
+
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_SaveDollarTemplate", cheader_filename = "SDL2/SDL_gesture.h")]
+			public static int save_dollar_template_rw (GestureID gesture_id, SDL.RWops dst);
+
+			public static int save_dollar_template (GestureID gesture_id, string file) {
+				return save_dollar_template_rw (gesture_id, new SDL.RWops.from_file (file, "wb"));
+			}
+
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_SaveAllDollarTemplates", cheader_filename = "SDL2/SDL_gesture.h")]
+			public static int save_all_dollar_templates_rw (SDL.RWops dst);
+
+			public static int save_all_dollar_templates (string file) {
+				return save_all_dollar_templates_rw (new SDL.RWops.from_file (file, "wb"));
+			}
+
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_GetNumTouchDevices", cheader_filename = "SDL2/SDL_touch.h")]
+			public static int num_devices ();
+
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_GetTouchDevice", cheader_filename = "SDL2/SDL_touch.h")]
+			public static TouchID get_touch_device (int index);
+
+			[Version (since = "2.0.0")]
+			[CCode (cname = "SDL_GetNumTouchFingers", cheader_filename = "SDL2/SDL_touch.h")]
+			public static int num_fingers (TouchID touch_id);
+
+			[CCode (cname = "SDL_GetTouchFinger", cheader_filename = "SDL2/SDL_touch.h")]
+			public Finger (TouchID touch_id, int index);
 
 			[CCode (cname = "SDL_Finger", type_id = "SDL_Finger", cheader_filename = "SDL2/SDL_touch.h")]
 			[Compact]
-			public class Finger {
+			public struct Finger {
 				FingerID id;
 				float x;
 				float y;
 				float pressure;
-
-				[Version (since = "2.0.0")]
-				[CCode (cname = "SDL_GetNumTouchDevices")]
-				public static int num_devices ();
-
-				[Version (since = "2.0.0")]
-				[CCode (cname = "SDL_GetTouchDevice")]
-				public static TouchID get_touch_device (int index);
-
-				[Version (since = "2.0.0")]
-				[CCode (cname = "SDL_GetNumTouchFingers")]
-				public static int num_fingers (TouchID touch_id);
-
-				[CCode (cname = "SDL_GetTouchFinger")]
-				public Finger (TouchID touch_id, int index);
 			}// Finger
 		}
 		///
 		/// Game Controller
 		///
-		[CCode (cname = "SDL_GameController", free_function = "SDL_GameControllerClose", cheader_filename = "SDL2/SDL_gamecontroller.h.h")]
+		[CCode (cname = "SDL_GameController", free_function = "SDL_GameControllerClose", cheader_filename = "SDL2/SDL_gamecontroller.h")]
 		[Compact]
 		public class GameController {
 
