@@ -3049,7 +3049,16 @@ namespace SDL {
 			AUDIOMUTE, MEDIASELECT, WWW, MAIL, CALCULATOR, COMPUTER,
 			AC_SEARCH, AC_HOME, AC_BACK, AC_FORWARD, AC_STOP, AC_REFRESH,
 			AC_BOOKMARKS, BRIGHTNESSDOWN, BRIGHTNESSUP, DISPLAYSWITCH,
-			KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP
+			KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP;
+
+			[CCode (cname = "SDL_GetKeyName")]
+			public unowned string get_name();
+
+			[CCode (cname = "SDL_GetKeyFromName")]
+			public static Input.Keycode from_name (string name);
+
+			[CCode (cname = "SDL_GetKeyFromScancode")]
+			public static Input.Keycode from_scancode (Input.Scancode scancode);
 		}// Keycode
 
 		[CCode (cname = "SDL_Keymod", cprefix = "KMOD_", cheader_filename = "SDL2/SDL_keyboard.h")]
@@ -3102,7 +3111,17 @@ namespace SDL {
 			AUDIOMUTE, MEDIASELECT, WWW, MAIL, CALCULATOR, COMPUTER,
 			AC_SEARCH, AC_HOME, AC_BACK, AC_FORWARD, AC_STOP, AC_REFRESH,
 			AC_BOOKMARKS, BRIGHTNESSDOWN, BRIGHTNESSUP, DISPLAYSWITCH,
-			KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP, APP1, APP2
+			KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP, APP1, APP2;
+
+			[CCode (cname = "SDL_GetScancodeName")]
+			public unowned string get_name ();
+
+			[CCode (cname = "SDL_GetScancodeFromName")]
+			public static Input.Scancode from_name (string name);
+
+			[CCode (cname = "SDL_GetScancodeFromKey")]
+			public static Input.Scancode from_keycode (Input.Keycode key);
+
 		}// Scancode
 
 		[CCode (cname = "SDL_Keysym", cheader_filename = "SDL2/SDL_keyboard.h")]
@@ -3137,23 +3156,7 @@ namespace SDL {
 			[CCode (cname = "SDL_SetModState")]
 			public static void set_modifierstate (Input.Keymod modstate);
 
-			[CCode (cname = "SDL_GetKeyFromScancode")]
-			public static Input.Keycode key_fromscancode (Input.Scancode scancode);
-
-			[CCode (cname = "SDL_GetScancodeFromKey")]
-			public static Input.Scancode scancode_fromkey (Input.Keycode key);
-
-			[CCode (cname = "SDL_GetScancodeName")]
-			public static unowned string get_scancodename (Input.Scancode scancode);
-
-			[CCode (cname = "SDL_GetScancodeFromName")]
-			public static Input.Scancode scancode_fromname (string name);
-
-			[CCode (cname = "SDL_GetKeyName")]
-			public static unowned string get_keyname (Input.Keycode key);
-
-			[CCode (cname = "SDL_GetKeyFromName")]
-			public static Input.Keycode keycode_fromname (string name);
+			
 		}// Keyboard
 
 		[CCode (cheader_filename = "SDL2/SDL_keyboard.h")]
@@ -3525,8 +3528,7 @@ namespace SDL {
 				private string? _to_string ();
 
 				public string to_string () {
-					string? val = _to_string ();
-					return val ?? "INVALID";
+					return _to_string () ?? "INVALID";
 				}
 				[CCode (cname = "SDL_GameControllerGetAxisFromString")]
 				public static GameController.Axis from_string (string axis_string);
@@ -3540,9 +3542,8 @@ namespace SDL {
 				[CCode (cname = "SDL_GameControllerGetStringForButton")]
 				private string? _to_string ();
 
-				public string to_string () {
-					string? val = _to_string ();
-					return val ?? "INVALID";
+				ublic string to_string () {
+					return _to_string () ?? "INVALID";
 				}
 				[CCode (cname = "SDL_GameControllerGetButtonFromString")]
 				public static GameController.Button from_string (string button_string);
@@ -3856,8 +3857,8 @@ namespace SDL {
 
 			[CCode (cname = "SDL_BuildAudioCVT")]
 			public static int build (AudioConverter cvt, AudioFormat src_format,
-			uchar src_channels, int src_rate, AudioFormat dst_format,
-			uchar dst_channels, int dst_rate);
+			uint8 src_channels, int src_rate, AudioFormat dst_format,
+			uint8 dst_channels, int dst_rate);
 
 			[CCode (cname = "SDL_ConvertAudio")]
 			public int convert ();
@@ -3991,9 +3992,9 @@ namespace SDL {
 	[CCode (cname = "SDL_TimerCallback", cheader_filename = "SDL2/SDL_timer.h", has_target = true, delegate_target_pos = 0.1)]
 	public delegate uint32 TimerFunc (uint32 interval);
 
-	[CCode (cname = "SDL_TimerID", ref_function = "", unref_function = "", cheader_filename = "SDL2/SDL_timer.h")]
-	[Compact]
-	public class Timer {
+	[CCode (cname = "SDL_TimerID", cheader_filename = "SDL2/SDL_timer.h")]
+	[SimpleType, IntegerType (rank = 6)]
+	public struct Timer {
 		[CCode (cname = "SDL_GetTicks")]
 		public static uint32 get_ticks ();
 
@@ -4011,7 +4012,6 @@ namespace SDL {
 		public Timer (uint32 interval, SDL.TimerFunc callback);
 
 		[CCode (cname = "SDL_RemoveTimer")]
-		[DestroysInstance]
 		public bool remove ();
 	}// Timer
 
@@ -4030,17 +4030,28 @@ namespace SDL {
 		LOW, NORMAL, HIGH
 	}
 
-	[CCode (cname = "SDL_Thread", free_function = "SDL_WaitThread", cheader_filename = "SDL2/SDL_thread.h")]
+	[CCode (cname = "SDL_Thread", free_function = "vala_sdl_wait_thread", cheader_filename = "SDL2/SDL_thread.h")]
 	[Compact]
 	public class Thread {
 		[CCode (cname = "SDL_CreateThread", delegate_target_pos= 1.1)]
 		public Thread (ThreadFunc f, string name);
 
 		[CCode (cname = "SDL_ThreadID")]
-		public static uint32 id ();
+		public static ulong id ();
+
+		[CCode (cname = "SDL_WaitThread")]
+		private void _wait(out int status);
+
+		[CCode (cname = "vala_sdl_wait_thread")]
+		[DestroysInstance]
+		public int wait() {
+			int retval;
+			_wait(ref retval);
+			return retval;
+		}
 
 		[CCode (cname = "SDL_GetThreadID")]
-		public uint32 get_id ();
+		public ulong get_id ();
 
 		[CCode (cname = "SDL_GetThreadName")]
 		public string get_name ();
@@ -4051,6 +4062,7 @@ namespace SDL {
 		[Version (since = "2.0.2")]
 		[CCode (cname = "SDL_DetachThread")]
 		public void detach ();
+
 	}// Thread
 
 	[CCode (cname = "SDL_Mutex", free_function = "SDL_DestroyMutex")]
