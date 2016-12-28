@@ -48,11 +48,11 @@ namespace SDL {
 		 	* The app's temporary data store.  Unsupported on Windows Phone.<<BR>>
 		 	* Files written here may be deleted at any time.
 		 	*/
-			TEMP_FOLDER
-		}
+			TEMP_FOLDER;
 
-		[CCode (cname = "SDL_WinRTGetFSPathUTF8")]
-		public static unowned string get_fs_path (WinRTPath path_type);
+			[CCode (cname = "SDL_WinRTGetFSPathUTF8")]
+			public unowned string get_fs_path ();
+		}
 	}
 
 }

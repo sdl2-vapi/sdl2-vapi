@@ -48,7 +48,7 @@ namespace SDLMixer {
 	public static int get_synchro_value ();
 
 	[CCode (has_target = true, delegate_target_pos = 0)]
-	public delegate void MixFunction (uchar[] stream);
+	public delegate void MixFunction (uint8[] stream);
 	public delegate void MusicFinishedCallback ();
 	public delegate void ChannelFinishedCallback (int channel);
 	[CCode (has_target = true, delegate_target_pos = 2.1)]
@@ -76,10 +76,10 @@ namespace SDLMixer {
 		public Chunk.WAV (string file);
 
 		[CCode (cname = "Mix_QuickLoad_WAV")]
-		public Chunk.QuickWAV ([CCode (array_length = false)] uchar[] mem);
+		public Chunk.QuickWAV ([CCode (array_length = false)] uint8[] mem);
 
 		[CCode (cname = "Mix_QuickLoad_RAW")]
-		public Chunk.QuickRAW (uchar[] mem);
+		public Chunk.QuickRAW (uint8[] mem);
 
 		[CCode (cname = "Mix_VolumeChunk")]
 		public int volume (int num);
@@ -172,13 +172,13 @@ namespace SDLMixer {
 		public static void hook_finished (ChannelFinishedCallback? cb);
 
 		[CCode (cname = "Mix_SetPanning")]
-		public int pan (uchar left, uchar right);
+		public int pan (uint8 left, uint8 right);
 
 		[CCode (cname = "Mix_SetPosition")]
-		public int position (int16 degrees, uchar distance);
+		public int position (int16 degrees, uint8 distance);
 
 		[CCode (cname = "Mix_SetDistance")]
-		public int distance (uchar distance);
+		public int distance (uint8 distance);
 
 		[CCode (cname = "Mix_SetReverseStereo")]
 		public int reverse_stereo (int flip);
