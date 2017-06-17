@@ -559,7 +559,7 @@ namespace SDL {
 		[Version (since = "2.0.2")]
 		[CCode (cname = "SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK")]
 		public const string MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK;
-		
+
 		/**
 		 * A variable specifying if mouse click events are sent when clicking to focus an SDL window on Apple Mac OS X.
 		 *
@@ -911,7 +911,7 @@ namespace SDL {
 		public const string VIDEO_X11_NET_WM_PING;
 
 		/**
-		 * A hint that specifies if mouse click events are sent when clicking to focus an SDL window. 
+		 * A hint that specifies if mouse click events are sent when clicking to focus an SDL window.
 		 *
 		 * The variable can be set to the following values:
 		 *
@@ -943,14 +943,14 @@ namespace SDL {
 
 		/**
 		 * A hint that specifies whether SDL should not name threads on Microsoft Windows.
-		 * Might be useful if you want to interop with C# there. 
+		 * Might be useful if you want to interop with C# there.
 		 *
 		 * The variable can be set to the following values:
 		 *
 		 *  * "0"    - threads will be named
 		 *  * "1"    - threads will not be named
 		 *
-		 * By default SDL will name threads on Microsoft Windows. 
+		 * By default SDL will name threads on Microsoft Windows.
 		 *
 		*/
 		[Version (since = "2.0.5")]
@@ -958,15 +958,15 @@ namespace SDL {
 		public const string WINDOWS_DISABLE_THREAD_NAMING;
 
 		/**
-		 * A hint that specifies whether the Apple TV remote's joystick axes will automatically 
-		 * match the rotation of the remote. 
+		 * A hint that specifies whether the Apple TV remote's joystick axes will automatically
+		 * match the rotation of the remote.
 		 *
 		 * The variable can be set to the following values:
 		 *
 		 *  * "0"    - remote orientation does not affect joystick axes
 		 *  * "1"    - joystick axes are based on the orientation of the remote
 		 *
-		 * By default remote orientation does not affect joystick axes. 
+		 * By default remote orientation does not affect joystick axes.
 		 *
 		*/
 		[Version (since = "2.0.5")]
@@ -1157,26 +1157,26 @@ namespace SDL {
 
 		[CCode (cname = "SDL_RWwrite")]
 		public size_t write (void* ptr, size_t size, size_t num);
-		
+
 		[Version (since = "2.0.0")]
 		[CCode (cname = "SDL_WriteU8")]
 		public size_t write_u8 (uint8 val);
-		
+
 		[CCode (cname = "SDL_WriteBE16")]
 		public size_t write_be16 (uint16 val);
-		
+
 		[CCode (cname = "SDL_WriteLE16")]
 		public size_t write_le16 (uint16 val);
-		
+
 		[CCode (cname = "SDL_WriteBE32")]
 		public size_t write_be32 (uint32 val);
-		
+
 		[CCode (cname = "SDL_WriteLE32")]
 		public size_t write_le32 (uint32 val);
-		
+
 		[CCode (cname = "SDL_WriteBE64")]
 		public size_t write_be64 (uint64 val);
-		
+
 		[CCode (cname = "SDL_WriteLE64")]
 		public size_t write_le64 (uint64 val);
 
@@ -1195,7 +1195,7 @@ namespace SDL {
 
 		[CCode (cname = "SDL_RWFromMem")]
 		public RWops.from_mem (void* mem, int size);
-		
+
 		[Version (since = "2.0.0")]
 		public int64 size{
 			[CCode (cname = "SDL_RWsize")] get;
@@ -1210,21 +1210,21 @@ namespace SDL {
 		// TODO: Review if updated
 		FIRSTEVENT, QUIT, APP_TERMINATING,
 		APP_LOWMEMORY, APP_WILLENTERBACKGROUND, APP_DIDENTERBACKGROUND,
-		APP_WILLENTERFOREGROUND, APP_DIDENTERFOREGROUND, WINDOWEVENT, 
+		APP_WILLENTERFOREGROUND, APP_DIDENTERFOREGROUND, WINDOWEVENT,
 		SYSWMEVENT, KEYDOWN, KEYUP, TEXTEDITING,
 		TEXTINPUT, [Version (since = "2.0.4")] KEYMAPCHANGED, MOUSEMOTION,
-		MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEWHEEL, JOYAXISMOTION, 
+		MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEWHEEL, JOYAXISMOTION,
 		JOYBALLMOTION, JOYHATMOTION, JOYBUTTONDOWN, JOYBUTTONUP, JOYDEVICEADDED,
-		JOYDEVICEREMOVED, CONTROLLERAXISMOTION, CONTROLLERBUTTONDOWN, 
+		JOYDEVICEREMOVED, CONTROLLERAXISMOTION, CONTROLLERBUTTONDOWN,
 		CONTROLLERBUTTONUP, CONTROLLERDEVICEADDED,
-		CONTROLLERDEVICEREMOVED, CONTROLLERDEVICEREMAPPED, FINGERDOWN, 
+		CONTROLLERDEVICEREMOVED, CONTROLLERDEVICEREMAPPED, FINGERDOWN,
 		FINGERUP, FINGERMOTION, DOLLARGESTURE,
-		DOLLARRECORD, MULTIGESTURE, CLIPBOARDUPDATE, DROPFILE, 
+		DOLLARRECORD, MULTIGESTURE, CLIPBOARDUPDATE, DROPFILE,
 		[Version (since = "2.0.5")] DROPTEXT,
 		[Version (since = "2.0.5")] DROPBEGIN,
-		[Version (since = "2.0.4")] DROPCOMPLETE, 
+		[Version (since = "2.0.4")] DROPCOMPLETE,
 		[Version (since = "2.0.4")] AUDIODEVICEADDED,
-		[Version (since = "2.0.4")] AUDIODEVICEREMOVED, 
+		[Version (since = "2.0.4")] AUDIODEVICEREMOVED,
 		[Version (since = "2.0.2")] RENDER_TARGETS_RESET,
 		[Version (since = "2.0.4")] RENDER_DEVICE_RESET, USEREVENT, LASTEVENT;
 	}// EventType
@@ -1522,7 +1522,7 @@ namespace SDL {
 		public SDL.ControllerAxisEvent caxis;
 		public SDL.ControllerButtonEvent cbutton;
 		public SDL.ControllerDeviceEvent cdevice;
-		[Version (since = "2.0.4")] 
+		[Version (since = "2.0.4")]
 		public SDL.AudioDeviceEvent adevice;
 		public SDL.QuitEvent quit;
 		public SDL.UserEvent user;
@@ -2043,7 +2043,7 @@ namespace SDL {
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_RenderTargetSupported")]
 			public bool is_supported ();
-			
+
 			[Version (since = "2.0.0")]
 			public Video.Texture? render_target{
 				[CCode (cname = "SDL_GetRenderTarget")]get;
@@ -2075,11 +2075,11 @@ namespace SDL {
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_RenderGetScale")]
 			public void get_scale (out float scale_x, out float scale_y);
-			
+
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_RenderSetIntegerScale")]
 			public int set_int_scale (bool enable);
-			
+
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_RenderGetIntegerScale")]
 			public bool get_int_scale ();
@@ -2134,7 +2134,7 @@ namespace SDL {
 
 			[CCode (cname = "SDL_RenderPresent")]
 			public void present ();
-			
+
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_GetRendererOutputSize")]
 			public void get_output_size (out int w, out int h);
@@ -2172,7 +2172,7 @@ namespace SDL {
 
 			[CCode (cname = "SDL_UpdateTexture")]
 			public int update (Video.Rect? rect, void* pixels, int pitch);
-			
+
 			[Version (since = "2.0.1")]
 			[CCode (cname = "SDL_UpdateYUVTexture")]
 			public int update_yuv (Video.Rect? rect, uint8[] yplane, int ypitch, uint8[] uplane, int upitch, uint8[] vplane, int vpitch);
@@ -2205,7 +2205,7 @@ namespace SDL {
 			public void* driverdata; //Please, initialize as NULL
 		}// DisplayMode
 
-		[Version (since = "2.0.0")] 
+		[Version (since = "2.0.0")]
 		[Flags, CCode (cname = "SDL_WindowFlags", cprefix = "SDL_WINDOW_", cheader_filename = "SDL2/SDL_video.h")]
 		public enum WindowFlags {
 			FULLSCREEN, FULLSCREEN_DESKTOP, OPENGL, SHOWN, HIDDEN, BORDERLESS,
@@ -2297,7 +2297,7 @@ namespace SDL {
 			public SDL.Version version;
 			public SysWMType subsystem;
 			public int dummy;
-			
+
 			//if SDL_SYSWM_WINDOWS
 			[CCode (cname = "win.hwnd")]
 			public void* win_hwnd;
@@ -2307,20 +2307,20 @@ namespace SDL {
 			public void* win_wparam;
 			[CCode (cname = "win.lParam")]
 			public void* win_lparam;
-			
+
 			//if SDL_SYSWM_X11
 			[CCode (cname = "x11.event")]
 			public void* x11_event;
-			
+
 			//if SDL_SYSWM_DIRECTFB
 			[CCode (cname = "dfb.event")]
 			public void* dfb_event;
-			
+
 			//if SDL_SYSWM_COCOA
 			[Version (since = "2.0.4")]
 			[CCode (cname = "cocoa.dummy")]
 			public int cocoa_dummy;
-			
+
 			//if SDL_SYSWM_UIKIT
 			[Version (since = "2.0.4")]
 			[CCode (cname = "uikit.dummy")]
@@ -2335,7 +2335,7 @@ namespace SDL {
 			public SDL.Version version;
 			public SysWMType subsystem;
 			public int dummy;
-			
+
 			//if SDL_SYSWM_WINDOWS
 
 			/*the window handle*/
@@ -2388,7 +2388,7 @@ namespace SDL {
 			[CCode (cname = "uikit.window")]
 			public void* uikit_window;
 
-			/** 
+			/**
 			 * the GL view's Framebuffer Object; it must be bound when rendering to the screen using GL (>= SDL 2.0.4)
 			 */
 			[Version (since = "2.0.4")]
@@ -2553,7 +2553,7 @@ namespace SDL {
 			[CCode (cname = "SDL_SetWindowIcon")]
 			public void set_icon (Video.Surface icon);
 
-			
+
 			//Maybe this can be binded as a Simple Generics?
 			[CCode (cname = "SDL_SetWindowData", simple_generics = true)]
 			public void set_data<T> (string key, owned T data);
@@ -2644,7 +2644,7 @@ namespace SDL {
 			[Version (since = "2.0.1")]
 			[CCode (cname = "SDL_GL_GetDrawableSize")]
 			public void get_gl_drawable_size (out int? w, out int? h);
-			
+
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_GetWindowBorderSize")]
 			public int get_border_size (out int? top, out int? left, out int? bottom, out int? right);
@@ -2652,17 +2652,17 @@ namespace SDL {
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_SetWindowOpacity")]
 			public int set_opacity (float opacity);
-			
+
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_GetWindowOpacity")]
 			public int get_opacity (out float? opacity);
-			
+
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_SetWindowInputFocus")]
 			public int set_input_focus ();
 
 			/**
-			 * Use this function to set the window as a modal for another window. 
+			 * Use this function to set the window as a modal for another window.
 			 *
 			 * This only works in X11
 			 */
@@ -2684,7 +2684,7 @@ namespace SDL {
 			 *
 			 * @param shape A {@link Surface} encoding the desired shape for the window.
 			 * @param mode The {@link ShapeMode} with the parameters to set for the shaped window.
-			 * 
+			 *
 			 * @throws ShapeError if there's any error
 			 * @see ShapeMode
 			 * @see get_shape_mode
@@ -2693,7 +2693,7 @@ namespace SDL {
 			[CCode (cname = "vala_set_shape_mode")]
 			public void set_window_shape (Surface shape, ShapeMode mode) throws ShapeError {
 				int retval = orig_set_window_shape(shape, mode);
-				
+
 				if (retval < 0) {
 					switch (retval) {
 						case SDL_NONSHAPEABLE_WINDOW:
@@ -2711,7 +2711,7 @@ namespace SDL {
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_SetWindowShape", cheader_filename = "SDL2/SDL_shape.h")]
 			private int orig_set_window_shape (Surface shape, ShapeMode? shape_mode);
-			 
+
 			/**
 			 * Get the shape parameters of a shaped window.
 			 *
@@ -2726,7 +2726,7 @@ namespace SDL {
 			public ShapeMode get_shape_mode () throws ShapeError {
 				ShapeMode mode;
 				int retval = orig_get_shaped_mode(mode);
-				
+
 				if (retval < 0) {
 					switch (retval) {
 						case SDL_NONSHAPEABLE_WINDOW:
@@ -2747,7 +2747,7 @@ namespace SDL {
 			[CCode (cname = "SDL_GetShapedWindowMode", cheader_filename = "SDL2/SDL_shape.h")]
 			private int orig_get_shaped_mode (ShapeMode? shape_mode);
 
-			/** 
+			/**
 			 * A convenience method to check wether the window has a shape or not.
 			 */
 			public bool has_shape(){
@@ -2761,7 +2761,7 @@ namespace SDL {
 				 * The default mode, a binarized alpha cutoff of 1.
 				 */
 				[CCode (cname = "ShapeModeDefault")] DEFAULT,
-				/** 
+				/**
 				 * A binarized alpha cutoff with a given integer value.
 				 */
 				[CCode (cname = "ShapeModeBinarizeAlpha")] BINARIZE_ALPHA,
@@ -2781,12 +2781,12 @@ namespace SDL {
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_WindowShapeMode", type_id = "SDL_WindowShapeMode" , cheader_filename = "SDL2/SDL_shape.h")]
 			public struct ShapeMode {
-				/** 
+				/**
 				 * The mode of these window-shape parameters.
 				 */
 				public ShapeModeType mode;
-				/** 
-				 * a cutoff alpha value for binarization of the window shape's alpha channel. 
+				/**
+				 * a cutoff alpha value for binarization of the window shape's alpha channel.
 				 */
 			 	[CCode (cname = "parameters.binarizationCutoff")]
 				public uint8 binarization_cutoff;
@@ -2828,7 +2828,7 @@ namespace SDL {
 				[Version (deprecated = true)] RETAINED_BACKING,
 				CONTEXT_MAJOR_VERSION, CONTEXT_MINOR_VERSION,
 				CONTEXT_FLAGS, CONTEXT_PROFILE_MASK,
-				SHARE_WITH_CURRENT_CONTEXT, 
+				SHARE_WITH_CURRENT_CONTEXT,
 				[Version (since = "2.0.1")] FRAMEBUFFER_SRGB_CAPABLE,
 				[Version (since = "2.0.4")] CONTEXT_RELEASE_BEHAVIOR,
 				[Version (deprecated = true)] CONTEXT_EGL
@@ -2868,7 +2868,7 @@ namespace SDL {
 
 			[CCode (cname = "SDL_GL_MakeCurrent")]
 			public static int make_current (Video.Window window, Video.GL.Context context);
-			
+
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_GL_SetSwapInterval")]
 			public static int set_swapinterval (int interval);
@@ -2879,11 +2879,11 @@ namespace SDL {
 
 			[CCode (cname = "SDL_GL_SwapWindow")]
 			public static void swap_window (Video.Window window);
-			
+
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_GL_GetCurrentContext")]
 			public static Video.GL.Context? get_current_context ();
-			
+
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_GL_GetCurrentWindow")]
 			public static Video.Window? get_current_window ();
@@ -2937,8 +2937,8 @@ namespace SDL {
 				 * A field composed of {@link MessageBox.ButtonFlags}
 				 */
 				public uint32 flags;
-				/** 
-				 * User defined button id (value returned via SDL_ShowMessageBox) 
+				/**
+				 * User defined button id (value returned via SDL_ShowMessageBox)
 				 */
 				public int buttonid;
 
@@ -2958,12 +2958,12 @@ namespace SDL {
 
 			[CCode (cname = "SDL_MessageBoxData", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
 			public struct Data {
-				
+
 				/**
 				 * A field composed of {@link MessageBox.Flags}
 				 */
 				public uint32 flags;
-				
+
 				[CCode (cname = "window")]
 				public Video.Window? parent_window;
 				public string title;
@@ -2999,11 +2999,11 @@ namespace SDL {
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_GetClipboardText")]
 			public static string? get_text ();
-			
+
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_SetClipboardText")]
 			public static int set_text (string text);
-			
+
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_HasClipboardText")]
 			public static bool has_text ();
@@ -3156,7 +3156,7 @@ namespace SDL {
 			[CCode (cname = "SDL_SetModState")]
 			public static void set_modifierstate (Input.Keymod modstate);
 
-			
+
 		}// Keyboard
 
 		[CCode (cheader_filename = "SDL2/SDL_keyboard.h")]
@@ -3421,7 +3421,7 @@ namespace SDL {
 			[CCode (cname = "SDL_GetNumTouchFingers", cheader_filename = "SDL2/SDL_touch.h")]
 			public static int num_fingers (TouchID touch_id);
 
-			
+
 
 			[CCode (cname = "SDL_Finger", type_id = "SDL_Finger", cheader_filename = "SDL2/SDL_touch.h")]
 			[Compact]
@@ -3445,7 +3445,7 @@ namespace SDL {
 			[Version (since = "2.0.0")]
 			[CCode (cname = "SDL_GameControllerOpen")]
 			public GameController (int device_index);
-			
+
 			[Version (since = "2.0.4")]
 			[CCode (cname = "SDL_GameControllerFromInstanceID")]
 			public static GameController? create_from_instance_id (Input.JoystickID id);
@@ -3542,7 +3542,7 @@ namespace SDL {
 				[CCode (cname = "SDL_GameControllerGetStringForButton")]
 				private string? _to_string ();
 
-				ublic string to_string () {
+				public string to_string () {
 					return _to_string () ?? "INVALID";
 				}
 				[CCode (cname = "SDL_GameControllerGetButtonFromString")]
