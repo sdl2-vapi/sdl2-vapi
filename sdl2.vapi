@@ -4046,7 +4046,7 @@ namespace SDL {
 		[DestroysInstance]
 		public int wait() {
 			int retval;
-			_wait(ref retval);
+			_wait(out retval);
 			return retval;
 		}
 
