@@ -221,7 +221,7 @@ namespace SDLMixer {
 	}// Channel
 
 	[CCode (cname = "-1")]
-	public static const SDLMixer.Channel DEFAULT_CHANNEL;
+	public const SDLMixer.Channel DEFAULT_CHANNEL;
 
 	[CCode (cname = "int")]
 	[SimpleType]

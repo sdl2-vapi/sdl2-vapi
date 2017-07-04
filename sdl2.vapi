@@ -1274,7 +1274,7 @@ namespace SDL {
 	[Compact]
 	public struct TextEditingEvent : CommonEvent {
 		[CCode (cname = "SDL_TEXTEDITINGEVENT_TEXT_SIZE")]
-		public static const uint8 TEXT_SIZE;
+		public const uint8 TEXT_SIZE;
 
 		[CCode (cname = "windowID")]
 		public uint32 window_id;
@@ -1287,7 +1287,7 @@ namespace SDL {
 	[Compact]
 	public struct TextInputEvent : CommonEvent {
 		[CCode (cname = "SDL_TEXTINPUTEVENT_TEXT_SIZE")]
-		public static const uint8 TEXT_SIZE;
+		public const uint8 TEXT_SIZE;
 
 		[CCode (cname = "windowID")]
 		public uint32 window_id;
@@ -2467,17 +2467,17 @@ namespace SDL {
 		[Compact]
 		public class Window {
 			[CCode (cname = "SDL_WINDOWPOS_UNDEFINED_MASK")]
-			public static const uint8 POS_UNDEFINED;
+			public const uint8 POS_UNDEFINED;
 
 			[CCode (cname = "SDL_WINDOWPOS_CENTERED_MASK")]
-			public static const uint8 POS_CENTERED;
+			public const uint8 POS_CENTERED;
 
 			[CCode (cname = "SDL_NONSHAPEABLE_WINDOW", cheader_filename = "SDL2/SDL_shape.h")]
-			private static const int8 SDL_NONSHAPEABLE_WINDOW;
+			private const int8 SDL_NONSHAPEABLE_WINDOW;
 			[CCode (cname = "SDL_INVALID_SHAPE_ARGUMENT", cheader_filename = "SDL2/SDL_shape.h")]
-			private static const int8 SDL_INVALID_SHAPE_ARGUMENT;
+			private const int8 SDL_INVALID_SHAPE_ARGUMENT;
 			[CCode (cname = "SDL_WINDOW_LACKS_SHAPE", cheader_filename = "SDL2/SDL_shape.h")]
-			private static const int8 SDL_WINDOW_LACKS_SHAPE;
+			private const int8 SDL_WINDOW_LACKS_SHAPE;
 
 			[Version (since = "2.0.4")]
 			[CCode (cname = "SDL_GetGrabbedWindow")]
