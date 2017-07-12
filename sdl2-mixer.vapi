@@ -134,7 +134,7 @@ namespace SDLMixer {
 		public Music (string file);
 
 		[CCode (cname = "Mix_LoadMUS_RW")]
-		public Music.RW (SDL.RWops rw);
+		public Music.RW (SDL.RWops rw, bool freesrc);
 
 		[CCode (cname = "Mix_GetMusicType")]
 		public MusicType type ();
