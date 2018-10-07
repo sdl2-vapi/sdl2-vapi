@@ -25,7 +25,8 @@ THE SOFTWARE.
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 // Compilation command:
-// valac -o "basics" --pkg sdl2 --pkg sdl2-gfx --pkg sdl2-ttf --pkg sdl2-image --pkg sdl2-mixer -X -lSDL2_image  -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx "multiple_subsystems.vala"
+// valac -o subsystems --pkg sdl2 --pkg SDL2_gfx --pkg SDL2_ttf --pkg SDL2_image --pkg SDL2_mixer multiple_subsystems.vala
+
 
 using SDL;
 using SDLImage;
