@@ -47,10 +47,10 @@ namespace SDL {
 		public static int get_external_storage_state ();
 
 		[CCode (cname = "SDL_ANDROID_EXTERNAL_STORAGE_READ")]
-		public static const int EXTERNAL_STORAGE_READ;
+		public const int EXTERNAL_STORAGE_READ;
 
 		[CCode (cname = "SDL_ANDROID_EXTERNAL_STORAGE_WRITE")]
-		public static const int EXTERNAL_STORAGE_WRITE;
+		public const int EXTERNAL_STORAGE_WRITE;
 	}// Android
 
 

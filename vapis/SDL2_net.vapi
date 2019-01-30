@@ -54,10 +54,10 @@ namespace SDLNet {
 		public uint16 port;
 
 		[CCode (cname = "INADDR_ANY")]
-		public static const uint ANY;
+		public const uint ANY;
 
 		[CCode (cname = "INADDR_NONE")]
-		public static const uint NONE;
+		public const uint NONE;
 
 		[CCode (cname = "SDLNet_ResolveHost")]
 		public static int from_host (out IPAddress address, string? host, uint16 port);
