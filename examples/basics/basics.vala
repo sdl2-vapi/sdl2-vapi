@@ -35,6 +35,8 @@ public class SDLSample : Object {
 		renderer = Video.Renderer.create (window, -1, Video.RendererFlags.ACCELERATED | Video.RendererFlags.PRESENTVSYNC);
 		window.show ();
 		assert (renderer != null);
+		renderer.set_draw_color (0, 0, 0, 255);
+		renderer.fill_rect ( {0, 0, 1024, 768} ) ;
     }
 
     private void draw () {
