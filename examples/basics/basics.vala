@@ -6,10 +6,10 @@ using SDLGraphics;
 
 public class SDLSample : Object {
 
-    private const int SCREEN_WIDTH = 640;
-    private const int SCREEN_HEIGHT = 480;
+    private const int SCREEN_WIDTH = 800;
+    private const int SCREEN_HEIGHT = 600;
     private const int SCREEN_BPP = 32;
-    private const int DELAY = 10;
+    private const int DELAY = 50;
 
     private Video.Window window;
     private Video.Renderer? renderer;

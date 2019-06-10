@@ -89,6 +89,7 @@ namespace SDL {
 	 *
 	 * @return Returns 0 on success or a negative error code on failure; call {@link SDL.get_error} for more information.
 	 */
+	[Version (since = "2.0.0")]
 	[CCode (cname = "SDL_Init")]
 	public static int init (uint32 flags = SDL.InitFlag.EVERYTHING);
 
@@ -168,6 +169,7 @@ namespace SDL {
 	[CCode (cheader_filename = "SDL2/SDL_cpuinfo.h")]
 	[Compact]
 	public class CPU {
+		[Version (since = "2.0.0")]
 		[CCode (cname = "SDL_GetCPUCacheLineSize")]
 		public static int get_cache_line_size ();
 		//Actual function name was misleading, you get logical core count, not physical CPU count
@@ -179,6 +181,7 @@ namespace SDL {
 		[CCode (cname = "SDL_GetSystemRAM")]
 		public static int get_system_ram ();
 
+		[Version (since = "2.0.0")]
 		[CCode (cname = "SDL_Has3DNow")]
 		public static bool has_3dnow ();
 
@@ -546,7 +549,7 @@ namespace SDL {
 		 *
 		 * Supported for iOS since SDL 2.0.4.
 		 */
-		 [Version (since = "2.0.1")]
+		[Version (since = "2.0.1")]
 		[CCode (cname = "SDL_HINT_VIDEO_HIGHDPI_DISABLED")]
 		public const string VIDEO_HIGHDPI_DISABLED;
 
@@ -1015,6 +1018,8 @@ namespace SDL {
 		[CCode (cname = "SDL_AddHintCallback", cheader_filename = "SDL2/SDL_hints.h")]
 		public static void add_callback (string name, HintFunc callback);
 
+
+
 		/**
 		 * Use this function to remove a function watching a particular hint.
 		 *
@@ -1032,7 +1037,7 @@ namespace SDL {
 		 * variable that takes precedence. You can use {@link set_hint_with_priority}
 		 * to set the hint with override priority instead.
 		 *
-		 * @param name The hint to set. Use one of the string constans from the {@link Hint} class.
+		 * @param name The hint to set. Use one of the string constants from the {@link Hint} class.
 		 * @param hint_value The value of the hint variable.
 		 *
 		 * @return true if the hint was set. false otherwise.
@@ -1043,7 +1048,7 @@ namespace SDL {
 		/**
 		 * Use this function to get the value of a hint.
 		 *
-		 * @param name The hint to query. Use the constans from the {@link Hint} class.
+		 * @param name The hint to query. Use the constants from the {@link Hint} class.
 		 *
 		 * @return Returns the string value of a hint or null if the hint isn't set.
 		 */
@@ -1055,7 +1060,24 @@ namespace SDL {
 		 */
 		[Version (since = "2.0.5")]
 		[CCode (cname = "SDL_GetHintBoolean", cheader_filename = "SDL2/SDL_hints.h")]
-		public static bool hint_enabled (string name, bool default_value);
+		public static bool is_hint_enabled (string name, bool default_value);
+
+		/**
+		 * Use this function to set a boolean hint with normal priority.
+		 *
+		 * Hints will not be set if there is an existing override hint or environment
+		 * variable that takes precedence. You can use {@link set_hint_with_priority}
+		 * to set the hint with override priority instead. This is just a helper function
+		 * that calls {@link set_hint} internally.
+		 *
+		 * @param name The hint to set. Use one of the string constants from the {@link Hint} class.
+		 * @param hint_value The value of the hint variable.
+		 *
+		 * @return true if the hint was set. false otherwise.
+		 */
+		public static bool set_hint_enabled (string name, bool hint_value) {
+			return set_hint(name, hint_value ? "1" : "0");
+		}
 
 		/**
 		 * Use this function to clear all hints.
@@ -1068,7 +1090,7 @@ namespace SDL {
 		/**
 		 * Use this function to set a hint with a specific priority.
 		 *
-		 * @param name The hint to set. Use the constans from the {@link Hint} class.
+		 * @param name The hint to set. Use the constants from the {@link Hint} class.
 		 * @param hint_value The value of the hint variable.
 		 * @param priority The {@link Hint.Priority} level for the hint.
 		 *
@@ -3531,7 +3553,7 @@ namespace SDL {
 					return _to_string () ?? "INVALID";
 				}
 				[CCode (cname = "SDL_GameControllerGetAxisFromString")]
-				public static GameController.Axis from_string (string axis_string);
+				public static GameController.Axis? from_string (string axis_string);
 			}
 
 			[Version (since = "2.0.0")]
@@ -3546,7 +3568,7 @@ namespace SDL {
 					return _to_string () ?? "INVALID";
 				}
 				[CCode (cname = "SDL_GameControllerGetButtonFromString")]
-				public static GameController.Button from_string (string button_string);
+				public static GameController.Button? from_string (string button_string);
 			}
 			[CCode (cprefix = "SDL_CONTROLLER_BINDTYPE_", cheader_filename = "SDL2/SDL_gamecontroller.h")]
 			public enum BindType {

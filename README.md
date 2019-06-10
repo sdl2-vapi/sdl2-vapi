@@ -11,7 +11,7 @@ If you spot any bug, any missing functionality, or any regression, you should re
 The following will not be implemented:
 
  - SDL_loadso.h: There's a better implementation of that using gmodule-2.0 (part of GLib framework)
- - SDL_log.h: GLib provides a more powerful log implementation (this is up for debate)
+ - SDL_log.h: GLib provides a more powerful log implementation (we will, however, provide integration with GLib logging facilities)
  - SDL_system.h: Already provided by GLib
  - SDL_platform.h: Not useful on Vala
  - SDL_endian.h: Already provided by GLib

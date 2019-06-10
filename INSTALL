@@ -4,4 +4,4 @@ if [ -z "$VAPI_PATH" ] ; then
 fi
 echo $VAPI_PATH
 mkdir "$VAPI_PATH" -p
-cp ./*.{vapi,deps} "$VAPI_PATH" -R --force
+cp ./vapis/*.{vapi,deps} "$VAPI_PATH" -R --force

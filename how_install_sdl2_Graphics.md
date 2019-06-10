@@ -1,9 +1,11 @@
 Install steps	
+
 	1. Make sure you already have the libraries (On Debian based systems, you need the libsdl2-*-dev packages)
 	2. Copy the desired vapi files in the 3rd party vapi directory: /usr/local/share/vala/vapi/
+
 You can optionally run the install script (sh INSTALL) to do the copy for you
 You can optionally export VAPI_PATH to customize the path where the vapis will
 be instaled.
-To build your application use this command (Remove packages if unneeded):
 
-valac -o appname --pkg sdl2 --pkg SDL2_gfx --pkg SDL2_ttf --pkg SDL2_image --pkg SDL2_mixer appname.vala
+Check the meson files in `examples` for an example on using this vapi files.
+
