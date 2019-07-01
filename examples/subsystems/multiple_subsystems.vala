@@ -35,6 +35,8 @@ public class Example {
 		SDL.init (SDL.InitFlag.EVERYTHING| SDLImage.InitFlags.ALL);
 		SDLTTF.init();
 
+		SDL.Hint.set_hint_enabled(SDL.Hint.VIDEO_HIGHDPI_DISABLED, false);
+
 		window = new Video.Window ("Testing SDL 2 in Vala: Keyboard, Textures and Sound", Video.Window.POS_CENTERED, Video.Window.POS_CENTERED, 1024,768, Video.WindowFlags.RESIZABLE);
 		var a = SDLMixer.open (44100,Audio.AudioFormat.S16LSB,2,4096);
 		stdout.printf ("%d\n",a);

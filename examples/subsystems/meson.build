@@ -4,8 +4,9 @@ conf_data = configuration_data()
 conf_data.set('VERSION', meson.project_version())
 conf_data.set('COPYRIGHT_YEARS', '2019')
 conf_data.set('ASSETSDIR', assets_dir)
+conf_data.set('RELEASE_NAME', 'sdl2 subsystem example')
 
-install_data(['font.ttf', 'pic.png', 'sound.ogg'] , install_dir : assets_dir, install: true)
+install_data(['font.ttf', 'pic.png', 'sound.ogg'] , install_dir : assets_dir)
 config_file = configure_file(input : 'config.vala.in', output : 'config.vala', configuration : conf_data)
 
 sdl2_subsystems_sources = [

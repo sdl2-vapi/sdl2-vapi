@@ -1,27 +1,27 @@
-/*
-The MIT License (MIT)
+//
+// The MIT License (MIT)
+//
+// Copyright (c) 2016-2019 <sdl2.vapi>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
 
-Copyright (c) <2016> <SDL2.0 vapi>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
-//FOR: SDL2.0.3 - This is not official, to be futurely changed for the official binding
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
 
 [CCode (cprefix = "SDL_", cheader_filename = "SDL2/SDL.h")]
@@ -172,7 +172,10 @@ namespace SDL {
 		[Version (since = "2.0.0")]
 		[CCode (cname = "SDL_GetCPUCacheLineSize")]
 		public static int get_cache_line_size ();
-		//Actual function name was misleading, you get logical core count, not physical CPU count
+
+		/**
+		 * This function name is misleading, you get logical core count, not physical CPU count
+		 */
 		[Version (since = "2.0.0")]
 		[CCode (cname = "SDL_GetCPUCount")]
 		public static int get_num_cores ();
@@ -426,7 +429,7 @@ namespace SDL {
 		 *
 		 * By default SDL will use raw input for relative mouse mode
 		 */
-		 [Version (since = "2.0.2")]
+		[Version (since = "2.0.2")]
 		[CCode (cname = "SDL_HINT_MOUSE_RELATIVE_MODE_WARP")]
 		public const string MOUSE_RELATIVE_MODE_WARP;
 
@@ -975,6 +978,402 @@ namespace SDL {
 		[Version (since = "2.0.5")]
 		[CCode (cname = "SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION")]
 		public const string APPLE_TV_REMOTE_ALLOW_ROTATION;
+
+
+		/**
+		 * A variable controlling speed/quality tradeoff of audio resampling.
+		 *
+		 * If available, SDL can use [[http://www.mega-nerd.com/SRC/|libsamplerate]]
+		 * to handle audio resampling. There are different resampling modes available
+		 * that produce different levels of quality, using more CPU.
+		 *
+		 * If this hint isn't specified to a valid setting, or libsamplerate isn't
+		 * available, SDL will use the default, internal resampling algorithm.
+		 *
+		 * Note that this is currently only applicable to resampling audio that is
+		 * being written to a device for playback or audio being read from a device
+		 * for capture. SDL_AudioCVT always uses the default resampler (although this
+		 * might change for SDL 2.1).
+		 *
+		 * This hint is currently only checked at audio subsystem initialization.
+		 *
+		 * This variable can be set to the following values:
+		 *
+		 *  * "0" or "default" - Use SDL's internal resampling (Default when not set - low quality, fast)
+		 *  * "1" or "fast"    - Use fast, slightly higher quality resampling, if available
+		 *  * "2" or "medium"  - Use medium quality resampling, if available
+		 *  * "3" or "best"    - Use high quality resampling, if available
+		 */
+		[Version (since = "2.0.6")]
+		[CCode (cname = "SDL_HINT_AUDIO_RESAMPLING_MODE")]
+		public const string AUDIO_RESAMPLING_MODE;
+
+
+		/**
+		 * A variable controlling the scaling policy for SDL_RenderSetLogicalSize.
+		 *
+		 * This variable can be set to the following values:
+		 *
+		 *  * "0" or "letterbox" - Uses letterbox/sidebars to fit the entire rendering on screen
+		 *  * "1" or "overscan"  - Will zoom the rendering so it fills the entire screen, allowing edges to be drawn offscreen
+		 *
+		 * By default letterbox is used
+		 */
+		[Version (since = "2.0.6")]
+		[CCode (cname = "SDL_HINT_RENDER_LOGICAL_SIZE_MODE")]
+		public const string RENDER_LOGICAL_SIZE_MODE;
+
+		/**
+		 *  A variable setting the speed scale for mouse motion, in floating point, when the mouse is not in relative mode
+		 */
+		[Version (since = "2.0.6")]
+		[CCode (cname = "SDL_HINT_MOUSE_NORMAL_SPEED_SCALE")]
+		public const string MOUSE_NORMAL_SPEED_SCALE;
+
+
+		/**
+		 *  A variable setting the scale for mouse motion, in floating point, when the mouse is in relative mode
+		 */
+		[Version (since = "2.0.6")]
+		[CCode (cname ="SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE" )]
+		public const string MOUSE_RELATIVE_SPEED_SCALE;
+
+		/**
+		 * A variable controlling whether touch events should generate synthetic mouse events
+		 *
+		 * This variable can be set to the following values:
+		 *
+		 *  * "0"       - Touch events will not generate mouse events
+		 *  * "1"       - Touch events will generate mouse events
+		 *
+		 *  By default SDL will generate mouse events for touch events
+		 */
+		[Version (since = "2.0.6")]
+		[CCode (cname = "SDL_HINT_TOUCH_MOUSE_EVENTS")]
+		public const string TOUCH_MOUSE_EVENTS;
+
+		/**
+		 * A variable to specify custom icon resource id from RC file on Windows platform
+		 */
+		[Version (since = "2.0.6")]
+		[CCode (cname = "SDL_HINT_WINDOWS_INTRESOURCE_ICON")]
+		public const string WINDOWS_INTRESOURCE_ICON;
+
+		/**
+		 * A variable to specify custom icon resource id from RC file on Windows platform (small size)
+		 */
+		[Version (since = "2.0.6")]
+		[CCode (cname = "SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL")]
+		public const string WINDOWS_INTRESOURCE_ICON_SMALL;
+
+		/**
+		 * A variable controlling whether the home indicator bar on iPhone X should be hidden.
+		 *
+		 * This variable can be set to the following values:
+		 *
+		 *  * "0"       - The indicator bar is not hidden (default for windowed applications)
+		 *  * "1"       - The indicator bar is hidden and is shown when the screen is touched (useful for movie playback applications)
+		 *  * "2"       - The indicator bar is dim and the first swipe makes it visible and the second swipe performs the "home" action (default for fullscreen applications)
+		 */
+		[Version (since = "2.0.8")]
+		[CCode (cname = "SDL_HINT_IOS_HIDE_HOME_INDICATOR")]
+		public const string IOS_HIDE_HOME_INDICATOR;
+
+		/**
+		 *  A variable setting the double click time, in milliseconds.
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_MOUSE_DOUBLE_CLICK_TIME")]
+		public const string MOUSE_DOUBLE_CLICK_TIME;
+
+		/**
+		 *  A variable setting the double click radius, in pixels.
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_MOUSE_DOUBLE_CLICK_RADIUS")]
+		public const string MOUSE_DOUBLE_CLICK_RADIUS;
+
+		/**
+		 * A variable controlling whether the HIDAPI joystick drivers should be used.
+		 *
+		 * This variable can be set to the following values:
+		 *
+		 *  * "0"       - HIDAPI drivers are not used
+		 *  * "1"       - HIDAPI drivers are used (the default)
+		 *
+		 * This variable is the default for all drivers, but can be overridden by the hints for specific drivers below.
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI")]
+		public const string JOYSTICK_HIDAPI;
+
+		/**
+		 * A variable controlling whether the HIDAPI driver for PS4 controllers should be used.
+		 *
+		 * This variable can be set to the following values:
+		 *
+		 *   * "0"       - HIDAPI driver is not used
+		 *   * "1"       - HIDAPI driver is used
+		 *
+		 * The default is the value of {@link JOYSTICK_HIDAPI}
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI_PS4")]
+		public const string JOYSTICK_HIDAPI_PS4;
+
+		/**
+		 *  A variable controlling whether extended input reports should be used for PS4 controllers when using the HIDAPI driver.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *    * "0"       - extended reports are not enabled (the default)
+		 *    * "1"       - extended reports
+		 *
+		 *  Extended input reports allow rumble on Bluetooth PS4 controllers, but
+		 *  break DirectInput handling for applications that don't use SDL.
+		 *
+		 *  Once extended reports are enabled, they can not be disabled without
+		 *  power cycling the controller.
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE")]
+		public const string JOYSTICK_HIDAPI_PS4_RUMBLE;
+
+		/**
+		 *  A variable controlling whether the HIDAPI driver for Steam Controllers should be used.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *    * "0"       - HIDAPI driver is not used
+		 *    * "1"       - HIDAPI driver is used
+		 *
+		 *  The default is the value of {@link JOYSTICK_HIDAPI}
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI_STEAM")]
+		public const string JOYSTICK_HIDAPI_STEAM;
+
+		/**
+		 *  A variable controlling whether the HIDAPI driver for Nintendo Switch controllers should be used.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *    * "0"       - HIDAPI driver is not used
+		 *    * "1"       - HIDAPI driver is used
+		 *
+		 *  The default is the value of {@link JOYSTICK_HIDAPI}
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI_SWITCH")]
+		public const string JOYSTICK_HIDAPI_SWITCH;
+
+		/**
+		 *  A variable controlling whether the HIDAPI driver for XBox controllers should be used.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *    * "0"       - HIDAPI driver is not used
+		 *    * "1"       - HIDAPI driver is used
+		 *
+		 *  The default is the value of {@link JOYSTICK_HIDAPI}
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI_XBOX")]
+		public const string JOYSTICK_HIDAPI_XBOX;
+
+		/**
+		 *  A variable that controls whether Steam Controllers should be exposed using the SDL joystick and game controller APIs
+		 *
+		 *  The variable can be set to the following values:
+		 *
+		 *    * "0"       - Do not scan for Steam Controllers
+		 *    * "1"       - Scan for Steam Controllers (the default)
+		 *
+		 *  The default value is "1".  This hint must be set before initializing the joystick subsystem.
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_ENABLE_STEAM_CONTROLLERS")]
+		public const string ENABLE_STEAM_CONTROLLERS;
+
+		/**
+		 * A variable to control whether we trap the Android back button to handle it manually.
+		 * This is necessary for the right mouse button to work on some Android devices, or
+		 * to be able to trap the back button for use in your code reliably.  If set to true,
+		 * the back button will show up as an SDL_KEYDOWN / SDL_KEYUP pair with a keycode of
+		 * SDL_SCANCODE_AC_BACK.
+		 *
+		 * The variable can be set to the following values:
+		 *
+		 *    * "0"       - Back button will be handled as usual for system. (default)
+		 *    * "1"       - Back button will be trapped, allowing you to handle the key press
+		 *               manually.  (This will also let right mouse click work on systems
+		 *               where the right mouse button functions as back.)
+		 *
+		 * The value of this hint is used at runtime, so it can be changed at any time.
+		 */
+		[Version (since = "2.0.9")]
+		[CCode (cname = "SDL_HINT_ANDROID_TRAP_BACK_BUTTON")]
+		public const string ANDROID_TRAP_BACK_BUTTON;
+
+		/**
+		 *  A variable controlling whether the HIDAPI driver for Nintendo GameCube controllers should be used.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *    * "0"       - HIDAPI driver is not used
+		 *    * "1"       - HIDAPI driver is used
+		 *
+		 *  The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE")]
+		public const string JOYSTICK_HIDAPI_GAMECUBE;
+
+		/**
+		 *  A variable that lets you provide a file with extra gamecontroller db entries.
+		 *
+		 *  The file should contain lines of gamecontroller config data, see {@link SDL.GameController}
+		 *
+		 *  This hint must be set before calling {@link SDL.init}
+		 *  You can update mappings after the system is initialized with SDL_GameControllerMappingForGUID() and SDL_GameControllerAddMapping()
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_GAMECONTROLLERCONFIG_FILE")]
+		public const string SDL_HINT_GAMECONTROLLERCONFIG_FILE;
+		
+		/**
+		 * A variable to control whether the event loop will block itself when the app is paused.
+		 *
+		 * The variable can be set to the following values:
+		 *  * "0"       - Non blocking.
+		 *  * "1"       - Blocking. (default)
+		 *
+		 * The value should be set before SDL is initialized.
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_ANDROID_BLOCK_ON_PAUSE")]
+		public const string SDL_HINT_ANDROID_BLOCK_ON_PAUSE;
+		
+
+		/**
+		 *  A variable controlling whether the 2D render API is compatible or efficient.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *   * "0"     - Don't use batching to make rendering more efficient.
+		 *   * "1"     - Use batching, but might cause problems if app makes its own direct OpenGL calls.
+		 *
+		 *  Up to SDL 2.0.9, the render API would draw immediately when requested. Now
+		 *  it batches up draw requests and sends them all to the GPU only when forced
+		 *  to (during SDL_RenderPresent, when changing render targets, by updating a
+		 *  texture that the batch needs, etc). This is significantly more efficient,
+		 *  but it can cause problems for apps that expect to render on top of the
+		 *  render API's output. As such, SDL will disable batching if a specific
+		 *  render backend is requested (since this might indicate that the app is
+		 *  planning to use the underlying graphics API directly). This hint can
+		 *  be used to explicitly request batching in this instance. It is a contract
+		 *  that you will either never use the underlying graphics API directly, or
+		 *  if you do, you will call SDL_RenderFlush() before you do so any current
+		 *  batch goes to the GPU before your work begins. Not following this contract
+		 *  will result in undefined behavior.
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_RENDER_BATCHING")]
+		public const string RENDER_BATCHING;
+		
+		/**
+		 *  A variable controlling whether SDL logs all events pushed onto its internal queue.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *   * "0"     - Don't log any events (default)
+		 *   * "1"     - Log all events except mouse and finger motion, which are pretty spammy.
+		 *   * "2"     - Log all events.
+		 *
+		 *  This is generally meant to be used to debug SDL itself, but can be useful
+		 *  for application developers that need better visibility into what is going
+		 *  on in the event queue. Logged events are sent through {@link SDL.log()}, which
+		 *  means by default they appear on stdout on most platforms or maybe
+		 *  OutputDebugString() on Windows, and can be funneled by the app with
+		 *  SDL_LogSetOutputFunction(), etc.
+		 *
+		 *  This hint can be toggled on and off at runtime, if you only need to log
+		 *  events for a small subset of program execution.
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_EVENT_LOGGING")]
+		public const string EVENT_LOGGING;
+
+		/**
+		 *  Controls how the size of the RIFF chunk affects the loading of a WAVE file.
+		 *
+		 *  The size of the RIFF chunk (which includes all the sub-chunks of the WAVE
+		 *  file) is not always reliable. In case the size is wrong, it's possible to
+		 *  just ignore it and step through the chunks until a fixed limit is reached.
+		 *
+		 *  Note that files that have trailing data unrelated to the WAVE file or
+		 *  corrupt files may slow down the loading process without a reliable boundary.
+		 *  By default, SDL stops after 10000 chunks to prevent wasting time. Use the
+		 *  environment variable SDL_WAVE_CHUNK_LIMIT to adjust this value.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *   * "force"        - Always use the RIFF chunk size as a boundary for the chunk search
+		 *   * "ignorezero"   - Like "force", but a zero size searches up to 4 GiB (default)
+		 *   * "ignore"       - Ignore the RIFF chunk size and always search up to 4 GiB
+		 *   * "maximum"      - Search for chunks until the end of file (not recommended)
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_WAVE_RIFF_CHUNK_SIZE")]
+		public const string WAVE_RIFF_CHUNK_SIZE;
+		
+		/**
+		 *  Controls how a truncated WAVE file is handled.
+		 *
+		 *  A WAVE file is considered truncated if any of the chunks are incomplete or
+		 *  the data chunk size is not a multiple of the block size. By default, SDL
+		 *  decodes until the first incomplete block, as most applications seem to do.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *   * "verystrict" - Raise an error if the file is truncated
+		 *   * "strict"     - Like "verystrict", but the size of the RIFF chunk is ignored
+		 *   * "dropframe"  - Decode until the first incomplete sample frame
+		 *   * "dropblock"  - Decode until the first incomplete block (default)
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_WAVE_TRUNCATION")]
+		public const string WAVE_TRUNCATION;
+	
+		/**
+		 *  Controls how the fact chunk affects the loading of a WAVE file.
+		 *
+		 *  The fact chunk stores information about the number of samples of a WAVE
+		 *  file. The Standards Update from Microsoft notes that this value can be used
+		 *  to 'determine the length of the data in seconds'. This is especially useful
+		 *  for compressed formats (for which this is a mandatory chunk) if they produce
+		 *  multiple sample frames per block and truncating the block is not allowed.
+		 *  The fact chunk can exactly specify how many sample frames there should be
+		 *  in this case.
+		 *
+		 *  Unfortunately, most application seem to ignore the fact chunk and so SDL
+		 *  ignores it by default as well.
+		 *
+		 *  This variable can be set to the following values:
+		 *
+		 *   * "truncate"    - Use the number of samples to truncate the wave data if
+		 *                    the fact chunk is present and valid
+		 *   * "strict"      - Like "truncate", but raise an error if the fact chunk
+		 *                    is invalid, not present for non-PCM formats, or if the
+		 *                    data chunk doesn't have that many samples
+		 *   * "ignorezero"  - Like "truncate", but ignore fact chunk if the number of
+		 *                    samples is zero
+		 *   * "ignore"      - Ignore fact chunk entirely (default)
+		 */
+		[Version (since = "2.0.10")]
+		[CCode (cname = "SDL_HINT_WAVE_FACT_CHUNK")]
+		public const string WAVE_FACT_CHUNK;
+		
 
 		/**
 		 * A callback used to watch hints.
@@ -3400,8 +3799,18 @@ namespace SDL {
 			[CCode (cname = "SDL_FingerID", cheader_filename = "SDL2/SDL_touch.h")]
 			public struct FingerID {}// FingerID
 
+			/**
+			 *  Used as the device ID for mouse events simulated with touch input
+			 */
 			[CCode (cname = "SDL_TOUCH_MOUSEID", cheader_filename = "SDL2/SDL_touch.h")]
-			public struct TouchMouseID : uint32 {}
+			public const uint32 TOUCH_MOUSE_ID;
+
+			/**
+			 *  Used as the {@link TouchID} for touch events simulated with mouse input
+			 */
+			[Version (since = "2.0.10")]
+			[CCode (cname = "SDL_MOUSE_TOUCHID", cheader_filename = "SDL2/SDL_touch.h")]
+			public const int64 MOUSE_TOUCH_ID;
 
 			[CCode (cname = "SDL_RecordGesture", cheader_filename = "SDL2/SDL_gesture.h")]
 			public static int record_gesture (Touch.TouchID touch_id);
@@ -3934,6 +4343,14 @@ namespace SDL {
 			[CCode (cname = "SDL_ClearQueuedAudio")]
 			public void clear_queue ();
 
+			[Version (since = "2.0.4")]
+			[CCode (cname = "SDL_CloseAudioDevice")]
+			public void close_device ();
+
+			[Version (since = "2.0.4")]
+			[CCode (cname = "SDL_AudioDeviceConnected")]
+			public bool is_device_connected ();
+
 
 		}// AudioDeviceID
 
@@ -4000,11 +4417,6 @@ namespace SDL {
 		[CCode (cname = "SDL_CloseAudio")]
 		public static void close ();
 
-		[CCode (cname = "SDL_CloseAudioDevice")]
-		public static void close_device (AudioDevice dev);
-
-		[CCode (cname = "SDL_AudioDeviceConnected")]
-		public static int is_device_connected (AudioDevice dev);
 	}// Audio
 
 
