@@ -54,7 +54,7 @@ public class Example {
 		assert (sfx != null);
 
 		// Load font as surface and transform to texture.
-		Font font= new Font (Path.build_filename(Config.ASSETSDIR, "font.ttf"), 30);
+		Font font= new Font (Path.build_filename(Config.ASSETSDIR, "font.ttf"), 60);
 		assert (font != null);
 
 		string text;

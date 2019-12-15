@@ -2299,8 +2299,8 @@ namespace SDL {
 			[CCode (cname = "SDL_CreateRGBSurfaceWithFormat")]
 			public Surface.legacy_rgb_with_format (uint32 flags, int width, int height, int depth, PixelRAWFormat format);
 
-			public Surface rgb_with_format (int width, int height, int depth, PixelRAWFormat format) {
-				new this.legacy_rgb_with_format (0, width, height, depth, format);
+			public Surface.rgb_with_format (int width, int height, int depth, PixelRAWFormat format) {
+				this.legacy_rgb_with_format (0, width, height, depth, format);
 			}
 
 			[CCode (cname = "SDL_CreateRGBSurfaceWithFormatFrom")]
@@ -3112,8 +3112,8 @@ namespace SDL {
 			 */
 			[Version (since = "2.0.5")]
 			[CCode (cname = "vala_set_shape_mode")]
-			public void set_window_shape (Surface shape, ShapeMode mode) throws ShapeError {
-				int retval = orig_set_window_shape(shape, mode);
+			public void set_window_shape (Surface shape, ShapeMode? mode) throws ShapeError {
+				int8 retval = orig_set_window_shape(shape, mode);
 
 				if (retval < 0) {
 					switch (retval) {
@@ -3131,7 +3131,7 @@ namespace SDL {
 
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_SetWindowShape", cheader_filename = "SDL2/SDL_shape.h")]
-			private int orig_set_window_shape (Surface shape, ShapeMode? shape_mode);
+			private int8 orig_set_window_shape (Surface shape, ShapeMode? shape_mode);
 
 			/**
 			 * Get the shape parameters of a shaped window.
@@ -3146,7 +3146,7 @@ namespace SDL {
 			[CCode (cname = "vala_get_shape_mode")]
 			public ShapeMode get_shape_mode () throws ShapeError {
 				ShapeMode mode;
-				int retval = orig_get_shaped_mode(mode);
+				int8 retval = orig_get_shaped_mode(out mode);
 
 				if (retval < 0) {
 					switch (retval) {
@@ -3166,14 +3166,8 @@ namespace SDL {
 
 			[Version (since = "2.0.5")]
 			[CCode (cname = "SDL_GetShapedWindowMode", cheader_filename = "SDL2/SDL_shape.h")]
-			private int orig_get_shaped_mode (ShapeMode? shape_mode);
+			private int8 orig_get_shaped_mode (out ShapeMode shape_mode);
 
-			/**
-			 * A convenience method to check wether the window has a shape or not.
-			 */
-			public bool has_shape(){
-				return orig_get_shaped_mode(null) == SDL_WINDOW_LACKS_SHAPE;
-			}
 
 			[Version (since = "2.0.5")]
 			[CCode (cname = "WindowShapeMode", cheader_filename = "SDL2/SDL_shape.h")]
@@ -3493,10 +3487,26 @@ namespace SDL {
 		public enum Scancode {
 			UNKNOWN, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R,
 			S, T, U, V, W, X, Y, Z,
-			SDL_SCANCODE_1, SDL_SCANCODE_2,
-			SDL_SCANCODE_3, SDL_SCANCODE_4, SDL_SCANCODE_5,
-			SDL_SCANCODE_6, SDL_SCANCODE_7, SDL_SCANCODE_8,
-			SDL_SCANCODE_9, SDL_SCANCODE_0,
+			[CCode (cname = "SDL_SCANCODE_1")]
+			ONE,
+			[CCode (cname = "SDL_SCANCODE_2")]
+			TWO,
+			[CCode (cname = "SDL_SCANCODE_3")]
+			THREE,
+			[CCode (cname = "SDL_SCANCODE_4")]
+			FOUR,
+			[CCode (cname = "SDL_SCANCODE_5")]
+			FIVE,
+			[CCode (cname = "SDL_SCANCODE_6")]
+			SIX,
+			[CCode (cname = "SDL_SCANCODE_7")]
+			SEVEN,
+			[CCode (cname = "SDL_SCANCODE_8")]
+			EIGHT,
+			[CCode (cname = "SDL_SCANCODE_9")]
+			NINE,
+			[CCode (cname = "SDL_SCANCODE_0")]
+			ZERO,
 			RETURN, ESCAPE, BACKSPACE, TAB, SPACE, MINUS, EQUALS,
 			LEFTBRACKET, RIGHTBRACKET, BACKSLASH, NONUSHASH,
 			SEMICOLON, APOSTROPHE, GRAVE, COMMA, PERIOD, SLASH,
@@ -3532,13 +3542,22 @@ namespace SDL {
 			AUDIOMUTE, MEDIASELECT, WWW, MAIL, CALCULATOR, COMPUTER,
 			AC_SEARCH, AC_HOME, AC_BACK, AC_FORWARD, AC_STOP, AC_REFRESH,
 			AC_BOOKMARKS, BRIGHTNESSDOWN, BRIGHTNESSUP, DISPLAYSWITCH,
-			KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP, APP1, APP2;
+			KBDILLUMTOGGLE, KBDILLUMDOWN, KBDILLUMUP, EJECT, SLEEP, APP1, APP2,
+
+
+			/**
+			 *  Number of possible Scancodes
+			 */
+			[CCode (cname = "SDL_NUM_SCANCODES")]
+			NUM_SCANCODES;
 
 			[CCode (cname = "SDL_GetScancodeName")]
 			public unowned string get_name ();
 
 			[CCode (cname = "SDL_GetScancodeFromName")]
 			public static Input.Scancode from_name (string name);
+
+
 
 			[CCode (cname = "SDL_GetScancodeFromKey")]
 			public static Input.Scancode from_keycode (Input.Keycode key);
