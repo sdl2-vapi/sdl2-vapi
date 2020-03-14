@@ -3367,8 +3367,7 @@ namespace SDL {
 			} // MessageBoxColor;
 			[CCode (cname = "SDL_MessageBoxColorScheme", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
 			public struct ColorScheme {
-				[CCode (array_length_cexpr = "SDL_MessageBoxColorType.MAX", array_length_type = "int")]
-				public Video.MessageBox.Color colors[];
+				public Video.MessageBox.Color colors[SDL.Video.MessageBox.ColorType.MAX];
 			} // MessageBoxColorScheme;
 
 			[CCode (cname = "SDL_MessageBoxData", destroy_function = "", cheader_filename = "SDL2/SDL_messagebox.h")]
@@ -3383,7 +3382,7 @@ namespace SDL {
 				public Video.Window? parent_window;
 				public string title;
 				public string message;
-				[CCode (array_length_cexpr = "SDL.MessageBox.numbuttons", array_length_type = "int")]
+				[CCode (array_length_cexpr = "numbuttons", array_length_type = "int")]
 				public Video.MessageBox.ButtonData[] buttons;
 				/**
 			 	* Can be null to use system settings
@@ -4153,6 +4152,7 @@ namespace SDL {
 			public uint8 channels;
 			public uint16 period;
 			public uint16 samples;
+			[CCode (array_length = false)]
 			public uint16[] data;
 			//Envelope
 			public uint16 attack_length;
