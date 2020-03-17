@@ -24,7 +24,7 @@ THE SOFTWARE.
 //Maintainer: PedroHLC, Txasatonga, Desiderantes
 namespace SDL {
 
-	[CCode (cheader = "SDL2/SDL_system.h")]
+	[CCode (cheader_filename = "SDL2/SDL_system.h")]
 	[Compact]
 	public class WinRt {
 		[CCode (cname = "SDL_WinRT_Path", cprefix = "SDL_WINRT_PATH_")]

@@ -32,7 +32,7 @@ namespace SDL {
 	[Compact]
 	public struct IDirect3DDevice9 {}
 
-	[CCode (cheader = "SDL2/SDL_system.h")]
+	[CCode (cheader_filename = "SDL2/SDL_system.h")]
 	[Compact]
 	public class Windows {
 		[CCode (cname = "SDL_Direct3D9GetAdapterIndex")]
@@ -45,10 +45,10 @@ namespace SDL {
 		public static void dxgi_get_output_info (int display_index, out int adapter_index, out int output_index);
 
 
-		[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader = "SDL2/SDL_system.h")]
+		[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader_filename = "SDL2/SDL_system.h")]
 		public delegate void WindowsMessageHook (void* hWnd, uint message, uint64 w_param, int64 l_param);
 
-		[CCode (cname = "SDL_SetWindowsMessageHook", cheader = "SDL2/SDL_system.h")]
+		[CCode (cname = "SDL_SetWindowsMessageHook", cheader_filename = "SDL2/SDL_system.h")]
 		public static void set_windows_message_hook (WindowsMessageHook hook);
 
 	}// Direct3D9

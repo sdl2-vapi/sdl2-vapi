@@ -30,7 +30,7 @@ namespace SDL {
 	///
 
 	public delegate void AnimationFunc ();
-	[CCode (cheader = "SDL2/SDL_system.h")]
+	[CCode (cheader_filename = "SDL2/SDL_system.h")]
 	[Compact]
 	public class iPhone  {
 		[CCode (cname = "SDL_iPhoneSetAnimationCallback")]

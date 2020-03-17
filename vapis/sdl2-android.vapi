@@ -28,7 +28,7 @@ namespace SDL {
 	///
 	/// Android
 	///
-	[CCode (cheader = "SDL2/SDL_system.h")]
+	[CCode (cheader_filename = "SDL2/SDL_system.h")]
 	[Compact]
 	public class Android  {
 		[CCode (cname = "SDL_AndroidGetJNIEnv")]
