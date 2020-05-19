@@ -3429,7 +3429,7 @@ namespace SDL {
 			RELEASED, PRESSED;
 		}// ButtonState
 
-		[CCode (cname = "SDL_Keycode", cprefix = "SDLK_", cheader_filename = "SDL2/SDL_keyboard.h")]
+		[CCode (cname = "SDL_Keycode", cprefix = "SDLK_", cheader_filename = "SDL2/SDL_keycode.h")]
 		public enum Keycode {
 			UNKNOWN, RETURN, ESCAPE, BACKSPACE, TAB, SPACE, EXCLAIM,
 			QUOTEDBL, HASH, PERCENT, DOLLAR, AMPERSAND, QUOTE,
@@ -3475,7 +3475,7 @@ namespace SDL {
 			public static Input.Keycode from_scancode (Input.Scancode scancode);
 		}// Keycode
 
-		[CCode (cname = "SDL_Keymod", cprefix = "KMOD_", cheader_filename = "SDL2/SDL_keyboard.h")]
+		[CCode (cname = "SDL_Keymod", cprefix = "KMOD_", cheader_filename = "SDL2/SDL_keycode.h")]
 		public enum Keymod {
 			NONE, LSHIFT, RSHIFT, LCTRL, RCTRL, LALT, RALT,
 			LGUI, RGUI, NUM, CAPS, MODE, RESERVED,
