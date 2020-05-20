@@ -3434,8 +3434,28 @@ namespace SDL {
 			UNKNOWN, RETURN, ESCAPE, BACKSPACE, TAB, SPACE, EXCLAIM,
 			QUOTEDBL, HASH, PERCENT, DOLLAR, AMPERSAND, QUOTE,
 			LEFTPAREN, RIGHTPAREN, ASTERISK, PLUS, COMMA, MINUS,
-			PERIOD, SLASH, SDLK_0, SDLK_1, SDLK_2, SDLK_3, SDLK_4,
-			SDLK_5, SDLK_6, SDLK_7, SDLK_8, SDLK_9, COLON, SEMICOLON,
+			PERIOD, SLASH, 
+			[CCode (cname = "SDLK_0")]
+			ZERO,
+			[CCode (cname = "SDLK_1")]
+			ONE,
+			[CCode (cname = "SDLK_2")]
+			TWO,
+			[CCode (cname = "SDLK_3")]
+			THREE,
+			[CCode (cname = "SDLK_4")]
+			FOUR,
+			[CCode (cname = "SDLK_5")]
+			FIVE,
+			[CCode (cname = "SDLK_6")]
+			SIX,
+			[CCode (cname = "SDLK_7")]
+			SEVEN,
+			[CCode (cname = "SDLK_8")]
+			EIGHT,
+			[CCode (cname = "SDLK_9")]
+			NINE,
+			COLON, SEMICOLON,
 			LESS, EQUALS, GREATER, QUESTION, AT, LEFTBRACKET, BACKSLASH,
 			RIGHTBRACKET, CARET, UNDERSCORE, BACKQUOTE, a, b, c, d, e, f,
 			g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, CAPSLOCK, F1,
