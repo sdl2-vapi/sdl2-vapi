@@ -1,6 +1,9 @@
 README
 ======
 
+This vapi files are no longer maintained. We merged with the vala-extra-vapi repository [in this commit](https://gitlab.gnome.org/GNOME/vala-extra-vapis/-/commit/f207a42c08d7f5e37af8e3595826a9dd86036ef0). There's a [pending MR](https://gitlab.gnome.org/GNOME/vala/-/merge_requests/135#note_886156) in Gitlab to upstream the sdl2 vapi files 
+
+
 This is a unnoficial set of vapi files for SDL2, please be wary of using it in stable code.
 This version is meant to be a continuation and direct replacement for the gitorious repo located at https://gitorious.org/sdl-2-0-vala-vapi
 
